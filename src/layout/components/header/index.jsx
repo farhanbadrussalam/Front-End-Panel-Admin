@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 
-import { Layout, Button, Row, Col } from "antd";
+import { Layout, Button, Row, Col, Card } from "antd";
 import { RiCloseLine, RiMenuFill } from "react-icons/ri";
-import { SearchNormal1 } from 'iconsax-react';
+import { SearchNormal1, Sun1 } from 'iconsax-react';
 import { motion } from 'framer-motion/dist/framer-motion';
 
 import HeaderSearch from './HeaderSearch';
@@ -44,29 +44,11 @@ export default function MenuHeader(props) {
     setSearchHeader(false);
   };
 
-  // Children
-  const headerChildren = () => {
+  const defaultHeaderChild = () => {
     return (
-      <Row
-        className="hp-w-100 hp-position-relative"
-        align="middle"
-        justify="space-between"
-      >
-        <Col className="hp-mobile-sidebar-button hp-mr-24">
-          <Button
-            type="none"
-            ghost
-            className="hp-mobile-sidebar-button hp-border-none"
-            onClick={showDrawer}
-            icon={
-              <RiMenuFill
-                size={24}
-                className="remix-icon hp-text-color-black-80 hp-text-color-dark-30"
-              />
-            }
-          />
-        </Col>
+      <>
 
+        {/* Search Bar */}
         <Col
           flex="1"
           style={{ display: !searchHeader ? 'none' : 'block' }}
@@ -81,8 +63,11 @@ export default function MenuHeader(props) {
 
         <Col>
           <Row align="middle">
+
+            {/* Tombol ganti bahasa */}
             <HeaderLanguages />
 
+            {/* Tombol lup search */}
             <Col className="hp-d-flex-center">
               {!searchHeader ? (
                 <Button
@@ -113,11 +98,61 @@ export default function MenuHeader(props) {
               )}
             </Col>
 
+            {/* Tombol notif */}
             <HeaderNotifications />
 
+            {/* Tombol user profile */}
             <HeaderUser />
+
           </Row>
         </Col>
+
+      </>
+    )
+  }
+
+  // Children
+  const headerChildren = () => {
+    return (
+      <Row
+        className="hp-w-100 hp-position-relative"
+        align="middle"
+        justify="space-between"
+      >
+
+        <Col span={24} align="middle">
+          <Card bordered={false} size='small' className="header-card">
+            <div className="header-content">
+
+              {/* Tampilan burger saat mobile */}
+              <Button
+                type="none"
+                ghost
+                className="hp-mobile-sidebar-button hp-border-none"
+                onClick={showDrawer}
+                style={{ marginRight: '10px' }}
+                icon={
+                  <RiMenuFill
+                    size={24}
+                    className="remix-icon hp-text-color-black-80 hp-text-color-dark-30"
+                    style={{ margin: 'auto' }}
+                  />
+                }
+              />
+              <div className="header-greet">
+                <Sun1 className="sun-icon" />
+                <p>Selamat Pagi, Admin</p>
+              </div>
+
+              <div className="header-button">
+                <div className="button"><HeaderNotifications /></div>
+                <div className="button"><HeaderUser /></div>
+              </div>
+
+            </div>
+          </Card>
+        </Col>
+
       </Row>
     )
   }

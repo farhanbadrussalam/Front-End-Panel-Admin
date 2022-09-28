@@ -6,7 +6,7 @@ import { Layout, Row, Col } from "antd";
 
 import Sidebar from "./components/menu/Sidebar";
 import MenuHeader from "./components/header";
-import MenuFooter from "./components/footer";
+// import MenuFooter from "./components/footer";
 import ScrollTop from "./components/scroll-to-top";
 
 const { Content } = Layout;
@@ -30,7 +30,7 @@ export default function VerticalLayout(props) {
                     <Row justify="center">
                         {
                             customise.contentWidth === "full" && (
-                                <Col xxl={17} xl={22} span={24}>
+                                <Col span={24}>
                                     {children}
                                 </Col>
                             )
@@ -46,7 +46,7 @@ export default function VerticalLayout(props) {
                     </Row>
                 </Content>
 
-                <MenuFooter />
+                {/* <MenuFooter /> */}
             </Layout>
 
             <ScrollTop />
