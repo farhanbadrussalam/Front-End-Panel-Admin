@@ -7,7 +7,7 @@ import { Layout, Row, Col } from "antd";
 import { motion } from 'framer-motion/dist/framer-motion';
 
 import MenuLogo from "./logo";
-import MenuFooter from "./footer";
+// import MenuFooter from "./footer";
 import MenuItem from "./item";
 import MenuMobile from "./mobile";
 
@@ -96,7 +96,8 @@ export default function Sidebar(props) {
 
                 <MenuItem onClose={onClose} />
 
-                <MenuFooter onClose={onClose} collapsed={collapsed} />
+                {/* Ga perlu menu footer */}
+                {/* <MenuFooter onClose={onClose} collapsed={collapsed} /> */}
 
                 <MenuMobile onClose={onClose} visible={visible} />
             </motion.div>

@@ -8,6 +8,11 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
+    path: "/pages/dashboard",
+    component: lazy(() => import("../../view/pages/dashboard")),
+    layout: "VerticalLayout",
+  },
+  {
     path: "/pages/error-404",
     component: lazy(() => import("../../view/pages/errors/404")),
     layout: "FullLayout",

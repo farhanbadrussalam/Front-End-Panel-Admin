@@ -63,7 +63,6 @@ export default function Router() {
                 LayoutPaths.push(route.path)
             ));
         }
-
         return { LayoutRoutes, LayoutPaths };
     };
 
@@ -94,7 +93,6 @@ export default function Router() {
                                         path={route.path}
                                         exact={route.exact === true}
                                         render={(props) => {
-                                            console.log(route);
                                             return (
                                                 <Suspense fallback={null}>
                                                     {
@@ -151,6 +149,7 @@ export default function Router() {
                 <Route path='*'>
                     <Error404 />
                 </Route>
+
             </Switch>
         </BrowserRouter>
     );
