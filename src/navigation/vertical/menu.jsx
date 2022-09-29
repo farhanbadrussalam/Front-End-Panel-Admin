@@ -19,17 +19,17 @@ const company = [
       {
         id: "pengguna",
         title: "Data Pengguna",
-        navLink: "/pengguna",
+        navLink: "/pages/users",
       },
       {
         id: "pelanggan",
         title: "Data Pelanggan",
-        navLink: "/pelanggan",
+        navLink: "/pages/customers",
       },
       {
         id: "kendaraan",
         title: "Data Kendaraan",
-        navLink: "/kendaraan",
+        navLink: "/pages/venicles",
       },
     ],
   },
