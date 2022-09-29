@@ -1,29 +1,7 @@
 import React from "react";
-import { Card, Col, Row } from "antd";
-import { Sun1 } from "iconsax-react";
-
-const dummy = [
-  {
-    icon: Sun1,
-    value: 10,
-    text: "Dummy Data"
-  },
-  {
-    icon: Sun1,
-    value: 10,
-    text: "Dummy Data"
-  },
-  {
-    icon: Sun1,
-    value: 10,
-    text: "Dummy Data"
-  },
-  {
-    icon: Sun1,
-    value: 10,
-    text: "Dummy Data"
-  },
-]
+import { Col, Row } from "antd";
+import Cards from './Cards'
+import { dummy } from './dummy.js'
 
 export default function DashBoard() {
   return (
@@ -32,18 +10,8 @@ export default function DashBoard() {
         <Row>
           <Col span={24}>
             <Row gutter={[24, 24]} className="card-container">
-              {dummy.map((data) => (
-                <Col lg={6} sm={12} span={24}>
-                  <Card bordered={false} size="small" className="cards">
-                    <div className="content">
-                      <data.icon className="icon" />
-                      <div className="desc">
-                        <p>{data.value}</p>
-                        <p>{data.text}</p>
-                      </div>
-                    </div>
-                  </Card>
-                </Col>
+              {dummy?.map((data) => (
+                <Cards data={data} />
               ))}
             </Row>
           </Col>
