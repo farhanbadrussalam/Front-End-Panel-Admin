@@ -1,6 +1,11 @@
-import pages from "./pages";
+// import pages from "./pages";
 import menu from "./menu";
 
-const navigation = [...menu, ...pages];
+/**
+ * TODO
+ * filtering by user type
+ */
+// const navigation = [...menu, ...pages];
+const navigation = [...menu];
 
-export default navigation
+export default navigation;
