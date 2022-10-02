@@ -1,10 +1,16 @@
-import { Clipboard, MusicDashboard } from "iconsax-react";
-import { RiDashboard2Line } from "react-icons/ri";
+import { Clipboard, PercentageSquare, Notification } from "iconsax-react";
+import { GoDatabase } from "react-icons/go";
+import { FaUsersCog, FaMoneyBill } from "react-icons/fa";
+import { GiPaperBagOpen } from "react-icons/gi";
+import { MdWeb } from "react-icons/md";
+import { RiArticleFill } from "react-icons/ri";
 
 const company = [
   {
-    header: "MENU",
+    header: "MENU SUPER ADMIN",
   },
+
+  // navlink harus 2 path
 
   /**
    * Dashboard
@@ -13,7 +19,36 @@ const company = [
     id: "dashboard",
     title: "Dashboard",
     icon: <Clipboard size={18} />,
-    navLink: "/pages/dashboard",
+    navLink: "admin/dashboard",
+  },
+
+  /**
+   * Kelola User
+   * 1. CRUD User
+   * 2. Atur Role User (Admin / Staff / WO / Pelanggan)
+   * 3. Role & Permission User
+   */
+  {
+    id: "kelola-user",
+    title: "Kelola User",
+    icon: <FaUsersCog set="curved" className="remix-icon" size={18} />,
+    children: [
+      {
+        id: "crud-user",
+        title: "Tambah, Update & Hapus",
+        navLink: "admin/crud-user",
+      },
+      {
+        id: "atur-role",
+        title: "Atur Role user (Admin / Staff / WO / Pelanggan)",
+        navLink: "admin/atur-role",
+      },
+      {
+        id: "policy-user",
+        title: "Role & Permission User",
+        navLink: "admin/policy-user",
+      },
+    ],
   },
 
   /**
@@ -26,51 +61,22 @@ const company = [
   {
     id: "master",
     title: "Master Data",
-    icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
+    icon: <GoDatabase set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "pengguna",
         title: "Data Pengguna",
-        navLink: "/pages/users",
+        navLink: "admin/users",
       },
       {
         id: "pelanggan",
         title: "Data Pelanggan",
-        navLink: "/pages/customers",
+        navLink: "admin/customers",
       },
       {
         id: "kendaraan",
         title: "Data Kendaraan",
-        navLink: "/pages/venicles",
-      },
-    ],
-  },
-
-  /**
-   * Kelola User
-   * 1. CRUD User
-   * 2. Atur Role User (Admin / Staff / WO / Pelanggan)
-   * 3. Role & Permission User
-   */
-  {
-    id: "kelola-user",
-    title: "Kelola User",
-    icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
-    children: [
-      {
-        id: "crud-user",
-        title: "Tambah, Update & Hapus",
-        navLink: "pages/crud-user",
-      },
-      {
-        id: "atur-role",
-        title: "Atur Role user (Admin / Staff / WO / Pelanggan)",
-        navLink: "pages/atur-role",
-      },
-      {
-        id: "policy-user",
-        title: "Role & Permission User",
-        navLink: "pages/policy-user",
+        navLink: "admin/venicles",
       },
     ],
   },
@@ -84,22 +90,22 @@ const company = [
   {
     id: "produk-wo",
     title: "Data Produk WO",
-    icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
+    icon: <GiPaperBagOpen set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "group-user",
         title: "User Group / Kategori Komisi",
-        navLink: "pages/group-user",
+        navLink: "admin/group-user",
       },
       {
         id: "produk-ucapan-user",
         title: "Kelola Produk Ucapan Digital WO",
-        navLink: "pages/produk-ucapan-user",
+        navLink: "admin/produk-ucapan-user",
       },
       {
         id: "afiliasi-ucapan",
         title: "Generate link order / Afiliasi Ucapan Digtal",
-        navLink: "pages/afiliasi-ucapan",
+        navLink: "admin/afiliasi-ucapan",
       },
     ],
   },
@@ -115,32 +121,32 @@ const company = [
   {
     id: "komisi-wo",
     title: "Komisi WO",
-    icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
+    icon: <FaMoneyBill set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "saldo-komisi-wo",
         title: "Saldo Komisi Semua WO",
-        navLink: "pages/saldo-komisi-wo",
+        navLink: "admin/saldo-komisi-wo",
       },
       {
         id: "riwayat-komisi-admin",
         title: "Riwayat Komisi Admin/Aplicator",
-        navLink: "pages/riwayat-komisi-admin",
+        navLink: "admin/riwayat-komisi-admin",
       },
       {
         id: "riwayat-komisi-wo",
         title: "Riwayat Komisi WO",
-        navLink: "pages/riwayat-komisi-wo",
+        navLink: "admin/riwayat-komisi-wo",
       },
       {
         id: "pencairaan-komisi",
         title: "Pencairan Komisi",
-        navLink: "pages/pencairan-komisi",
+        navLink: "admin/pencairan-komisi",
       },
       {
         id: "riwayat-pencairan-komisi-wo",
         title: "Riwayat Pencairan Komisi WO",
-        navLink: "pages/riwayat-pencairan-komisi-wo",
+        navLink: "admin/riwayat-pencairan-komisi-wo",
       },
     ],
   },
@@ -154,22 +160,22 @@ const company = [
   {
     id: "artikel-blog",
     title: "Artikel/Blog",
-    icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
+    icon: <RiArticleFill set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "kelola-kategori-artikel",
         title: "Kelola Kategori Artikel",
-        navLink: "pages/kelola-kategori-artikel",
+        navLink: "admin/kelola-kategori-artikel",
       },
       {
         id: "crud-artikel",
         title: "Tambah, Update, dan Hapus Artikel",
-        navLink: "pages/crud-artikel",
+        navLink: "admin/crud-artikel",
       },
       {
         id: "cari-filter-artikel",
         title: "Cari dan Filter Artikel",
-        navLink: "pages/cari-filter-artikel",
+        navLink: "admin/cari-filter-artikel",
       },
     ],
   },
@@ -186,37 +192,37 @@ const company = [
   {
     id: "pengaturan-website",
     title: "Pengaturan Website",
-    icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
+    icon: <MdWeb set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "pengaturan-kontak-admin",
         title: "Kontak Admin",
-        navLink: "pages/pengaturan-kontak-admin",
+        navLink: "admin/pengaturan-kontak-admin",
       },
       {
         id: "pengaturan-sosmed-dealer",
         title: "Pengaturan Sosial Media Partner",
-        navLink: "pages/pengaturan-sosmed-dealer",
+        navLink: "admin/pengaturan-sosmed-dealer",
       },
       {
         id: "pengaturan-faq",
         title: "FAQ/Pertanyaan Umum",
-        navLink: "pages/pengaturan-faq",
+        navLink: "admin/pengaturan-faq",
       },
       {
         id: "pengaturan-syarat-ketentuan",
         title: "Pengaturan Syarat dan Ketentuan",
-        navLink: "pages/pengaturan-syarat-ketentuan",
+        navLink: "admin/pengaturan-syarat-ketentuan",
       },
       {
         id: "pengaturan-kebijakan-privasi",
         title: "Pengaturan Kebijakan Privasi",
-        navLink: "pages/pengaturan-kebijakan-privasi",
+        navLink: "admin/pengaturan-kebijakan-privasi",
       },
       {
         id: "pengaturan-payment-gateway",
         title: "Pembayaran Payment Gateway",
-        navLink: "pages/pengaturan-payment-gateway",
+        navLink: "admin/pengaturan-payment-gateway",
       },
     ],
   },
@@ -227,8 +233,8 @@ const company = [
   {
     id: "menu-notifikasi",
     title: "Notifikasi",
-    icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
-    navLink: "pages/menu-notifikasi",
+    icon: <Notification set="curved" className="remix-icon" size={18} />,
+    navLink: "admin/menu-notifikasi",
   },
 
   /**
@@ -238,8 +244,8 @@ const company = [
   {
     id: "kupon",
     title: "Kupon",
-    icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
-    navLink: "pages/kupon",
+    icon: <PercentageSquare set="curved" className="remix-icon" size={18} />,
+    navLink: "admin/kupon",
   },
 ];
 
