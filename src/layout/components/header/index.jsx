@@ -139,7 +139,7 @@ export default function MenuHeader(props) {
                   />
                 }
               />
-              <div className="header-greet">
+              <div className="header-greet" >
                 <Sun1 className="sun-icon" />
                 <p>Selamat Pagi, Admin</p>
               </div>

@@ -1,4 +1,4 @@
-import { Clipboard, MusicDashboard } from 'iconsax-react';
+import { Clipboard } from 'iconsax-react';
 import { RiDashboard2Line } from 'react-icons/ri';
 
 const company = [
@@ -17,9 +17,14 @@ const company = [
     icon: <RiDashboard2Line set="curved" className="remix-icon" size={18} />,
     children: [
       {
-        id: "pengguna",
-        title: "Data Pengguna",
-        navLink: "/pages/users",
+        id: "wedding",
+        title: "Data Wedding Organizer",
+        navLink: "/pages/wedding",
+      },
+      {
+        id: "pengantin",
+        title: "Data Pengantin",
+        navLink: "/pages/pengantin",
       },
       {
         id: "pelanggan",
@@ -27,9 +32,9 @@ const company = [
         navLink: "/pages/customers",
       },
       {
-        id: "kendaraan",
-        title: "Data Kendaraan",
-        navLink: "/pages/venicles",
+        id: "produk",
+        title: "Data Produk Ucapan Digital",
+        navLink: "/pages/produk",
       },
     ],
   },

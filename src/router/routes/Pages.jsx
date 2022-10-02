@@ -13,7 +13,12 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
-    path: "/pages/users",
+    path: "/pages/wedding",
+    component: lazy(() => import("../../view/pages/masterData")),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/pages/pengantin",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
@@ -23,7 +28,7 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
-    path: "/pages/venicles",
+    path: "/pages/produk",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
