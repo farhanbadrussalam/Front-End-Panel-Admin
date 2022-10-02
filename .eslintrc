@@ -1,5 +1,7 @@
 {
-  "plugins": ["disable"],
+  "plugins": [
+    "disable"
+  ],
   "processor": "disable/disable",
   "parserOptions": {
     "sourceType": "module"
@@ -8,6 +10,6 @@
     "browser": true,
     "node": true,
     "es2020": true
-  },
-  "ecmaVersion": 2020
+  }
+  // "ecmaVersion": 2020
 }

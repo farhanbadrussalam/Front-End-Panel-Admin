@@ -19,7 +19,7 @@ const company = [
     id: "dashboard",
     title: "Dashboard",
     icon: <Clipboard size={18} />,
-    navLink: "admin/dashboard",
+    navLink: "/admin/dashboard",
   },
 
   /**
@@ -36,12 +36,12 @@ const company = [
       {
         id: "crud-user",
         title: "Tambah, Update & Hapus",
-        navLink: "admin/crud-user",
+        navLink: "/admin/crud-user",
       },
       {
         id: "atur-role",
         title: "Atur Role user (Admin / Staff / WO / Pelanggan)",
-        navLink: "admin/atur-role",
+        navLink: "/admin/atur-role",
       },
       {
         id: "policy-user",
@@ -66,17 +66,17 @@ const company = [
       {
         id: "pengguna",
         title: "Data Pengguna",
-        navLink: "admin/users",
+        navLink: "/admin/users",
       },
       {
         id: "pelanggan",
         title: "Data Pelanggan",
-        navLink: "admin/customers",
+        navLink: "/admin/customers",
       },
       {
         id: "kendaraan",
         title: "Data Kendaraan",
-        navLink: "admin/venicles",
+        navLink: "/admin/venicles",
       },
     ],
   },
@@ -95,17 +95,17 @@ const company = [
       {
         id: "group-user",
         title: "User Group / Kategori Komisi",
-        navLink: "admin/group-user",
+        navLink: "/admin/group-user",
       },
       {
         id: "produk-ucapan-user",
         title: "Kelola Produk Ucapan Digital WO",
-        navLink: "admin/produk-ucapan-user",
+        navLink: "/admin/produk-ucapan-user",
       },
       {
         id: "afiliasi-ucapan",
         title: "Generate link order / Afiliasi Ucapan Digtal",
-        navLink: "admin/afiliasi-ucapan",
+        navLink: "/admin/afiliasi-ucapan",
       },
     ],
   },
@@ -126,27 +126,27 @@ const company = [
       {
         id: "saldo-komisi-wo",
         title: "Saldo Komisi Semua WO",
-        navLink: "admin/saldo-komisi-wo",
+        navLink: "/admin/saldo-komisi-wo",
       },
       {
         id: "riwayat-komisi-admin",
         title: "Riwayat Komisi Admin/Aplicator",
-        navLink: "admin/riwayat-komisi-admin",
+        navLink: "/admin/riwayat-komisi-admin",
       },
       {
         id: "riwayat-komisi-wo",
         title: "Riwayat Komisi WO",
-        navLink: "admin/riwayat-komisi-wo",
+        navLink: "/admin/riwayat-komisi-wo",
       },
       {
         id: "pencairaan-komisi",
         title: "Pencairan Komisi",
-        navLink: "admin/pencairan-komisi",
+        navLink: "/admin/pencairan-komisi",
       },
       {
         id: "riwayat-pencairan-komisi-wo",
         title: "Riwayat Pencairan Komisi WO",
-        navLink: "admin/riwayat-pencairan-komisi-wo",
+        navLink: "/admin/riwayat-pencairan-komisi-wo",
       },
     ],
   },
@@ -165,17 +165,17 @@ const company = [
       {
         id: "kelola-kategori-artikel",
         title: "Kelola Kategori Artikel",
-        navLink: "admin/kelola-kategori-artikel",
+        navLink: "/admin/kelola-kategori-artikel",
       },
       {
         id: "crud-artikel",
         title: "Tambah, Update, dan Hapus Artikel",
-        navLink: "admin/crud-artikel",
+        navLink: "/admin/crud-artikel",
       },
       {
         id: "cari-filter-artikel",
         title: "Cari dan Filter Artikel",
-        navLink: "admin/cari-filter-artikel",
+        navLink: "/admin/cari-filter-artikel",
       },
     ],
   },
@@ -197,32 +197,32 @@ const company = [
       {
         id: "pengaturan-kontak-admin",
         title: "Kontak Admin",
-        navLink: "admin/pengaturan-kontak-admin",
+        navLink: "/admin/pengaturan-kontak-admin",
       },
       {
         id: "pengaturan-sosmed-dealer",
         title: "Pengaturan Sosial Media Partner",
-        navLink: "admin/pengaturan-sosmed-dealer",
+        navLink: "/admin/pengaturan-sosmed-dealer",
       },
       {
         id: "pengaturan-faq",
         title: "FAQ/Pertanyaan Umum",
-        navLink: "admin/pengaturan-faq",
+        navLink: "/admin/pengaturan-faq",
       },
       {
         id: "pengaturan-syarat-ketentuan",
         title: "Pengaturan Syarat dan Ketentuan",
-        navLink: "admin/pengaturan-syarat-ketentuan",
+        navLink: "/admin/pengaturan-syarat-ketentuan",
       },
       {
         id: "pengaturan-kebijakan-privasi",
         title: "Pengaturan Kebijakan Privasi",
-        navLink: "admin/pengaturan-kebijakan-privasi",
+        navLink: "/admin/pengaturan-kebijakan-privasi",
       },
       {
         id: "pengaturan-payment-gateway",
         title: "Pembayaran Payment Gateway",
-        navLink: "admin/pengaturan-payment-gateway",
+        navLink: "/admin/pengaturan-payment-gateway",
       },
     ],
   },
@@ -234,7 +234,7 @@ const company = [
     id: "menu-notifikasi",
     title: "Notifikasi",
     icon: <Notification set="curved" className="remix-icon" size={18} />,
-    navLink: "admin/menu-notifikasi",
+    navLink: "/admin/menu-notifikasi",
   },
 
   /**
@@ -245,7 +245,7 @@ const company = [
     id: "kupon",
     title: "Kupon",
     icon: <PercentageSquare set="curved" className="remix-icon" size={18} />,
-    navLink: "admin/kupon",
+    navLink: "/admin/kupon",
   },
 ];
 
