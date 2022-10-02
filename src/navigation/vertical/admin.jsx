@@ -64,19 +64,24 @@ const company = [
     icon: <GoDatabase set="curved" className="remix-icon" size={18} />,
     children: [
       {
-        id: "pengguna",
-        title: "Data Pengguna",
-        navLink: "/admin/users",
+        id: "wedding",
+        title: "Data Wedding Organizer",
+        navLink: "/admin/wedding-organizer",
       },
       {
-        id: "pelanggan",
-        title: "Data Pelanggan",
-        navLink: "/admin/customers",
+        id: "pengantin",
+        title: "Data Pengantin",
+        navLink: "/admin/pengantin",
       },
       {
-        id: "kendaraan",
-        title: "Data Kendaraan",
-        navLink: "/admin/venicles",
+        id: "customer",
+        title: "Data Customer",
+        navLink: "/admin/customer",
+      },
+      {
+        id: "produk",
+        title: "Data Produk Ucapan Digital",
+        navLink: "/admin/produk-ucapan-digital",
       },
     ],
   },

@@ -17,17 +17,22 @@ const PagesRoutes = [
 
   // Pages Master Data
   {
-    path: "/admin/users",
+    path: "/admin/wedding-organizer",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/customers",
+    path: "/admin/pengantin",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/venicles",
+    path: "/admin/customer",
+    component: lazy(() => import("../../view/pages/masterData")),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/produk-ucapan-digital",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
