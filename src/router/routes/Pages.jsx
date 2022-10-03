@@ -3,35 +3,41 @@ import { lazy } from "react";
 const PagesRoutes = [
   // PAGES
   {
-    path: "/pages/blank-page",
+    path: "/admin/blank-page",
     component: lazy(() => import("../../view/pages/blank")),
     layout: "VerticalLayout",
   },
+
+  // Pages admin
   {
-    path: "/pages/dashboard",
+    path: "/admin/dashboard",
     component: lazy(() => import("../../view/pages/dashboard")),
     layout: "VerticalLayout",
   },
+
+  // Pages Master Data
   {
-    path: "/pages/wedding",
+    path: "/admin/wedding-organizer",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
   {
-    path: "/pages/pengantin",
+    path: "/admin/pengantin",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
   {
-    path: "/pages/customers",
+    path: "/admin/customer",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
   {
-    path: "/pages/produk",
+    path: "/admin/produk-ucapan-digital",
     component: lazy(() => import("../../view/pages/masterData")),
     layout: "VerticalLayout",
   },
+
+  // Page Error
   {
     path: "/pages/error-404",
     component: lazy(() => import("../../view/pages/errors/404")),
