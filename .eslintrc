@@ -3,13 +3,5 @@
     "disable"
   ],
   "processor": "disable/disable",
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "es2020": true
-  }
-  // "ecmaVersion": 2020
+  "parser": "@babel/eslint-parser"
 }
