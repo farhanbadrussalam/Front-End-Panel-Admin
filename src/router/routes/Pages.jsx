@@ -3,15 +3,22 @@ import { lazy } from "react";
 const PagesRoutes = [
   // PAGES
   {
-    path: "/admin/blank-page",
+    path: "/blank-page",
     component: lazy(() => import("../../view/pages/blank")),
+    layout: "FullLayout",
+  },
+
+  // Pages Home Admin
+  {
+    path: "/admin",
+    component: lazy(() => import("../../view/pages/admin/home")),
     layout: "VerticalLayout",
   },
 
-  // Pages admin
+  // Pages Dashboard Admin
   {
     path: "/admin/dashboard",
-    component: lazy(() => import("../../view/pages/dashboard")),
+    component: lazy(() => import("../../view/pages/admin/dashboard")),
     layout: "VerticalLayout",
   },
 
@@ -35,13 +42,6 @@ const PagesRoutes = [
     path: "/admin/produk-ucapan-digital",
     component: lazy(() => import("../../view/pages/admin/masterData")),
     layout: "VerticalLayout",
-  },
-
-  // Page Home 
-  {
-    path: "/",
-    component: lazy(() => import("../../view/pages/admin/masterData")),
-    layout: "FullLayout",
   },
 
   // Page Error

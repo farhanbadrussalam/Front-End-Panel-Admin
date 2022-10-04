@@ -17,7 +17,7 @@ export default function MenuLogo(props) {
   return (
     <div className="hp-header-logo hp-d-flex hp-align-items-center">
       <Link
-        to="/"
+        to="/admin"
         onClick={props.onClose}
         className="hp-position-relative hp-d-flex"
       >
@@ -63,7 +63,6 @@ export default function MenuLogo(props) {
       {
         !props.small && (
           <a
-            href="https://hypeople-studio.gitbook.io/yoda/change-log"
             target="_blank"
             className="hp-caption hp-font-weight-400 hp-text-color-primary-1"
           >

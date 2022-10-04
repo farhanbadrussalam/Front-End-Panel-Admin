@@ -23,7 +23,7 @@ import HorizontalLayout from "../layout/HorizontalLayout";
 import FullLayout from "../layout/FullLayout";
 
 // Components
-import Home from "../view/pages/home";
+import Home from "../view/pages/customer/home";
 import Error404 from "../view/pages/errors/404";
 
 export default function Router() {
@@ -91,7 +91,8 @@ export default function Router() {
                                     <Route
                                         key={route.path}
                                         path={route.path}
-                                        exact={route.exact === true}
+                                        // exact={route.exact === tru}
+                                        exact={true}
                                         render={(props) => {
                                             return (
                                                 <Suspense fallback={null}>
@@ -129,7 +130,7 @@ export default function Router() {
                 {/* Home Page */}
                 <Route
                     exact
-                    path={'/admin'}
+                    path={'/'}
                     render={() => {
                         return (
                             DefaultLayout == "HorizontalLayout" ? (
