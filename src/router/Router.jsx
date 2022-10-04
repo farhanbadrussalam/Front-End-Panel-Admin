@@ -23,7 +23,7 @@ import HorizontalLayout from "../layout/HorizontalLayout";
 import FullLayout from "../layout/FullLayout";
 
 // Components
-import Home from "../view/home";
+import Home from "../view/pages/home";
 import Error404 from "../view/pages/errors/404";
 
 export default function Router() {
@@ -83,7 +83,7 @@ export default function Router() {
             }
 
             return (
-                <Route path={LayoutPaths} key={index}>
+                <Route exact path={LayoutPaths} key={index}>
                     <LayoutTag>
                         <Switch>
                             {LayoutRoutes.map((route) => {
@@ -129,7 +129,7 @@ export default function Router() {
                 {/* Home Page */}
                 <Route
                     exact
-                    path={'/'}
+                    path={'/admin'}
                     render={() => {
                         return (
                             DefaultLayout == "HorizontalLayout" ? (
