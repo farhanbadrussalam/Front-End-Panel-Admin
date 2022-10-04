@@ -1,6 +1,7 @@
 import { Space } from "antd";
 
 const columns = [
+  // Kolom nama
   {
     title: 'Name',
     dataIndex: 'name',
@@ -8,17 +9,57 @@ const columns = [
     render: (text) => <a>{text}</a>,
     sorter: (a, b) => a.name.length - b.name.length,
   },
+
+  // Kolom usia
   {
     title: 'Age',
     dataIndex: 'age',
     key: 'age',
+    filters: [
+      {
+        text: '30 . . . 39',
+        value: '30 . . . 39',
+        children: [
+          {
+            text: '30',
+            value: '30'
+          },
+          {
+            text: '32',
+            value: '32'
+          },
+        ]
+      },
+
+      {
+        text: '40 . . . 49',
+        value: '40 . . . 49',
+        children: [
+          {
+            text: '40',
+            value: '40'
+          },
+          {
+            text: '42',
+            value: '42'
+          },
+        ]
+      },
+    ],
+    filterMode: 'tree',
+    filterSearch: true,
+    onFilter: (value, record) => record.age.toString().startsWith(value),
     sorter: (a, b) => a.age - b.age,
   },
+
+  // Kolom alamat
   {
     title: 'Address',
     dataIndex: 'address',
     key: 'address',
   },
+
+  // Kolom aksi
   {
     title: 'Action',
     key: 'action',
