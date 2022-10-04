@@ -64,7 +64,7 @@ const columns = [
     title: 'Action',
     key: 'action',
     render: () => (
-      <Space size="middle">
+      <Space size="middle" style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row' }}>
         <a>Updates</a>
         <a>Delete</a>
       </Space>
