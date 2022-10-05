@@ -1,7 +1,12 @@
 {
-  "plugins": [
-    "disable"
-  ],
+  "plugins": ["disable"],
   "processor": "disable/disable",
-  "parser": "@babel/eslint-parser"
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2020": true
+  }
 }
