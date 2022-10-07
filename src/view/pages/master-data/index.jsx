@@ -1,5 +1,5 @@
 import React from 'react'
-import DataPengguna from './dataDisplay'
+import DataPengguna from './data-display'
 
 const MasterData = () => {
   return (
