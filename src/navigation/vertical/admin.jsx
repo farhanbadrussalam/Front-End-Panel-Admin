@@ -1,9 +1,20 @@
-import { Clipboard, PercentageSquare, Notification } from "iconsax-react";
+import {
+  UserEdit,
+  Grid7,
+  PercentageSquare,
+  Notification,
+  Data,
+  ShoppingBag,
+  Moneys,
+  Notepad2,
+  DocumentCode,
+} from "iconsax-react";
 import { GoDatabase } from "react-icons/go";
 import { FaUsersCog, FaMoneyBill } from "react-icons/fa";
 import { GiPaperBagOpen } from "react-icons/gi";
 import { MdWeb } from "react-icons/md";
 import { RiArticleFill } from "react-icons/ri";
+import { RiDashboardLine } from "react-icons/ri";
 
 const company = [
   {
@@ -18,7 +29,9 @@ const company = [
   {
     id: "dashboard",
     title: "Dashboard",
-    icon: <Clipboard size={18} />,
+    icon: (
+      <Grid7 size={18} variant="outline" set="curved" className="remix-icon" />
+    ),
     navLink: "/admin/dashboard",
   },
 
@@ -31,7 +44,14 @@ const company = [
   {
     id: "kelola-user",
     title: "Kelola User",
-    icon: <FaUsersCog set="curved" className="remix-icon" size={18} />,
+    icon: (
+      <UserEdit
+        set="curved"
+        variant="outline"
+        className="remix-icon"
+        size={18}
+      />
+    ),
     children: [
       {
         id: "crud-user",
@@ -61,7 +81,7 @@ const company = [
   {
     id: "master",
     title: "Master Data",
-    icon: <GoDatabase set="curved" className="remix-icon" size={18} />,
+    icon: <Data set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "wedding",
@@ -95,7 +115,7 @@ const company = [
   {
     id: "produk-wo",
     title: "Data Produk WO",
-    icon: <GiPaperBagOpen set="curved" className="remix-icon" size={18} />,
+    icon: <ShoppingBag set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "group-user",
@@ -126,7 +146,7 @@ const company = [
   {
     id: "komisi-wo",
     title: "Komisi WO",
-    icon: <FaMoneyBill set="curved" className="remix-icon" size={18} />,
+    icon: <Moneys set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "saldo-komisi-wo",
@@ -165,7 +185,7 @@ const company = [
   {
     id: "artikel-blog",
     title: "Artikel/Blog",
-    icon: <RiArticleFill set="curved" className="remix-icon" size={18} />,
+    icon: <Notepad2 set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "kelola-kategori-artikel",
@@ -197,7 +217,7 @@ const company = [
   {
     id: "pengaturan-website",
     title: "Pengaturan Website",
-    icon: <MdWeb set="curved" className="remix-icon" size={18} />,
+    icon: <DocumentCode set="curved" className="remix-icon" size={18} />,
     children: [
       {
         id: "pengaturan-kontak-admin",
