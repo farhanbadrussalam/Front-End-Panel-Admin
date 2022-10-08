@@ -177,11 +177,6 @@ const company = [
         title: "Tambah, Update, dan Hapus Artikel",
         navLink: "/admin/crud-artikel",
       },
-      {
-        id: "cari-filter-artikel",
-        title: "Cari dan Filter Artikel",
-        navLink: "/admin/cari-filter-artikel",
-      },
     ],
   },
 
