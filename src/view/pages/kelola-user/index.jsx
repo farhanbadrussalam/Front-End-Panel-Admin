@@ -1,9 +1,9 @@
 import React from 'react'
-import DataPengguna from './MasterData'
+import KelolaUser from './KelolaUser'
 
 const index = () => {
   return (
-    <DataPengguna />
+    <KelolaUser />
   )
 }
 

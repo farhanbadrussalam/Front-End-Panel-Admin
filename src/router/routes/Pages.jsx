@@ -37,6 +37,13 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
 
+  // Pages Kelola User
+  {
+    path: "/admin/crud-user",
+    component: lazy(() => import("../../view/pages/kelola-user")),
+    layout: "VerticalLayout",
+  },
+
   // Page Error
   {
     path: "/pages/error-404",

@@ -1,13 +1,11 @@
 import { Table } from 'antd'
 import React from 'react'
 
-import Column from '../../pages/MasterColumn'
-
-const TableDisplay = ({ data }) => {
+const TableDisplay = ({ data, column }) => {
   return (
     <Table
       size='small'
-      columns={Column}
+      columns={column}
       dataSource={data}
       scroll={{ x: 400 }}
       className="master-table"
