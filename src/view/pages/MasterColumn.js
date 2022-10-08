@@ -1,4 +1,4 @@
-import { Space } from "antd";
+import { Space, Popover } from "antd";
 import { Edit, Trash, Eye } from "iconsax-react";
 
 const columns = [
@@ -66,9 +66,15 @@ const columns = [
     key: 'action',
     render: () => (
       <Space size="large" className="icons-container" >
-        <a href="" ><Eye color="black" size={20} /></a>
-        <a href="" ><Edit color="black" size={20} /></a>
-        <a href="" className="trash" ><Trash color="red" size={20} /></a>
+        <Popover content={"Detail"}>
+          <a href="" ><Eye size={20} /></a>
+        </Popover>
+        <Popover content={"Edit"}>
+          <a href="" ><Edit size={20} /></a>
+        </Popover>
+        <Popover content={"Delete"}>
+          <a href="" className="trash" ><Trash color="red" size={20} /></a>
+        </Popover>
       </Space>
     ),
   },
