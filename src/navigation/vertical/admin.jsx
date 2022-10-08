@@ -46,7 +46,7 @@ const company = [
       {
         id: "policy-user",
         title: "Role & Permission User",
-        navLink: "admin/policy-user",
+        navLink: "/admin/policy-user",
       },
     ],
   },

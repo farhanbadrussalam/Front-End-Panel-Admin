@@ -1,5 +1,5 @@
 import React from 'react'
-import KelolaUser from './KelolaUser'
+import KelolaUser from './CrudUser'
 
 const index = () => {
   return (

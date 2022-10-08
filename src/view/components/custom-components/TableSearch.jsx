@@ -1,9 +1,7 @@
 import { Input } from 'antd'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
-import Data from '../../pages/MasterData'
-
-const TableSearch = ({ setData }) => {
+const TableSearch = ({ setData, Data }) => {
 
   useEffect(() => {
     setData(Data)
