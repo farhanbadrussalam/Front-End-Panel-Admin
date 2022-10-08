@@ -1,12 +1,11 @@
-import { Row, Col, Card } from 'antd'
+import { Row, Col, Card, Button } from 'antd'
 import { useState } from 'react'
 
-import TableTitle from './TableTitle'
-import ButtonAdd from './ButtonAdd'
-import SearchTable from './SearchTable'
-import TableMaster from './TableMaster'
+import TableTitle from '../../components/custom-components/TableTitle'
+import SearchTable from '../../components/custom-components/TableSearch'
+import TableMaster from '../../components/custom-components/TableDisplay'
 
-const DataPengguna = () => {
+const MasterDisplay = () => {
   const [data, setData] = useState([])
 
   return (
@@ -23,7 +22,7 @@ const DataPengguna = () => {
           <SearchTable setData={setData} />
         </Col>
         <Col span={10} className='button-right' >
-          <ButtonAdd />
+          <Button type="primary" size='small'>Tambah Data</Button>
         </Col>
       </Row>
 
@@ -37,4 +36,4 @@ const DataPengguna = () => {
   )
 }
 
-export default DataPengguna
+export default MasterDisplay

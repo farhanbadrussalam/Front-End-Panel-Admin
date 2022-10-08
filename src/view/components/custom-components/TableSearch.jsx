@@ -1,9 +1,9 @@
 import { Input } from 'antd'
 import React, { useState, useEffect } from 'react'
 
-import Data from './dummyData'
+import Data from '../../pages/MasterData'
 
-const SearchTable = ({ setData }) => {
+const TableSearch = ({ setData }) => {
 
   useEffect(() => {
     setData(Data)
@@ -22,4 +22,4 @@ const SearchTable = ({ setData }) => {
   )
 }
 
-export default SearchTable
+export default TableSearch

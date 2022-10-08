@@ -1,9 +1,9 @@
 import { Table } from 'antd'
 import React from 'react'
 
-import Column from './dummyColumn'
+import Column from '../../pages/MasterColumn'
 
-const TableMaster = ({ data }) => {
+const TableDisplay = ({ data }) => {
   return (
     <Table
       size='small'
@@ -26,4 +26,4 @@ const TableMaster = ({ data }) => {
   )
 }
 
-export default TableMaster
+export default TableDisplay
