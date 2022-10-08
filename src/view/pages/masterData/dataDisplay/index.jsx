@@ -20,7 +20,7 @@ const DataPengguna = () => {
 
     setData(filteredData)
   }
-  
+
   const url = window.location.href
   const splitUrl = url.split('/')
 
@@ -30,7 +30,7 @@ const DataPengguna = () => {
   })
 
   return (
-    <Card bodyStyle={{ padding: "15px 20px" }} xs={{ padding: '100px' }} style={{ borderRadius: '10px' }}>
+    <Card bodyStyle={{ padding: "15px 20px" }} xs={{ padding: '100px' }} style={{ borderRadius: '10px' }} className="wedding-organizer">
 
       <Row>
         <Col>
@@ -49,7 +49,17 @@ const DataPengguna = () => {
 
       <Row>
         <Col span={24}>
-          <Table columns={Column} dataSource={data} scroll={{ x: 400 }} />;
+          <Table size='small' columns={Column} dataSource={data} scroll={{ x: 400 }} expandable={{
+            expandedRowRender: (record) => (
+              <div className='expanded-row'>
+                <p >Judul expanded row : </p>
+                <ol>
+                  <li>list 1</li>
+                  <li>list 2</li>
+                </ol>
+              </div>
+            )
+          }} className="master-table" />;
         </Col>
       </Row>
 
