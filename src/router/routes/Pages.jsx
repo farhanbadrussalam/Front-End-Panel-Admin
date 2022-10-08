@@ -18,22 +18,29 @@ const PagesRoutes = [
   // Pages Master Data
   {
     path: "/admin/wedding-organizer",
-    component: lazy(() => import("../../view/pages/masterData")),
+    component: lazy(() => import("../../view/pages/master-data")),
     layout: "VerticalLayout",
   },
   {
     path: "/admin/pengantin",
-    component: lazy(() => import("../../view/pages/masterData")),
+    component: lazy(() => import("../../view/pages/master-data")),
     layout: "VerticalLayout",
   },
   {
     path: "/admin/customer",
-    component: lazy(() => import("../../view/pages/masterData")),
+    component: lazy(() => import("../../view/pages/master-data")),
     layout: "VerticalLayout",
   },
   {
     path: "/admin/produk-ucapan-digital",
-    component: lazy(() => import("../../view/pages/masterData")),
+    component: lazy(() => import("../../view/pages/master-data")),
+    layout: "VerticalLayout",
+  },
+
+  // Pages Kelola User
+  {
+    path: "/admin/crud-user",
+    component: lazy(() => import("../../view/pages/kelola-user")),
     layout: "VerticalLayout",
   },
 

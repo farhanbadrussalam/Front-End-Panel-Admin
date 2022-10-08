@@ -1,4 +1,4 @@
-.wedding-organizer {
+.custom-component-table-card {
 
   table {
 
@@ -29,16 +29,23 @@
 
       a {
         border: 2px rgba(0, 0, 0, 0.2) solid;
-        border-radius: 10px;
+        border-radius: 8px;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 35px;
         height: 35px;
+        color: black;
+        transition: 0.3s;
+
+        &:hover {
+          border: 1.5px red solid;
+          color: red;
+        }
       }
 
       .trash {
-        border: 2px red solid;
+        border: 1.5px red solid;
       }
     }
   }
