@@ -1,4 +1,5 @@
 import { Space } from "antd";
+import { Edit, Trash, Eye } from "iconsax-react";
 
 const columns = [
   // Kolom nama
@@ -64,9 +65,10 @@ const columns = [
     title: 'Action',
     key: 'action',
     render: () => (
-      <Space size="middle" style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row' }}>
-        <a>Updates</a>
-        <a>Delete</a>
+      <Space size="large" className="icons-container" >
+        <a href="" ><Eye color="black" size={20} /></a>
+        <a href="" ><Edit color="black" size={20} /></a>
+        <a href="" className="trash" ><Trash color="red" size={20} /></a>
       </Space>
     ),
   },
