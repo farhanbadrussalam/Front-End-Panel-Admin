@@ -8,6 +8,13 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
 
+  // AUTH
+  {
+    path: "/admin/login",
+    component: lazy(() => import("../../view/pages/authenticationAdmin")),
+    layout: "FullLayout",
+  },
+
   // Pages admin
   {
     path: "/admin/dashboard",
