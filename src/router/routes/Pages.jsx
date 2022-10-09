@@ -79,9 +79,23 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
+    path: "/admin/produk-ucapan-user/:userid",
+    component: lazy(() =>
+      import("../../view/pages/produk-wo/produk-ucapan-user/produk")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
     path: "/admin/produk-ucapan-user",
     component: lazy(() =>
       import("../../view/pages/produk-wo/produk-ucapan-user")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/afiliasi-ucapan/:userid",
+    component: lazy(() =>
+      import("../../view/pages/produk-wo/afiliasi-ucapan/afiliasi")
     ),
     layout: "VerticalLayout",
   },
