@@ -6,30 +6,7 @@ import TableTitle from "../TableTitle.jsx";
 
 import { Card, Row, Col, List } from "antd";
 
-export default function CommisionList({ dataWO }) {
-  const data = [
-    {
-      title: "WO 1",
-      description: "phone | email",
-      key: "id-wo-1",
-    },
-    {
-      title: "WO 2",
-      description: "phone | email",
-      key: "id-wo-2",
-    },
-    {
-      title: "WO 3",
-      description: "phone | email",
-      key: "id-wo-3",
-    },
-    {
-      title: "WO 4",
-      description: "phone | email",
-      key: "id-wo-4",
-    },
-  ];
-
+export default function WOList({ dataWO }) {
   return (
     <Card className="hp-border-color-black-40">
       <Row>
@@ -42,7 +19,7 @@ export default function CommisionList({ dataWO }) {
         <Col span={24}>
           <List
             itemLayout="horizontal"
-            dataSource={data}
+            dataSource={dataWO}
             pagination={{
               size: "small",
             }}
@@ -50,7 +27,7 @@ export default function CommisionList({ dataWO }) {
               <List.Item>
                 <List.Item.Meta
                   title={
-                    <Link to={`group-user/${item.key}`}>
+                    <Link to={item.link}>
                       {item.title} ({item.key})
                     </Link>
                   }
