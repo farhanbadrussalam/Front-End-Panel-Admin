@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
-import logoSmall from "../../../../assets/images/logo/logo-small.svg";
-import logoSmallDark from "../../../../assets/images/logo/logo-small-dark.svg";
-import logo from "../../../../assets/images/logo/logo.svg";
-import logoDark from "../../../../assets/images/logo/logo-dark.svg";
-import logoRTL from "../../../../assets/images/logo/logo-rtl.svg";
-import logoRTLDark from "../../../../assets/images/logo/logo-rtl-dark.svg";
-
+// import logoSmall from "../../../../assets/images/logo/logo-small.svg";
+// import logoSmallDark from "../../../../assets/images/logo/logo-small-dark.svg";
+// import logo from "../../../../assets/images/logo/logo.svg";
+// import logoDark from "../../../../assets/images/logo/logo-dark.svg";
+// import logoRTL from "../../../../assets/images/logo/logo-rtl.svg";
+// import logoRTLDark from "../../../../assets/images/logo/logo-rtl-dark.svg";
+import Logo from '../../../../assets/images/logo/BEST_WISHES.png'
 import themeConfig from '../../../../configs/themeConfig.jsx';
 
 export default function MenuLogo(props) {
@@ -24,9 +24,9 @@ export default function MenuLogo(props) {
 
         {/* Logo kalau mau ubah */}
         {props.small ? (
-          <p>E-Book</p>
+          <img src={Logo} alt="Logo Best Wishes" style={{ height: '20px' }} />
         ) : (
-          <h3>E-BOOK</h3>
+          <img src={Logo} alt="Logo Best Wishes" style={{ height: '50px' }} />
         )}
 
         {/* {
@@ -60,7 +60,7 @@ export default function MenuLogo(props) {
         </div> */}
       </Link>
 
-      {
+      {/* {
         !props.small && (
           <a
             href="https://hypeople-studio.gitbook.io/yoda/change-log"
@@ -70,7 +70,7 @@ export default function MenuLogo(props) {
             v.{themeConfig.version}
           </a>
         )
-      }
+      } */}
     </div>
   );
 };
