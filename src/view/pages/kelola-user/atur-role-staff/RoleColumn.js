@@ -28,11 +28,31 @@ const columns = [
     sorter: (a, b) => a.name.length - b.name.length,
   },
 
-  // Kolom No Karyawan
   {
-    title: 'No. Karyawan',
-    dataIndex: 'employee_number',
-    key: 'employee_number',
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+  },
+
+  // Kolom alamat
+  {
+    title: 'Employee ID',
+    dataIndex: 'employee_id',
+    key: 'employee_id',
+  },
+
+  // Kolom alamat
+  {
+    title: 'Level',
+    dataIndex: 'level',
+    key: 'level',
+  },
+
+  // Kolom alamat
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
   },
 
   // Kolom role

@@ -11,53 +11,32 @@ const columns = [
     sorter: (a, b) => a.name.length - b.name.length,
   },
 
-  // Kolom usia
+  // Kolom alamat
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-    filters: [
-      {
-        text: '30 . . . 39',
-        value: '30 . . . 39',
-        children: [
-          {
-            text: '30',
-            value: '30'
-          },
-          {
-            text: '32',
-            value: '32'
-          },
-        ]
-      },
-
-      {
-        text: '40 . . . 49',
-        value: '40 . . . 49',
-        children: [
-          {
-            text: '40',
-            value: '40'
-          },
-          {
-            text: '42',
-            value: '42'
-          },
-        ]
-      },
-    ],
-    filterMode: 'tree',
-    filterSearch: true,
-    onFilter: (value, record) => record.age.toString().startsWith(value),
-    sorter: (a, b) => a.age - b.age,
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
   },
 
   // Kolom alamat
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Employee ID',
+    dataIndex: 'employee_id',
+    key: 'employee_id',
+  },
+
+  // Kolom alamat
+  {
+    title: 'Level',
+    dataIndex: 'level',
+    key: 'level',
+  },
+
+  // Kolom alamat
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
   },
 
   // Kolom aksi
