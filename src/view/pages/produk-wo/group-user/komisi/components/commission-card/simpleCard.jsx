@@ -6,9 +6,8 @@ import { RiCodeSSlashLine } from "react-icons/ri";
 export default function SimpleCard() {
   return (
     <Card title="Nama Komisi" className="hp-elevatior">
-      <p className="hp-p1-body">Card content</p>
-      <p className="hp-p1-body">Card content</p>
-      <p className="hp-p1-body">Card content</p>
+      <p className="hp-p1-body">nominal</p>
+      <p className="hp-p1-body">status</p>
     </Card>
   );
 }
