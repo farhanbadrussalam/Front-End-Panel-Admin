@@ -52,12 +52,42 @@ const PagesRoutes = [
   },
   {
     path: "/admin/atur-role",
-    component: lazy(() => import("../../view/pages/kelola-user/atur-role-staff")),
+    component: lazy(() =>
+      import("../../view/pages/kelola-user/atur-role-staff")
+    ),
     layout: "VerticalLayout",
   },
   {
     path: "/admin/policy-user",
-    component: lazy(() => import("../../view/pages/kelola-user/atur-role-user")),
+    component: lazy(() =>
+      import("../../view/pages/kelola-user/atur-role-user")
+    ),
+    layout: "VerticalLayout",
+  },
+
+  // pages data produk wo
+  {
+    path: "/admin/group-user/:userid",
+    component: lazy(() =>
+      import("../../view/pages/produk-wo/group-user/komisi")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/group-user",
+    component: lazy(() => import("../../view/pages/produk-wo/group-user")),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/produk-ucapan-user",
+    component: lazy(() =>
+      import("../../view/pages/produk-wo/produk-ucapan-user")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/afiliasi-ucapan",
+    component: lazy(() => import("../../view/pages/produk-wo/afiliasi-ucapan")),
     layout: "VerticalLayout",
   },
 
