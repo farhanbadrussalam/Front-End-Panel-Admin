@@ -1,5 +1,5 @@
 import React from 'react'
-import DataPengguna from './MasterData'
+import DataPengguna from './MasterData.jsx'
 
 const index = () => {
   return (
