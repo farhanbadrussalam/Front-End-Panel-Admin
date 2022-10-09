@@ -1,5 +1,5 @@
 import React from 'react'
-import DataPengguna from './MasterData.jsx'
+import DataPengguna from './WeddingOrganizer'
 
 const index = () => {
   return (
