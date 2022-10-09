@@ -14,7 +14,7 @@ export default function WOUserCommissionGroup({ match }) {
         </Col>
 
         <Col span={3} className="button-right">
-          <Button type="primary" size="small">
+          <Button type="primary" danger size="small">
             Tambah Data
           </Button>
         </Col>
