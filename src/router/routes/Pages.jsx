@@ -47,7 +47,17 @@ const PagesRoutes = [
   // Pages Kelola User
   {
     path: "/admin/crud-user",
-    component: lazy(() => import("../../view/pages/kelola-user")),
+    component: lazy(() => import("../../view/pages/kelola-user/crud-user")),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/atur-role",
+    component: lazy(() => import("../../view/pages/kelola-user/atur-role-staff")),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/policy-user",
+    component: lazy(() => import("../../view/pages/kelola-user/atur-role-user")),
     layout: "VerticalLayout",
   },
 

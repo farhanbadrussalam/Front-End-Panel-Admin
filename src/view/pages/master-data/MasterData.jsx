@@ -1,19 +1,20 @@
 import { Row, Col, Card, Button } from 'antd'
 import { useState } from 'react'
 
-import TableMaster from '../../components/custom-components/TableDisplay'
+import TableDisplay from '../../components/custom-components/TableDisplay'
 import TableCard from '../../components/custom-components/TableCard'
-import Column from '../MasterColumn'
+import Column from './MasterColumn'
+import Data from './MasterData'
 
 const MasterDisplay = () => {
   const [data, setData] = useState([])
 
   return (
-    <TableCard setData={setData}>
+    <TableCard setData={setData} Data={Data} >
 
       <Row>
         <Col span={24}>
-          <TableMaster data={data} column={Column} />
+          <TableDisplay data={data} column={Column} />
         </Col>
       </Row>
 
