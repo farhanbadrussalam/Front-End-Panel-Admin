@@ -1,22 +1,8 @@
-import { Space, Dropdown, Menu } from "antd";
-import { ArrowDown2 } from "iconsax-react";
+import { Select } from "antd";
 
-const menu = (
-  <Menu
-    selectable
-    defaultSelectedKeys={['3']}
-    items={[
-      {
-        key: '1',
-        label: 'Super Admin',
-      },
-      {
-        key: '2',
-        label: 'Admin',
-      },
-    ]}
-  />
-);
+const handleChange = (value) => {
+  confirm(`Anda yakin ingin mengubah role user menjadi ${value}`);
+};
 
 const columns = [
   // Kolom nama
@@ -64,14 +50,10 @@ const columns = [
     filterSearch: true,
     onFilter: (value, record) => record.age.toString().startsWith(value),
     render: (text) => (
-      <Dropdown overlay={menu} trigger={['click']}>
-        <Space>
-          <div className="select-role">
-            <p>{text}</p>
-            <ArrowDown2 />
-          </div>
-        </Space>
-      </Dropdown>
+      <Select defaultValue={text} className='dropdown-menu' onChange={handleChange} >
+        <Select.Option value="Admin">Admin</Select.Option>
+        <Select.Option value="Super Admin">Super Admin</Select.Option>
+      </Select>
     ),
   },
 ];
