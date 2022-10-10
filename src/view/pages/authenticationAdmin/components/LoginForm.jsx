@@ -1,4 +1,6 @@
 // import React from "react";
+import { FiUser } from "react-icons/fi";
+import { GiPadlock } from "react-icons/gi";
 
 import { Button, Checkbox, Form, Input } from "antd";
 
@@ -15,11 +17,12 @@ export default function LoginForm() {
     <>
       <Form
         name="basic"
+        layout="vertical"
         labelCol={{
           span: 8,
         }}
         wrapperCol={{
-          span: 16,
+          span: 24,
         }}
         initialValues={{
           remember: true,
@@ -38,7 +41,7 @@ export default function LoginForm() {
             },
           ]}
         >
-          <Input />
+          <Input prefix={<FiUser />} />
         </Form.Item>
 
         <Form.Item
@@ -51,19 +54,23 @@ export default function LoginForm() {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password
+            prefix={<GiPadlock />}
+            placeholder="input placeholder"
+            className="ant-col"
+          />
         </Form.Item>
 
-        {/* <Form.Item
-              name="remember"
-              valuePropName="checked"
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
-            >
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item> */}
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{
+            offset: 1,
+            // span: 16,
+          }}
+        >
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
 
         <Form.Item
           wrapperCol={{
