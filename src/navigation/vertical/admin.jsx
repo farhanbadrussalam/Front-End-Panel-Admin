@@ -56,17 +56,17 @@ const company = [
       {
         id: "crud-user",
         title: "Tambah, Update & Hapus",
-        navLink: "/admin/crud-user",
+        navLink: "/admin/crud-user/",
       },
       {
         id: "atur-role",
         title: "Atur Role user (Admin / Staff / WO / Pelanggan)",
-        navLink: "/admin/atur-role",
+        navLink: "/admin/atur-role/",
       },
       {
         id: "policy-user",
         title: "Role & Permission User",
-        navLink: "/admin/policy-user",
+        navLink: "/admin/policy-user/",
       },
     ],
   },
