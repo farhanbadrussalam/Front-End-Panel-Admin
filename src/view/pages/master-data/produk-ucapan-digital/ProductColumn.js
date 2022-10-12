@@ -11,12 +11,6 @@ const columns = [
     sorter: (a, b) => a.name.length - b.name.length,
   },
 
-  // {
-  //   title: 'Product ID',
-  //   dataIndex: 'product_id',
-  //   key: 'product_id',
-  // },
-
   {
     title: 'Price',
     dataIndex: 'price',
@@ -39,17 +33,44 @@ const columns = [
   // Kolom aksi
   {
     title: 'Action',
+    dataIndex: 'product_id',
     key: 'action',
-    render: () => (
+    render: (id) => (
       <Space size="large" className="icons-container" >
         <Popover content={"Detail"}>
-          <Link to={`detail/1231411`} state={{ nama: 'Kevin' }} ><Eye size={20} /></Link>
+          <Link to={{
+            pathname: `produk-ucapan-digital/detail/${id}`,
+            state: {
+              permission: 'Detail',
+              data: 'Produk Ucapan Digital'
+            },
+          }} >
+            <Eye size={20} />
+          </Link>
         </Popover>
+
         <Popover content={"Edit"}>
-          <Link to={`edit/1534141`}><Edit size={20} /></Link>
+          <Link to={{
+            pathname: `produk-ucapan-digital/edit/${id}`,
+            state: {
+              permission: 'Edit',
+              data: 'Produk Ucapan Digital'
+            },
+          }}>
+            <Edit size={20} />
+          </Link>
         </Popover>
+
         <Popover content={"Delete"}>
-          <Link to={`delete/15414124`} className="trash" ><Trash color="red" size={20} /></Link>
+          <Link to={{
+            pathname: `produk-ucapan-digital/delete/${id}`,
+            state: {
+              permission: 'Delete',
+              data: 'Produk Ucapan Digital'
+            },
+          }} className="trash" >
+            <Trash color="red" size={20} />
+          </Link>
         </Popover>
       </Space>
     ),

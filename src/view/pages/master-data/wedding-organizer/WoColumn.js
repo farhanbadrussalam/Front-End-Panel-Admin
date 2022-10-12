@@ -34,21 +34,42 @@ const columns = [
   // Kolom aksi
   {
     title: 'Action',
+    dataIndex: 'key',
     key: 'action',
-    render: () => (
+    render: (key) => (
       <Space size="large" className="icons-container" >
         <Popover content={"Detail"}>
-          <Link to={`detail/123151535`}>
+          <Link to={{
+            pathname: `wedding-organizer/detail/${key}`,
+            state: {
+              permission: 'Detail',
+              data: 'Wedding Organizer'
+            },
+          }} >
             <Eye size={20} />
           </Link>
         </Popover>
+
         <Popover content={"Edit"}>
-          <Link to={`detail/123151535`}>
+          <Link to={{
+            pathname: `wedding-organizer/edit/${key}`,
+            state: {
+              permission: 'Edit',
+              data: 'Wedding Organizer'
+            },
+          }}>
             <Edit size={20} />
           </Link>
         </Popover>
+
         <Popover content={"Delete"}>
-          <Link to={`detail/123151535`} className='trash'>
+          <Link to={{
+            pathname: `wedding-organizer/delete/${key}`,
+            state: {
+              permission: 'Delete',
+              data: 'Wedding Organizer'
+            },
+          }} className="trash" >
             <Trash color="red" size={20} />
           </Link>
         </Popover>

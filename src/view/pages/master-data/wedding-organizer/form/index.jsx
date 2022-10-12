@@ -1,12 +1,10 @@
-import { useLocation } from 'react-router-dom';
 import FormCrud from '../../../../components/custom-components/form-crud'
 const index = (props) => {
-  const location = useLocation()
-  const permission = location.state?.permission
-  console.log(props);
+  const permission = props.location.state.permission
+  const data = props.location.state.data
 
   return (
-    <FormCrud permission={permission} />
+    <FormCrud permission={permission} data={data} />
   );
 };
 

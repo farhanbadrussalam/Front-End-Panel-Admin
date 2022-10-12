@@ -7,13 +7,14 @@ import {
   Card,
 } from 'antd';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const index = ({ permission }) => {
+const index = ({ permission, data }) => {
+  const history = useHistory()
 
   return (
     <Card className='form-crud'>
-      <p className='title'>{`${permission} Data User`}</p>
+      <p className='title'>{`${permission} Data ${data}`}</p>
       <Form
         labelCol={{
           span: 4,
@@ -41,9 +42,7 @@ const index = ({ permission }) => {
         </Form.Item>
         <Form.Item label="Button">
           <Button danger style={{ marginRight: '15px' }} >Simpan</Button>
-          <Link to='./..'>
-            <Button danger >Batal</Button>
-          </Link>
+          <Button onClick={() => history.goBack()} danger >Batal</Button>
         </Form.Item>
       </Form>
     </Card>

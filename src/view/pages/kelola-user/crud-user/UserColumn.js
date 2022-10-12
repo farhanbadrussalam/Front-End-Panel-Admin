@@ -48,15 +48,43 @@ const columns = [
     key: 'action',
     render: (id) => (
       <Space size="large" className="icons-container" >
+
         <Popover content={"Detail"}>
-          <Link to={`detail/${id}`} state={{ nama: 'Kevin' }} ><Eye size={20} /></Link>
+          <Link to={{
+            pathname: `crud-user/detail/${id}`,
+            state: {
+              permission: 'Detail',
+              data: 'User'
+            },
+          }} >
+            <Eye size={20} />
+          </Link>
         </Popover>
+
         <Popover content={"Edit"}>
-          <Link to={`edit/${id}`}><Edit size={20} /></Link>
+          <Link to={{
+            pathname: `crud-user/edit/${id}`,
+            state: {
+              permission: 'Edit',
+              data: 'User'
+            },
+          }}>
+            <Edit size={20} />
+          </Link>
         </Popover>
+
         <Popover content={"Delete"}>
-          <Link to={`delete/${id}`} className="trash" ><Trash color="red" size={20} /></Link>
+          <Link to={{
+            pathname: `crud-user/delete/${id}`,
+            state: {
+              permission: 'Delete',
+              data: 'User'
+            },
+          }} className="trash" >
+            <Trash color="red" size={20} />
+          </Link>
         </Popover>
+
       </Space>
     ),
   },
