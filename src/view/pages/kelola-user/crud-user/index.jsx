@@ -1,9 +1,9 @@
 import React from 'react'
-import KelolaUser from './CrudUser'
+import CrudUser from './CrudUser'
 
 const index = () => {
   return (
-    <KelolaUser />
+    <CrudUser />
   )
 }
 

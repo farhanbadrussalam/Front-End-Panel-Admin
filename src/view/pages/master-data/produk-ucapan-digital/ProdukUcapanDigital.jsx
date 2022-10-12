@@ -1,4 +1,4 @@
-import { Row, Col, Card, Button } from 'antd'
+import { Row, Col } from 'antd'
 import { useState } from 'react'
 
 import TableDisplay from '../../../components/custom-components/TableDisplay'
@@ -10,7 +10,7 @@ const MasterDisplay = () => {
   const [data, setData] = useState([])
 
   return (
-    <TableCard setData={setData} Data={Data} >
+    <TableCard setData={setData} Data={Data} addButton={true} >
 
       <Row>
         <Col span={24}>
