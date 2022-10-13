@@ -10,7 +10,7 @@ const MasterDisplay = () => {
   const [data, setData] = useState([])
 
   return (
-    <TableCard setData={setData} Data={Data} >
+    <TableCard setData={setData} Data={Data} addButton={true} >
 
       <Row>
         <Col span={24}>

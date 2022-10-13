@@ -1,5 +1,6 @@
 import { Space, Popover } from "antd";
 import { Edit, Trash, Eye } from "iconsax-react";
+import { Link } from "react-router-dom";
 
 const columns = [
   {
@@ -9,12 +10,6 @@ const columns = [
     render: (text) => <a>{text}</a>,
     sorter: (a, b) => a.name.length - b.name.length,
   },
-
-  // {
-  //   title: 'Product ID',
-  //   dataIndex: 'product_id',
-  //   key: 'product_id',
-  // },
 
   {
     title: 'Price',
@@ -38,17 +33,44 @@ const columns = [
   // Kolom aksi
   {
     title: 'Action',
+    dataIndex: 'product_id',
     key: 'action',
-    render: () => (
+    render: (id) => (
       <Space size="large" className="icons-container" >
         <Popover content={"Detail"}>
-          <a href="" ><Eye size={20} /></a>
+          <Link to={{
+            pathname: `produk-ucapan-digital/detail/${id}`,
+            state: {
+              permission: 'Detail',
+              data: 'Produk Ucapan Digital'
+            },
+          }} >
+            <Eye size={20} />
+          </Link>
         </Popover>
+
         <Popover content={"Edit"}>
-          <a href="" ><Edit size={20} /></a>
+          <Link to={{
+            pathname: `produk-ucapan-digital/edit/${id}`,
+            state: {
+              permission: 'Edit',
+              data: 'Produk Ucapan Digital'
+            },
+          }}>
+            <Edit size={20} />
+          </Link>
         </Popover>
+
         <Popover content={"Delete"}>
-          <a href="" className="trash" ><Trash color="red" size={20} /></a>
+          <Link to={{
+            pathname: `produk-ucapan-digital/delete/${id}`,
+            state: {
+              permission: 'Delete',
+              data: 'Produk Ucapan Digital'
+            },
+          }} className="trash" >
+            <Trash color="red" size={20} />
+          </Link>
         </Popover>
       </Space>
     ),

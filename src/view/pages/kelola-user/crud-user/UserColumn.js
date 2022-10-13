@@ -1,4 +1,6 @@
+
 import { Space, Popover } from "antd";
+import { Link } from "react-router-dom";
 import { Edit, Trash, Eye } from "iconsax-react";
 
 const columns = [
@@ -42,18 +44,47 @@ const columns = [
   // Kolom aksi
   {
     title: 'Action',
+    dataIndex: 'employee_id',
     key: 'action',
-    render: () => (
+    render: (id) => (
       <Space size="large" className="icons-container" >
+
         <Popover content={"Detail"}>
-          <a href="" ><Eye size={20} /></a>
+          <Link to={{
+            pathname: `crud-user/detail/${id}`,
+            state: {
+              permission: 'Detail',
+              data: 'User'
+            },
+          }} >
+            <Eye size={20} />
+          </Link>
         </Popover>
+
         <Popover content={"Edit"}>
-          <a href="" ><Edit size={20} /></a>
+          <Link to={{
+            pathname: `crud-user/edit/${id}`,
+            state: {
+              permission: 'Edit',
+              data: 'User'
+            },
+          }}>
+            <Edit size={20} />
+          </Link>
         </Popover>
+
         <Popover content={"Delete"}>
-          <a href="" className="trash" ><Trash color="red" size={20} /></a>
+          <Link to={{
+            pathname: `crud-user/delete/${id}`,
+            state: {
+              permission: 'Delete',
+              data: 'User'
+            },
+          }} className="trash" >
+            <Trash color="red" size={20} />
+          </Link>
         </Popover>
+
       </Space>
     ),
   },
