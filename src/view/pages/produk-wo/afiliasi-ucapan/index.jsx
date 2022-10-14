@@ -1,5 +1,9 @@
-import React from "react";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+// import WOList from "../../../components/custom-components/wo-list";
+
 import List from "../../../components/custom-components/wo-list";
+import WoList from "../components/wolist";
 
 const data = [
   {
@@ -29,7 +33,7 @@ const data = [
 ];
 
 const index = () => {
-  return <List dataWO={data} />;
+  return <WoList />;
 };
 
 export default index;
