@@ -6,7 +6,7 @@ import {
   ADMIN_NAME,
   ADMIN_USERNAME,
   ADMIN_MAIL,
-} from "../../../../redux/customise/customiseTypes";
+} from "../../../../../redux/customise/customiseTypes";
 
 import { FiUser } from "react-icons/fi";
 import { GiPadlock } from "react-icons/gi";
