@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, Input, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { postUser } from '../../../../../../api/kelola-user/postUser'
 import React from 'react';
@@ -7,8 +7,15 @@ import CardForm from '../../../../../components/custom-components/form-crud/Card
 const index = () => {
   const history = useHistory()
 
-  const onFinish = (values) => {
-    postUser(values)
+  const onFinish = async (values) => {
+    const success = await postUser(values)
+    if (success.data.success) {
+      message.success('Berhasil menambahkan user')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal menambahkan user')
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -16,7 +23,7 @@ const index = () => {
   };
 
   return (
-    <CardForm title="Tambah data . . . .">
+    <CardForm title="Tambah Data User">
       <Form
         name="basic"
         labelCol={{

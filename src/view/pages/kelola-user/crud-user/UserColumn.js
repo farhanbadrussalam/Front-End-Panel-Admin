@@ -8,12 +8,11 @@ const showModal = (id, name) => {
   confirm({
     title: `Apa anda yakin ingin menghapus ${name}?`,
     icon: <Danger color="red" />,
-    content: 'Some descriptions',
+    okText: 'Yakin',
+    cancelText: 'Batal',
+    okType: 'primary',
     onOk() {
       deleteUser(id)
-    },
-    onCancel() {
-      console.log('Cancel');
     },
   })
 }
@@ -50,7 +49,8 @@ const columns = [
             pathname: `crud-user/detail/${payload.id}`,
             state: {
               permission: 'Detail',
-              data: 'User'
+              data: 'User',
+              id: payload.id
             },
           }} >
             <Eye size={20} />
@@ -72,7 +72,6 @@ const columns = [
 
         <Popover content={"Delete"}>
           <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name)} />
-          <Modal></Modal>
         </Popover>
 
       </Space>
