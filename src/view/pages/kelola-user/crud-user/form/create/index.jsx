@@ -1,5 +1,6 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { postUser } from '../../../../../../api/kelola-user/postUser'
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 
@@ -7,7 +8,7 @@ const index = () => {
   const history = useHistory()
 
   const onFinish = (values) => {
-    alert('Success:', values);
+    postUser(values)
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -30,11 +31,23 @@ const index = () => {
       >
         <Form.Item
           label="Nama"
-          name="nama"
+          name="name"
           rules={[
             {
               required: true,
               message: 'Mohon masukkan nama!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[
+            {
+              required: true,
             },
           ]}
         >
@@ -56,15 +69,15 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Password"
+          name="password"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <InputNumber />
+          <Input.Password minLength={8} />
         </Form.Item>
 
         <Form.Item

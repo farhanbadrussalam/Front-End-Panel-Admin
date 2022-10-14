@@ -1,18 +1,21 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
+import { putUser } from '../../../../../../api/kelola-user/putUser';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
 
   const onFinish = (values) => {
-    alert('Success:', values);
+    values.status = 1
+    putUser(values, id)
   };
 
   return (
-    <CardForm title={title}>
+    <CardForm title={title} >
       <Form
         name="basic"
         labelCol={{
@@ -26,9 +29,16 @@ const index = (props) => {
       >
         <Form.Item
           label="Nama"
-          name="nama"
+          name="name"
         >
-          <Input value="Nama user" placeholder='Nama user' />
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Username"
+          name="username"
+        >
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -40,14 +50,14 @@ const index = (props) => {
             },
           ]}
         >
-          <Input value="Email user" placeholder='Email user' />
+          <Input />
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Password"
+          name="password"
         >
-          <InputNumber value="Value user" placeholder='Value user' />
+          <Input.Password minLength={8} />
         </Form.Item>
 
         <Form.Item
