@@ -13,7 +13,7 @@ import { GiPadlock } from "react-icons/gi";
 
 import { Button, Checkbox, Form, Input } from "antd";
 
-function RegisterForm() {
+function RegisterForm(props) {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -34,6 +34,7 @@ function RegisterForm() {
   }, [isAuth]);
 
   const tryRegister = async () => {
+    console.log(name, email, username, password);
     await axios({
       method: "POST",
       url: "http://127.0.0.1:8000/api/register",
@@ -61,7 +62,7 @@ function RegisterForm() {
         setIsAuth(true);
       })
       .catch((err) => {
-        alert("Gagal Login!");
+        alert("Gagal Login! | " + err);
       });
   };
 
@@ -87,7 +88,7 @@ function RegisterForm() {
           label="Name"
           name="name"
           values={name}
-          onChange={(e) => setName(e)}
+          onChange={(e) => setName(e.target.value)}
           rules={[
             {
               required: true,
@@ -95,14 +96,14 @@ function RegisterForm() {
             },
           ]}
         >
-          <Input prefix={<FiUser />} />
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Username"
           name="username"
           values={username}
-          onChange={(e) => setUsername(e)}
+          onChange={(e) => setUsername(e.target.value)}
           rules={[
             {
               required: true,
@@ -110,14 +111,14 @@ function RegisterForm() {
             },
           ]}
         >
-          <Input prefix={<FiUser />} />
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
           values={email}
-          onChange={(e) => setEmail(e)}
+          onChange={(e) => setEmail(e.target.value)}
           rules={[
             {
               required: true,
@@ -125,14 +126,14 @@ function RegisterForm() {
             },
           ]}
         >
-          <Input prefix={<FiUser />} />
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Password"
           name="password"
           values={password}
-          onChange={(e) => setPassword(e)}
+          onChange={(e) => setPassword(e.target.value)}
           rules={[
             {
               required: true,
@@ -140,11 +141,7 @@ function RegisterForm() {
             },
           ]}
         >
-          <Input.Password
-            prefix={<GiPadlock />}
-            placeholder="input placeholder"
-            className="ant-col"
-          />
+          <Input.Password placeholder="input placeholder" className="ant-col" />
         </Form.Item>
 
         <Form.Item

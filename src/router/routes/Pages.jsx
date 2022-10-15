@@ -13,6 +13,7 @@ const PagesRoutes = [
     path: "/admin/login",
     component: lazy(() => import("../../view/pages/authenticationAdmin/Login")),
     layout: "FullLayout",
+    noNeedAuth: true,
   },
   {
     path: "/admin/register",
@@ -20,6 +21,7 @@ const PagesRoutes = [
       import("../../view/pages/authenticationAdmin/Register")
     ),
     layout: "FullLayout",
+    noNeedAuth: true,
   },
 
   // Pages admin
