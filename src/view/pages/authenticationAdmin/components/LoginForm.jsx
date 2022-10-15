@@ -1,16 +1,61 @@
-// import React from "react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import {
+  ADMIN_NAME,
+  ADMIN_USERNAME,
+  ADMIN_MAIL,
+} from "../../../../redux/customise/customiseTypes";
+
 import { FiUser } from "react-icons/fi";
 import { GiPadlock } from "react-icons/gi";
 
 import { Button, Checkbox, Form, Input } from "antd";
 
-export default function LoginForm() {
+function LoginForm(props) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAuth, setIsAuth] = useState(false);
+  const history = useHistory();
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) history.push("/");
+  }, [isAuth]);
+
+  const tryLogin = async () => {
+    await axios({
+      method: "POST",
+      url: "http://127.0.0.1:8000/api/login",
+      data: { username: username, password: password },
+    })
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.data.data.access_token);
+        localStorage.setItem(
+          "token",
+          `${response.data.data.token_type} ${response.data.data.access_token}`
+        );
+
+        props.login({
+          adminName: response.data.data.name,
+          adminUsername: response.data.data.username,
+          adminMail: response.data.data.email,
+        });
+
+        setIsAuth(true);
+      })
+      .catch((err) => {
+        alert("Gagal Login!");
+      });
   };
 
   return (
@@ -41,7 +86,11 @@ export default function LoginForm() {
             },
           ]}
         >
-          <Input prefix={<FiUser />} />
+          <Input
+            prefix={<FiUser />}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </Form.Item>
 
         <Form.Item
@@ -58,6 +107,8 @@ export default function LoginForm() {
             prefix={<GiPadlock />}
             placeholder="input placeholder"
             className="ant-col"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Item>
 
@@ -78,7 +129,7 @@ export default function LoginForm() {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" onClick={tryLogin}>
             Login
           </Button>
         </Form.Item>
@@ -86,3 +137,23 @@ export default function LoginForm() {
     </>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    adminUsername: state.adminUsername,
+    adminName: state.adminName,
+    adminEmail: state.adminEmail,
+  };
+};
+
+const mapDispatcherToProps = (dispather) => {
+  return {
+    login: (data) => {
+      dispather({ type: ADMIN_NAME, payload: data.adminName });
+      dispather({ type: ADMIN_USERNAME, payload: data.adminUser });
+      dispather({ type: ADMIN_MAIL, payload: data.adminMail });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatcherToProps)(LoginForm);
