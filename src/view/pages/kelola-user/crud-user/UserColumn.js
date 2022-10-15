@@ -13,6 +13,7 @@ const showModal = (id, name) => {
     okType: 'primary',
     onOk() {
       deleteUser(id)
+      window.location.reload(false)
     },
   })
 }

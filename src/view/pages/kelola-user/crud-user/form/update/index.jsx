@@ -1,6 +1,6 @@
 import { Button, Form, Input, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { putUser } from '../../../../../../api/kelola-user/putUser';
@@ -11,21 +11,17 @@ const index = (props) => {
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
   const id = props.location.state.id
 
-  const [user, setUser] = useState(null)
-
-  useEffect(async () => {
-    setUser(await getOneUser(id))
-  }, [])
+  const { data: user } = getOneUser(id)
 
   const onFinish = async (values) => {
     values.status = 1
     const success = await putUser(values, id)
 
-    if (success.data.success) {
-      message.success('Berhasil mengubah user')
+    if (success.success) {
+      message.success('Berhasil mengubah data user')
       history.goBack()
     }
-    console.log(success);
+    else message.error('Gagal mengubah data user')
   };
 
   return (
@@ -45,14 +41,14 @@ const index = (props) => {
           label="Nama"
           name="name"
         >
-          <Input placeholder={user && user.data.data.name} />
+          <Input placeholder={user && user.name} />
         </Form.Item>
 
         <Form.Item
           label="Username"
           name="username"
         >
-          <Input placeholder={user && user.data.data.username} />
+          <Input placeholder={user && user.username} />
         </Form.Item>
 
         <Form.Item
@@ -64,7 +60,7 @@ const index = (props) => {
             },
           ]}
         >
-          <Input placeholder={user && user.data.data.email} />
+          <Input placeholder={user && user.email} />
         </Form.Item>
 
         <Form.Item
