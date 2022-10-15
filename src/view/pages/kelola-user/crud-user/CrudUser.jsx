@@ -1,23 +1,19 @@
 import { Row, Col } from 'antd'
-import { useState } from 'react'
+import { getUsers } from '../../../../api/kelola-user/getUser'
 
 import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
 import Column from './UserColumn'
-import Data from './UserData'
 
 const index = () => {
-  const [data, setData] = useState([])
-
+  const { data } = getUsers()
   return (
-    <TableCard setData={setData} Data={Data} addButton={true}>
-
+    <TableCard >
       <Row>
         <Col span={24}>
-          <TableDisplay data={data} column={Column} />
+          <TableDisplay data={data} column={Column} addButton={true} />
         </Col>
       </Row>
-
     </TableCard>
   )
 }

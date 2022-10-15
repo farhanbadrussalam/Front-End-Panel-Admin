@@ -1,10 +1,24 @@
-
-import { Space, Popover } from "antd";
+import { Space, Popover, Modal } from "antd";
 import { Link } from "react-router-dom";
-import { Edit, Trash, Eye } from "iconsax-react";
+import { Edit, Trash, Eye, Danger } from "iconsax-react";
+import { deleteUser } from "../../../../api/kelola-user/deleteUser";
+
+const { confirm } = Modal;
+const showModal = (id, name) => {
+  confirm({
+    title: `Apa anda yakin ingin menghapus ${name}?`,
+    icon: <Danger color="red" />,
+    okText: 'Yakin',
+    cancelText: 'Batal',
+    okType: 'primary',
+    onOk() {
+      deleteUser(id)
+      window.location.reload(false)
+    },
+  })
+}
 
 const columns = [
-  // Kolom nama
   {
     title: 'Name',
     dataIndex: 'name',
@@ -13,48 +27,31 @@ const columns = [
     sorter: (a, b) => a.name.length - b.name.length,
   },
 
-  // Kolom alamat
   {
     title: 'Email',
     dataIndex: 'email',
     key: 'email',
   },
 
-  // Kolom alamat
-  {
-    title: 'Employee ID',
-    dataIndex: 'employee_id',
-    key: 'employee_id',
-  },
-
-  // Kolom alamat
-  {
-    title: 'Level',
-    dataIndex: 'level',
-    key: 'level',
-  },
-
-  // Kolom alamat
   {
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
   },
 
-  // Kolom aksi
   {
     title: 'Action',
-    dataIndex: 'employee_id',
     key: 'action',
-    render: (id) => (
+    render: payload => (
       <Space size="large" className="icons-container" >
 
         <Popover content={"Detail"}>
           <Link to={{
-            pathname: `crud-user/detail/${id}`,
+            pathname: `crud-user/detail/${payload.id}`,
             state: {
               permission: 'Detail',
-              data: 'User'
+              data: 'User',
+              id: payload.id
             },
           }} >
             <Eye size={20} />
@@ -63,10 +60,11 @@ const columns = [
 
         <Popover content={"Edit"}>
           <Link to={{
-            pathname: `crud-user/edit/${id}`,
+            pathname: `crud-user/edit/${payload.id}`,
             state: {
               permission: 'Edit',
-              data: 'User'
+              data: 'User',
+              id: payload.id
             },
           }}>
             <Edit size={20} />
@@ -74,15 +72,7 @@ const columns = [
         </Popover>
 
         <Popover content={"Delete"}>
-          <Link to={{
-            pathname: `crud-user/delete/${id}`,
-            state: {
-              permission: 'Delete',
-              data: 'User'
-            },
-          }} className="trash" >
-            <Trash color="red" size={20} />
-          </Link>
+          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name)} />
         </Popover>
 
       </Space>

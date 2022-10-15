@@ -1,29 +1,61 @@
-import { Table } from "antd";
-import React from "react";
+import { Table, Row, Col, Button } from "antd";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
-const TableDisplay = ({ data, column }) => {
+import TableSearch from "./TableSearch";
+
+const TableDisplay = ({ data, column, addButton }) => {
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    setTableData(data)
+  }, [data])
+
   return (
-    <Table
-      size="small"
-      columns={column}
-      dataSource={data}
-      scroll={{ x: 400 }}
-      className="master-table"
-      expandable={{
-        expandedRowRender: (record) => (
-          <div className="expanded-row">
-            <p>Judul expanded row : </p>
-            <ol>
-              <li>list 1</li>
-              <li>list 2</li>
-            </ol>
-          </div>
-        ),
-      }}
-      pagination={{
-        size: "small",
-      }}
-    />
+    <>
+      <Row
+        align="middle"
+        justify="space-between"
+        className="table-tools-container"
+      >
+        <Col lg={6} md={8} sm={10} span={12}>
+          <TableSearch data={data} setTableData={setTableData} />
+        </Col>
+        {addButton ? (
+          <Col span={10} className="button-right">
+            <Link to={`${window.location.pathname}/create`}>
+              <Button type="primary" danger size="small">
+                Tambah Data
+              </Button>
+            </Link>
+          </Col>
+        ) : (
+          undefined
+        )}
+      </Row>
+
+      <Table
+        size="small"
+        columns={column}
+        dataSource={tableData}
+        scroll={{ x: 400 }}
+        className="master-table"
+        expandable={{
+          expandedRowRender: () => (
+            <div className="expanded-row">
+              <p>Judul expanded row : </p>
+              <ol>
+                <li>list 1</li>
+                <li>list 2</li>
+              </ol>
+            </div>
+          ),
+        }}
+        pagination={{
+          size: "small",
+        }}
+      />
+    </>
   );
 };
 

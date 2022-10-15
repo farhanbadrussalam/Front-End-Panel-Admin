@@ -1,18 +1,31 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
+
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { putUser } from '../../../../../../api/kelola-user/putUser';
+import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
 
-  const onFinish = (values) => {
-    alert('Success:', values);
+  const { data: user } = getOneUser(id)
+
+  const onFinish = async (values) => {
+    values.status = 1
+    const success = await putUser(values, id)
+
+    if (success.success) {
+      message.success('Berhasil mengubah data user')
+      history.goBack()
+    }
+    else message.error('Gagal mengubah data user')
   };
 
   return (
-    <CardForm title={title}>
+    <CardForm title={title} >
       <Form
         name="basic"
         labelCol={{
@@ -26,9 +39,16 @@ const index = (props) => {
       >
         <Form.Item
           label="Nama"
-          name="nama"
+          name="name"
         >
-          <Input value="Nama user" placeholder='Nama user' />
+          <Input placeholder={user && user.name} />
+        </Form.Item>
+
+        <Form.Item
+          label="Username"
+          name="username"
+        >
+          <Input placeholder={user && user.username} />
         </Form.Item>
 
         <Form.Item
@@ -40,14 +60,14 @@ const index = (props) => {
             },
           ]}
         >
-          <Input value="Email user" placeholder='Email user' />
+          <Input placeholder={user && user.email} />
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Password"
+          name="password"
         >
-          <InputNumber value="Value user" placeholder='Value user' />
+          <Input.Password minLength={8} />
         </Form.Item>
 
         <Form.Item

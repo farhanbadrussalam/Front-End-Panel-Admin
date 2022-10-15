@@ -1,18 +1,14 @@
 import { Input } from 'antd'
-import React, { useEffect } from 'react'
+import React from 'react'
 
-const TableSearch = ({ setData, Data }) => {
+const TableSearch = ({ setTableData, data }) => {
 
-  useEffect(() => {
-    setData(Data)
-  }, [])
-
-  const userSearch = (input) => {
-    if (input == '') return setData(Data)
-    const filteredData = Data.filter((person) => {
+  const userSearch = async (input) => {
+    if (input == '') return setTableData(await data)
+    const filteredData = await data.filter((person) => {
       return person.name.toLowerCase().includes(input.toLowerCase())
     })
-    setData(filteredData)
+    setTableData(filteredData)
   }
 
   return (
