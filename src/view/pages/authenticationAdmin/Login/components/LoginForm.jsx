@@ -13,6 +13,8 @@ import { GiPadlock } from "react-icons/gi";
 
 import { Button, Checkbox, Form, Input } from "antd";
 
+import "./Login.css";
+
 function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -112,16 +114,12 @@ function LoginForm(props) {
           />
         </Form.Item>
 
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{
-            offset: 1,
-            // span: 16,
-          }}
-        >
+        <div className="custom-redirect-container">
           <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+          <a href="/admin/register" className="custom-redirect-login">
+            belum punya akun?
+          </a>
+        </div>
 
         <Form.Item
           wrapperCol={{

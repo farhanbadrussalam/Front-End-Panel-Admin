@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import {
   ADMIN_NAME,
@@ -12,6 +12,8 @@ import { FiUser } from "react-icons/fi";
 import { GiPadlock } from "react-icons/gi";
 
 import { Button, Checkbox, Form, Input } from "antd";
+
+import "./Register.css";
 
 function RegisterForm(props) {
   const [name, setName] = useState("");
@@ -144,16 +146,12 @@ function RegisterForm(props) {
           <Input.Password placeholder="input placeholder" className="ant-col" />
         </Form.Item>
 
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{
-            offset: 1,
-            // span: 16,
-          }}
-        >
+        <div className="custom-redirect-container">
           <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+          <a href="/admin/login" className="custom-redirect-register">
+            sudah punya akun?
+          </a>
+        </div>
 
         <Form.Item
           wrapperCol={{
@@ -162,7 +160,7 @@ function RegisterForm(props) {
           }}
         >
           <Button type="primary" onClick={tryRegister}>
-            Login
+            Register
           </Button>
         </Form.Item>
       </Form>
