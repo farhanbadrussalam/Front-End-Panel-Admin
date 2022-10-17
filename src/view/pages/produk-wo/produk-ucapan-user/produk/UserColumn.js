@@ -1,0 +1,88 @@
+import { Space, Popover, Modal } from "antd";
+import { Link } from "react-router-dom";
+import { Edit, Trash, Eye, Danger } from "iconsax-react";
+import { deleteUser } from "../../../../../api/kelola-user/deleteUser";
+
+const { confirm } = Modal;
+const showModal = (id, name) => {
+  confirm({
+    title: `Apa anda yakin ingin menghapus ${name}?`,
+    icon: <Danger color="red" />,
+    okText: "Yakin",
+    cancelText: "Batal",
+    okType: "primary",
+    onOk() {
+      deleteUser(id);
+      window.location.reload(false);
+    },
+  });
+};
+
+const columns = [
+  {
+    title: "ID",
+    dataIndex: "id",
+    key: "product_id",
+  },
+
+  {
+    title: "Quota",
+    dataIndex: "quota",
+    key: "quota",
+  },
+
+  {
+    title: "Active Date",
+    dataIndex: "active_date",
+    key: "active_date",
+  },
+
+  {
+    title: "Action",
+    key: "action",
+    render: (payload) => (
+      <Space size="large" className="icons-container">
+        <Popover content={"Detail"}>
+          <Link
+            to={{
+              pathname: `crud-user/detail/${payload.id}`,
+              state: {
+                permission: "Detail",
+                data: "User",
+                id: payload.id,
+              },
+            }}
+          >
+            <Eye size={20} />
+          </Link>
+        </Popover>
+
+        <Popover content={"Edit"}>
+          <Link
+            to={{
+              pathname: `crud-user/edit/${payload.id}`,
+              state: {
+                permission: "Edit",
+                data: "User",
+                id: payload.id,
+              },
+            }}
+          >
+            <Edit size={20} />
+          </Link>
+        </Popover>
+
+        <Popover content={"Delete"}>
+          <Trash
+            color="red"
+            size={20}
+            className="trash"
+            onClick={() => showModal(payload.id, payload.name)}
+          />
+        </Popover>
+      </Space>
+    ),
+  },
+];
+
+export default columns;
