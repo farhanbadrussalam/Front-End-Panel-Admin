@@ -1,13 +1,6 @@
 import { lazy } from "react";
 
 const PagesRoutes = [
-  // PAGES
-  {
-    path: "/admin/blank-page",
-    component: lazy(() => import("../../view/pages/blank")),
-    layout: "VerticalLayout",
-  },
-
   // AUTH
   {
     path: "/admin/login",
@@ -47,13 +40,6 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/wedding-organizer/delete/:userid",
-    component: lazy(() =>
-      import("../../view/pages/master-data/wedding-organizer/form/delete")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
     path: "/admin/wedding-organizer/create",
     component: lazy(() =>
       import("../../view/pages/master-data/wedding-organizer/form/create")
@@ -79,13 +65,6 @@ const PagesRoutes = [
     path: "/admin/pengantin/edit/:userid",
     component: lazy(() =>
       import("../../view/pages/master-data/pengantin/form/update")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
-    path: "/admin/pengantin/delete/:userid",
-    component: lazy(() =>
-      import("../../view/pages/master-data/pengantin/form/delete")
     ),
     layout: "VerticalLayout",
   },
@@ -117,13 +96,6 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/customer/delete/:userid",
-    component: lazy(() =>
-      import("../../view/pages/master-data/customer/form/delete")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
     path: "/admin/customer/create",
     component: lazy(() =>
       import("../../view/pages/master-data/customer/form/create")
@@ -147,13 +119,6 @@ const PagesRoutes = [
     path: "/admin/produk-ucapan-digital/edit/:userid",
     component: lazy(() =>
       import("../../view/pages/master-data/produk-ucapan-digital/form/update")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
-    path: "/admin/produk-ucapan-digital/delete/:userid",
-    component: lazy(() =>
-      import("../../view/pages/master-data/produk-ucapan-digital/form/delete")
     ),
     layout: "VerticalLayout",
   },
@@ -184,13 +149,6 @@ const PagesRoutes = [
     path: "/admin/crud-user/edit/:userid",
     component: lazy(() =>
       import("../../view/pages/kelola-user/crud-user/form/update")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
-    path: "/admin/crud-user/delete/:userid",
-    component: lazy(() =>
-      import("../../view/pages/kelola-user/crud-user/form/delete")
     ),
     layout: "VerticalLayout",
   },
@@ -259,6 +217,13 @@ const PagesRoutes = [
   {
     path: "/admin/afiliasi-ucapan",
     component: lazy(() => import("../../view/pages/produk-wo/afiliasi-ucapan")),
+    layout: "VerticalLayout",
+  },
+
+  // PAGES
+  {
+    path: "/admin/blank-page",
+    component: lazy(() => import("../../view/pages/blank")),
     layout: "VerticalLayout",
   },
 

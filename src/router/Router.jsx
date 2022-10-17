@@ -82,10 +82,11 @@ export default function Router() {
       return (
         <Route path={LayoutPaths} key={index}>
           <LayoutTag>
-            <Switch>
-              {LayoutRoutes.map((route) => {
-                if (route.noNeedAuth) {
-                  return (
+            {/* <Switch> */}
+            {LayoutRoutes.map((route) => {
+              if (route.noNeedAuth) {
+                return (
+                  <Switch>
                     <Route
                       key={route.path}
                       path={route.path}
@@ -112,9 +113,11 @@ export default function Router() {
                         );
                       }}
                     />
-                  );
-                } else {
-                  return (
+                  </Switch>
+                );
+              } else {
+                return (
+                  <Switch>
                     <PrivateRoute>
                       <Route
                         key={route.path}
@@ -143,10 +146,11 @@ export default function Router() {
                         }}
                       />
                     </PrivateRoute>
-                  );
-                }
-              })}
-            </Switch>
+                  </Switch>
+                );
+              }
+            })}
+            {/* </Switch> */}
           </LayoutTag>
         </Route>
       );
