@@ -1,11 +1,17 @@
 import { Button, Form, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const [user, setUser] = useState(null)
+
+  useEffect(async () => {
+    setUser(await getOneUser(props.location.state.id))
+  }, [])
 
   return (
     <CardForm title={title}>
@@ -21,28 +27,42 @@ const index = (props) => {
           label="Nama"
           name="nama"
         >
-          <p>Nama User</p>
+          <p>{user && user.data.data.name}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Username"
+          name="username"
+        >
+          <p>{user && user.data.data.username}</p>
         </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
         >
-          <p>Email user</p>
-        </Form.Item>
-
-        <Form.Item
-          label="Level"
-          name="level"
-        >
-          <p>Level user</p>
+          <p>{user && user.data.data.email}</p>
         </Form.Item>
 
         <Form.Item
           label="Status"
           name="status"
         >
-          <p>Status user</p>
+          <p>{user && user.data.data.status}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Creator"
+          name="creator"
+        >
+          <p>{user && user.data.data.creator}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Editor"
+          name="Editor"
+        >
+          <p>{user && user.data.data.creator}</p>
         </Form.Item>
 
         <Form.Item
