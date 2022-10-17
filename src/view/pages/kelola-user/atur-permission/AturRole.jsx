@@ -6,17 +6,15 @@ import Data from './RoleData'
 import Column from './RoleColumn'
 
 const AturRole = () => {
-  const [data, setData] = useState([])
+  // const [data, setData] = useState([])
 
   return (
-    <TableCard setData={setData} Data={Data}>
-
+    <TableCard >
       <Row>
         <Col span={24}>
-          <TableDisplay data={data} column={Column} />
+          <TableDisplay data={Data} column={Column} addButton={true} />
         </Col>
       </Row>
-
     </TableCard>
   )
 }

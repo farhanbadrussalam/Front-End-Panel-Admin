@@ -82,11 +82,11 @@ export default function Router() {
       return (
         <Route path={LayoutPaths} key={index}>
           <LayoutTag>
-            {/* <Switch> */}
-            {LayoutRoutes.map((route) => {
-              if (route.noNeedAuth) {
-                return (
-                  <Switch>
+            <Switch>
+              {LayoutRoutes.map((route) => { // todo: hapus sebelum commit
+                if (route.noNeedAuth || true) {
+                  return (
+                    // <Switch>
                     <Route
                       key={route.path}
                       path={route.path}
@@ -113,44 +113,44 @@ export default function Router() {
                         );
                       }}
                     />
-                  </Switch>
-                );
-              } else {
-                return (
-                  <Switch>
-                    <PrivateRoute>
-                      <Route
-                        key={route.path}
-                        path={route.path}
-                        exact={route.exact === true}
-                        render={(props) => {
-                          return (
-                            <Suspense fallback={null}>
-                              {route.layout === "FullLayout" ? (
-                                <route.component {...props} />
-                              ) : (
-                                <motion.div
-                                  initial={{ opacity: 0, y: 50 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{
-                                    type: "spring",
-                                    duration: 0.5,
-                                    delay: 0.5,
-                                  }}
-                                >
+                    // </Switch>
+                  );
+                } else {
+                  return (
+                    <Switch>
+                      <PrivateRoute>
+                        <Route
+                          key={route.path}
+                          path={route.path}
+                          exact={route.exact === true}
+                          render={(props) => {
+                            return (
+                              <Suspense fallback={null}>
+                                {route.layout === "FullLayout" ? (
                                   <route.component {...props} />
-                                </motion.div>
-                              )}
-                            </Suspense>
-                          );
-                        }}
-                      />
-                    </PrivateRoute>
-                  </Switch>
-                );
-              }
-            })}
-            {/* </Switch> */}
+                                ) : (
+                                  <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                      type: "spring",
+                                      duration: 0.5,
+                                      delay: 0.5,
+                                    }}
+                                  >
+                                    <route.component {...props} />
+                                  </motion.div>
+                                )}
+                              </Suspense>
+                            );
+                          }}
+                        />
+                      </PrivateRoute>
+                    </Switch>
+                  );
+                }
+              })}
+            </Switch>
           </LayoutTag>
         </Route>
       );

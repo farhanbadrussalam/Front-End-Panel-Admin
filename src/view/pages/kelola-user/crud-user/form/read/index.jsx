@@ -7,11 +7,10 @@ import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
-  const [user, setUser] = useState(null)
+  const id = props.location.state.id
 
-  useEffect(async () => {
-    setUser(await getOneUser(props.location.state.id))
-  }, [])
+  const { data: user } = getOneUser(id)
+  console.log(user);
 
   return (
     <CardForm title={title}>
@@ -27,42 +26,42 @@ const index = (props) => {
           label="Nama"
           name="nama"
         >
-          <p>{user && user.data.data.name}</p>
+          <p>{user && user.name}</p>
         </Form.Item>
 
         <Form.Item
           label="Username"
           name="username"
         >
-          <p>{user && user.data.data.username}</p>
+          <p>{user && user.username}</p>
         </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
         >
-          <p>{user && user.data.data.email}</p>
+          <p>{user && user.email}</p>
         </Form.Item>
 
         <Form.Item
           label="Status"
           name="status"
         >
-          <p>{user && user.data.data.status}</p>
+          <p>{user && user.status}</p>
         </Form.Item>
 
         <Form.Item
           label="Creator"
           name="creator"
         >
-          <p>{user && user.data.data.creator}</p>
+          <p>{user && user.creator}</p>
         </Form.Item>
 
         <Form.Item
           label="Editor"
           name="Editor"
         >
-          <p>{user && user.data.data.creator}</p>
+          <p>{user && user.creator}</p>
         </Form.Item>
 
         <Form.Item

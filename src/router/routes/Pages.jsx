@@ -173,9 +173,23 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
+    path: "/admin/policy-user/edit/:roleid",
+    component: lazy(() =>
+      import("../../view/pages/kelola-user/atur-permission/form/update")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/policy-user/create",
+    component: lazy(() =>
+      import("../../view/pages/kelola-user/atur-permission/form/create")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
     path: "/admin/policy-user",
     component: lazy(() =>
-      import("../../view/pages/kelola-user/atur-role-user")
+      import("../../view/pages/kelola-user/atur-permission")
     ),
     layout: "VerticalLayout",
   },
