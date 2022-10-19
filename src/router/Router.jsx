@@ -67,6 +67,7 @@ export default function Router() {
   const ResolveRoutes = () => {
     return Object.keys(Layouts).map((layout, index) => {
       const { LayoutRoutes, LayoutPaths } = LayoutRoutesAndPaths(layout);
+      const auth = localStorage.getItem("token");
 
       let LayoutTag;
       if (DefaultLayout == "HorizontalLayout") {
@@ -114,8 +115,8 @@ export default function Router() {
                     />
                   );
                 } else {
-                  return (
-                    <PrivateRoute>
+                  if (auth) {
+                    return (
                       <Route
                         key={route.path}
                         path={route.path}
@@ -142,8 +143,20 @@ export default function Router() {
                           );
                         }}
                       />
-                    </PrivateRoute>
-                  );
+                    );
+                  } else {
+                    return (
+                      <Route
+                        render={() => (
+                          <Redirect
+                            to={{
+                              pathname: "/admin/login",
+                            }}
+                          />
+                        )}
+                      />
+                    );
+                  }
                 }
               })}
             </Switch>
