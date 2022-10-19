@@ -1,13 +1,23 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { postCustomer } from '../../../../../../api/customer/postCustomer';
 
 const index = () => {
   const history = useHistory()
 
-  const onFinish = (values) => {
-    alert('Success:', values);
+  const onFinish = async (values) => {
+    values.wedding_organizer_id = 1
+
+    const success = await postCustomer(values)
+    if (success.data.success) {
+      message.success('Berhasil menambahkan customer')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal menambahkan customer')
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -15,7 +25,7 @@ const index = () => {
   };
 
   return (
-    <CardForm title="Tambah data . . . .">
+    <CardForm title="Tambah data customer">
       <Form
         name="basic"
         labelCol={{
@@ -30,7 +40,7 @@ const index = () => {
       >
         <Form.Item
           label="Nama"
-          name="nama"
+          name="name"
           rules={[
             {
               required: true,
@@ -56,15 +66,27 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Nomor telp"
+          name="phone"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <InputNumber />
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Alamat"
+          name="address"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
 
         <Form.Item
