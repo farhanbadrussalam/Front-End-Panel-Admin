@@ -20,7 +20,7 @@ export const getUsers = (url = "http://127.0.0.1:8000/api/users") => {
     axios
       .get(url, {
         headers: {
-          Authorization: "Bearer 5|0HCSR3sQeuygpAXv5tfdoZH6ls5tkyPH9XEydT8F",
+          Authorization: localStorage.getItem("token"),
         },
       })
       .then((res) => setData(res.data.data.data))

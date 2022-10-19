@@ -2,17 +2,21 @@ import { Button, Form, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { getOneCustomer } from '../../../../../../api/customer/getOneCustomer';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
+
+  const { data: customer } = getOneCustomer(id)
 
   return (
     <CardForm title={title}>
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         autoComplete="off"
         size='small'
@@ -21,33 +25,47 @@ const index = (props) => {
           label="Nama"
           name="nama"
         >
-          <p>Nama User</p>
+          <p>{customer && customer.name}</p>
         </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
         >
-          <p>Email user</p>
+          <p>{customer && customer.email}</p>
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Phone"
+          name="phone"
         >
-          <p>Level user</p>
+          <p>{customer && customer.phone}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Address"
+          name="address"
+        >
+          <p>{customer && customer.address}</p>
         </Form.Item>
 
         <Form.Item
           label="Status"
           name="status"
         >
-          <p>Status user</p>
+          <p>{customer && customer.status}</p>
+        </Form.Item>
+        <Form.Item
+
+          label="Wedding Organizer"
+          name="wedding-organizer"
+        >
+          <p>{customer && customer.wedding_organizer.name}</p>
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >
