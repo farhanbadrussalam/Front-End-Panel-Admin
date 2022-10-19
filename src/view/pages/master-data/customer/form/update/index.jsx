@@ -1,14 +1,27 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, InputNumber, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { getOneCustomer } from '../../../../../../api/customer/getOneCustomer';
+import { putCostumer } from '../../../../../../api/customer/putCustomer';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
 
-  const onFinish = (values) => {
-    alert('Success:', values);
+  const { data: customer } = getOneCustomer(id)
+
+  const onFinish = async (values) => {
+    values.wedding_organizer_id = customer.wedding_organizer.id
+    const success = await putCostumer(values, id)
+    if (success.data.success) {
+      message.success('Berhasil mengubah data customer')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal mengubah data customer')
+    }
   };
 
   return (
@@ -23,12 +36,34 @@ const index = (props) => {
         }}
         onFinish={onFinish}
         autoComplete="off"
+        fields={[
+          {
+            name: 'name',
+            value: customer && customer.name
+          },
+          {
+            name: 'email',
+            value: customer && customer.email
+          },
+          {
+            name: 'phone',
+            value: customer && customer.phone
+          },
+          {
+            name: 'address',
+            value: customer && customer.address
+          },
+          {
+            name: 'status',
+            value: customer && customer.status
+          },
+        ]}
       >
         <Form.Item
           label="Nama"
-          name="nama"
+          name="name"
         >
-          <Input value="Nama user" placeholder='Nama user' />
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -40,14 +75,28 @@ const index = (props) => {
             },
           ]}
         >
-          <Input value="Email user" placeholder='Email user' />
+          <Input />
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Phone"
+          name="phone"
         >
-          <InputNumber value="Value user" placeholder='Value user' />
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Address"
+          name="address"
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Status"
+          name="status"
+        >
+          <InputNumber />
         </Form.Item>
 
         <Form.Item

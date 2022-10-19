@@ -53,7 +53,6 @@ const PagesRoutes = [
     ),
     layout: "VerticalLayout",
   },
-
   {
     path: "/admin/pengantin/detail/:userid",
     component: lazy(() =>
@@ -80,7 +79,6 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/master-data/pengantin")),
     layout: "VerticalLayout",
   },
-
   {
     path: "/admin/customer/detail/:userid",
     component: lazy(() =>
@@ -107,7 +105,6 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/master-data/customer")),
     layout: "VerticalLayout",
   },
-
   {
     path: "/admin/produk-ucapan-digital/detail/:userid",
     component: lazy(() =>

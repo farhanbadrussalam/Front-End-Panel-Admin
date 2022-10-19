@@ -67,6 +67,7 @@ export default function Router() {
   const ResolveRoutes = () => {
     return Object.keys(Layouts).map((layout, index) => {
       const { LayoutRoutes, LayoutPaths } = LayoutRoutesAndPaths(layout);
+      const auth = localStorage.getItem("token");
 
       let LayoutTag;
       if (DefaultLayout == "HorizontalLayout") {
@@ -83,10 +84,9 @@ export default function Router() {
         <Route path={LayoutPaths} key={index}>
           <LayoutTag>
             <Switch>
-              {LayoutRoutes.map((route) => { // todo: hapus sebelum commit
-                if (route.noNeedAuth || true) {
+              {LayoutRoutes.map((route) => {
+                if (route.noNeedAuth) {
                   return (
-                    // <Switch>
                     <Route
                       key={route.path}
                       path={route.path}
@@ -113,41 +113,50 @@ export default function Router() {
                         );
                       }}
                     />
-                    // </Switch>
                   );
                 } else {
-                  return (
-                    <Switch>
-                      <PrivateRoute>
-                        <Route
-                          key={route.path}
-                          path={route.path}
-                          exact={route.exact === true}
-                          render={(props) => {
-                            return (
-                              <Suspense fallback={null}>
-                                {route.layout === "FullLayout" ? (
+                  if (auth) {
+                    return (
+                      <Route
+                        key={route.path}
+                        path={route.path}
+                        exact={route.exact === true}
+                        render={(props) => {
+                          return (
+                            <Suspense fallback={null}>
+                              {route.layout === "FullLayout" ? (
+                                <route.component {...props} />
+                              ) : (
+                                <motion.div
+                                  initial={{ opacity: 0, y: 50 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{
+                                    type: "spring",
+                                    duration: 0.5,
+                                    delay: 0.5,
+                                  }}
+                                >
                                   <route.component {...props} />
-                                ) : (
-                                  <motion.div
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{
-                                      type: "spring",
-                                      duration: 0.5,
-                                      delay: 0.5,
-                                    }}
-                                  >
-                                    <route.component {...props} />
-                                  </motion.div>
-                                )}
-                              </Suspense>
-                            );
-                          }}
-                        />
-                      </PrivateRoute>
-                    </Switch>
-                  );
+                                </motion.div>
+                              )}
+                            </Suspense>
+                          );
+                        }}
+                      />
+                    );
+                  } else {
+                    return (
+                      <Route
+                        render={() => (
+                          <Redirect
+                            to={{
+                              pathname: "/admin/login",
+                            }}
+                          />
+                        )}
+                      />
+                    );
+                  }
                 }
               })}
             </Switch>

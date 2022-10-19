@@ -1,31 +1,31 @@
 import { Button, Form, Input, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
-import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { postCustomer } from '../../../../../../api/customer/postCustomer';
 
-const index = () => {
+import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { putUser } from '../../../../../../api/kelola-user/putUser';
+import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
+
+const index = (props) => {
   const history = useHistory()
+  const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
+
+  const { data: user } = getOneUser(id)
 
   const onFinish = async (values) => {
-    values.wedding_organizer_id = 1
+    values.status = 1
+    const success = await putUser(values, id)
 
-    const success = await postCustomer(values)
-    if (success.data.success) {
-      message.success('Berhasil menambahkan customer')
+    if (success.success) {
+      message.success('Berhasil mengubah data user')
       history.goBack()
     }
-    else {
-      message.error('Gagal menambahkan customer')
-    }
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    alert('Failed:', errorInfo);
+    else message.error('Gagal mengubah data user')
   };
 
   return (
-    <CardForm title="Tambah data customer">
+    <CardForm title={title} >
       <Form
         name="basic"
         labelCol={{
@@ -35,20 +35,20 @@ const index = () => {
           span: 14,
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
           label="Nama"
           name="name"
-          rules={[
-            {
-              required: true,
-              message: 'Mohon masukkan nama!',
-            },
-          ]}
         >
-          <Input />
+          <Input placeholder={user && user.name} />
+        </Form.Item>
+
+        <Form.Item
+          label="Username"
+          name="username"
+        >
+          <Input placeholder={user && user.username} />
         </Form.Item>
 
         <Form.Item
@@ -56,37 +56,18 @@ const index = () => {
           name="email"
           rules={[
             {
-              required: true,
               type: 'email',
-              message: 'Mohon masukkan email!',
             },
           ]}
         >
-          <Input />
+          <Input placeholder={user && user.email} />
         </Form.Item>
 
         <Form.Item
-          label="Nomor telp"
-          name="phone"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          label="Password"
+          name="password"
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Alamat"
-          name="address"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
+          <Input.Password minLength={8} />
         </Form.Item>
 
         <Form.Item
