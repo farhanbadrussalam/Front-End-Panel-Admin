@@ -1,13 +1,6 @@
 import { lazy } from "react";
 
 const PagesRoutes = [
-  // PAGES
-  {
-    path: "/admin/blank-page",
-    component: lazy(() => import("../../view/pages/blank")),
-    layout: "VerticalLayout",
-  },
-
   // AUTH
   {
     path: "/admin/login",
@@ -177,9 +170,23 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
+    path: "/admin/policy-user/edit/:roleid",
+    component: lazy(() =>
+      import("../../view/pages/kelola-user/atur-permission/form/update")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/policy-user/create",
+    component: lazy(() =>
+      import("../../view/pages/kelola-user/atur-permission/form/create")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
     path: "/admin/policy-user",
     component: lazy(() =>
-      import("../../view/pages/kelola-user/atur-role-user")
+      import("../../view/pages/kelola-user/atur-permission")
     ),
     layout: "VerticalLayout",
   },
@@ -221,6 +228,13 @@ const PagesRoutes = [
   {
     path: "/admin/afiliasi-ucapan",
     component: lazy(() => import("../../view/pages/produk-wo/afiliasi-ucapan")),
+    layout: "VerticalLayout",
+  },
+
+  // PAGES
+  {
+    path: "/admin/blank-page",
+    component: lazy(() => import("../../view/pages/blank")),
     layout: "VerticalLayout",
   },
 
