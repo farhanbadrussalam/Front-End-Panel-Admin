@@ -205,9 +205,30 @@ const PagesRoutes = [
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/produk-ucapan-user/:userid",
+    path: "/admin/produk-ucapan-user/create/:userid",
     component: lazy(() =>
-      import("../../view/pages/produk-wo/produk-ucapan-user/produk")
+      import("../../view/pages/produk-wo/produk-ucapan-user/form/create")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/produk-ucapan-user/detail/:userid",
+    component: lazy(() =>
+      import("../../view/pages/produk-wo/produk-ucapan-user/form/read")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/produk-ucapan-user/edit/:userid",
+    component: lazy(() =>
+      import("../../view/pages/produk-wo/produk-ucapan-user")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/produk-ucapan-user/delete/:userid",
+    component: lazy(() =>
+      import("../../view/pages/produk-wo/produk-ucapan-user")
     ),
     layout: "VerticalLayout",
   },

@@ -4,12 +4,18 @@ import React, { useState, useEffect } from "react";
 
 import TableSearch from "./TableSearch";
 
-const TableDisplay = ({ data, column, addButton }) => {
-  const [tableData, setTableData] = useState([])
+const TableDisplay = ({
+  data,
+  column,
+  addButton,
+  createLink = `${window.location.pathname}/create`,
+  colomWidth = 400,
+}) => {
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    setTableData(data)
-  }, [data])
+    setTableData(data);
+  }, [data]);
 
   return (
     <>
@@ -23,22 +29,20 @@ const TableDisplay = ({ data, column, addButton }) => {
         </Col>
         {addButton ? (
           <Col span={10} className="button-right">
-            <Link to={`${window.location.pathname}/create`}>
+            <Link to={createLink}>
               <Button type="primary" danger size="small">
                 Tambah Data
               </Button>
             </Link>
           </Col>
-        ) : (
-          undefined
-        )}
+        ) : undefined}
       </Row>
 
       <Table
         size="small"
         columns={column}
         dataSource={tableData}
-        scroll={{ x: 400 }}
+        scroll={{ x: colomWidth, y: 300 }}
         className="master-table"
         expandable={{
           expandedRowRender: () => (
