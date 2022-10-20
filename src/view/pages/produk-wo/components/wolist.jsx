@@ -1,35 +1,35 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 
-import List from "../../../components/custom-components/wo-list";
+// import List from "../../../components/custom-components/wo-list";
 
 export default function WoList({ baseLink }) {
-  const [data, setData] = useState([{}]);
-  useEffect(async () => {
-    await axios({
-      method: "GET",
-      url: "http://127.0.0.1:8000/api/wedding-organizers",
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    })
-      .then((d) => {
-        console.log(d.data.data);
-        setData(
-          d.data.data.map((dataChunk) => {
-            return {
-              title: dataChunk.name,
-              description: `${dataChunk.phone} | ${dataChunk.email}`,
-              key: dataChunk.id,
-              link: `${baseLink}/${dataChunk.id}`,
-            };
-          })
-        );
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  // const [data, setData] = useState([{}]);
+  // useEffect(async () => {
+  //   await axios({
+  //     method: "GET",
+  //     url: "http://127.0.0.1:8000/api/wedding-organizers",
+  //     headers: {
+  //       Authorization: localStorage.getItem("token"),
+  //     },
+  //   })
+  //     .then((d) => {
+  //       console.log(d.data.data);
+  //       setData(
+  //         d.data.data.map((dataChunk) => {
+  //           return {
+  //             title: dataChunk.name,
+  //             description: `${dataChunk.phone} | ${dataChunk.email}`,
+  //             key: dataChunk.id,
+  //             link: `${baseLink}/${dataChunk.id}`,
+  //           };
+  //         })
+  //       );
+  //     })
+  //     .catch((e) => console.log(e));
+  // }, []);
 
-  console.log(data);
+  // console.log(data);
 
-  return <List dataWO={data} />;
+  return <div></div>;
 }

@@ -1,7 +1,34 @@
-import WoList from "../components/wolist";
+import { useParams } from "react-router-dom";
 
-const index = () => {
-  return <WoList baseLink={"produk-ucapan-user"} />;
-};
+import { getProducts } from "../../../../api/produk-wo/getProducts";
 
-export default index;
+import { Row, Col } from "antd";
+
+import TableCard from "../../../components/custom-components/TableCard";
+import TableDisplay from "../../../components/custom-components/TableDisplay";
+
+import Column from "./UserColumn";
+
+export default function index() {
+  const { data } = getProducts();
+  const { userid } = useParams();
+
+  return (
+    <>
+      <TableCard>
+        <Row>
+          <Col span={24}>
+            <TableDisplay
+              data={data}
+              column={Column}
+              addButton={true}
+              createLink={`${window.location.pathname
+                .replace(`/${userid}`, "")
+                .replace(/\s\s+/g, " ")}/create/${userid}`}
+            />
+          </Col>
+        </Row>
+      </TableCard>
+    </>
+  );
+}

@@ -11,8 +11,17 @@ const PagesRoutes = [
   // AUTH
   {
     path: "/admin/login",
-    component: lazy(() => import("../../view/pages/authenticationAdmin")),
+    component: lazy(() => import("../../view/pages/authenticationAdmin/Login")),
     layout: "FullLayout",
+    noNeedAuth: true,
+  },
+  {
+    path: "/admin/register",
+    component: lazy(() =>
+      import("../../view/pages/authenticationAdmin/Register")
+    ),
+    layout: "FullLayout",
+    noNeedAuth: true,
   },
 
   // Pages admin
@@ -51,7 +60,6 @@ const PagesRoutes = [
     ),
     layout: "VerticalLayout",
   },
-
   {
     path: "/admin/pengantin/detail/:userid",
     component: lazy(() =>
@@ -78,7 +86,6 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/master-data/pengantin")),
     layout: "VerticalLayout",
   },
-
   {
     path: "/admin/customer/detail/:userid",
     component: lazy(() =>
@@ -105,7 +112,6 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/master-data/customer")),
     layout: "VerticalLayout",
   },
-
   {
     path: "/admin/produk-ucapan-digital/detail/:userid",
     component: lazy(() =>

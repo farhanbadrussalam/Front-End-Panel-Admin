@@ -1,7 +1,8 @@
 import { Space, Popover, Modal } from "antd";
 import { Link } from "react-router-dom";
 import { Edit, Trash, Eye, Danger } from "iconsax-react";
-import { deleteUser } from "../../../../../api/kelola-user/deleteUser";
+
+import { deleteProduct } from "../../../../api/produk-wo/deleteProduct";
 
 const { confirm } = Modal;
 const showModal = (id, name) => {
@@ -12,44 +13,59 @@ const showModal = (id, name) => {
     cancelText: "Batal",
     okType: "primary",
     onOk() {
-      deleteUser(id);
-      window.location.reload(false);
+      deleteProduct(id);
+      window.location.reload(true);
     },
   });
 };
 
 const columns = [
   {
-    title: "ID",
-    dataIndex: "id",
-    key: "product_id",
+    title: "Nama",
+    dataIndex: "name",
+    key: "name",
   },
 
   {
-    title: "Quota",
-    dataIndex: "quota",
-    key: "quota",
+    title: "Harga",
+    dataIndex: "price",
+    key: "price",
   },
 
   {
-    title: "Active Date",
-    dataIndex: "active_date",
-    key: "active_date",
+    title: "Deskripsi",
+    dataIndex: "description",
+    key: "description",
+  },
+
+  {
+    title: "Kategori Produk",
+    dataIndex: "product_category",
+    key: "product_category",
+  },
+
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
   },
 
   {
     title: "Action",
     key: "action",
+    width: 200,
+    fixed: "right",
     render: (payload) => (
       <Space size="large" className="icons-container">
         <Popover content={"Detail"}>
           <Link
             to={{
-              pathname: `crud-user/detail/${payload.id}`,
+              pathname: `/admin/produk-ucapan-user/detail/${payload.id}`,
               state: {
                 permission: "Detail",
-                data: "User",
+                dataType: "Produk WO",
                 id: payload.id,
+                data: payload,
               },
             }}
           >
@@ -73,12 +89,14 @@ const columns = [
         </Popover>
 
         <Popover content={"Delete"}>
-          <Trash
-            color="red"
-            size={20}
-            className="trash"
-            onClick={() => showModal(payload.id, payload.name)}
-          />
+          <Link
+            onClick={(e) => {
+              e.preventDefault();
+              showModal(payload.id, payload.name);
+            }}
+          >
+            <Trash color="red" size={20} />
+          </Link>
         </Popover>
       </Space>
     ),

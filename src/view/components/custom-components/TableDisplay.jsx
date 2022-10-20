@@ -9,6 +9,7 @@ const TableDisplay = ({
   column,
   addButton,
   createLink = `${window.location.pathname}/create`,
+  colomWidth = 400,
 }) => {
   const [tableData, setTableData] = useState([]);
 
@@ -41,7 +42,7 @@ const TableDisplay = ({
         size="small"
         columns={column}
         dataSource={tableData}
-        scroll={{ x: 400 }}
+        scroll={{ x: colomWidth, y: 300 }}
         className="master-table"
         expandable={{
           expandedRowRender: () => (

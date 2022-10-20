@@ -1,17 +1,17 @@
-import { Button, Form, Space } from 'antd';
-import { useHistory } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+
+import { Input, Form, Space, Button } from "antd";
+import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
+
+import "./style.css";
 
 const index = (props) => {
-  const history = useHistory()
-  const title = `${props.location.state.permission} Data ${props.location.state.data}`
-  const [user, setUser] = useState(null)
-
-  useEffect(async () => {
-    setUser(await getOneUser(props.location.state.id))
-  }, [])
+  const history = useHistory();
+  const id = props.location.state.id;
+  const data = props.location.state.data;
+  console.log(data);
+  const title = `${props.location.state.permission} Data ${props.location.state.dataType}`;
 
   return (
     <CardForm title={title}>
@@ -20,68 +20,68 @@ const index = (props) => {
         labelCol={{
           span: 4,
         }}
+        wrapperCol={{
+          span: 14,
+        }}
         autoComplete="off"
-        size='small'
+        disabled={true}
       >
-        <Form.Item
-          label="Nama"
-          name="nama"
-        >
-          <p>{user && user.data.data.name}</p>
+        <Form.Item label="ID" name="id">
+          <Input
+            defaultValue={id}
+            className="custom-input-produk-ucapan-user"
+          />
         </Form.Item>
 
-        <Form.Item
-          label="Username"
-          name="username"
-        >
-          <p>{user && user.data.data.username}</p>
+        <Form.Item label="Nama" name="name">
+          <Input
+            defaultValue={data.name}
+            className="custom-input-produk-ucapan-user"
+          />
         </Form.Item>
 
-        <Form.Item
-          label="Email"
-          name="email"
-        >
-          <p>{user && user.data.data.email}</p>
+        <Form.Item label="Harga" name="price">
+          <Input
+            defaultValue={data.price}
+            className="custom-input-produk-ucapan-user"
+          />
         </Form.Item>
 
-        <Form.Item
-          label="Status"
-          name="status"
-        >
-          <p>{user && user.data.data.status}</p>
+        <Form.Item label="Deskripsi" name="description">
+          <Input
+            defaultValue={data.description}
+            className="custom-input-produk-ucapan-user"
+          />
         </Form.Item>
 
-        <Form.Item
-          label="Creator"
-          name="creator"
-        >
-          <p>{user && user.data.data.creator}</p>
+        <Form.Item label="Kategori Produk" name="product_category">
+          <Input
+            defaultValue={data.product_category}
+            className="custom-input-produk-ucapan-user"
+          />
         </Form.Item>
 
-        <Form.Item
-          label="Editor"
-          name="Editor"
-        >
-          <p>{user && user.data.data.creator}</p>
+        <Form.Item label="Status" name="status">
+          <Input
+            defaultValue={data.status}
+            className="custom-input-produk-ucapan-user"
+          />
         </Form.Item>
 
-        <Form.Item
-          wrapperCol={{
-            offset: 4,
-            span: 4,
-          }}
-        >
-          <Space size='middle'>
-            <Button danger htmlType="button" onClick={() => history.goBack()}>
-              Kembali
-            </Button>
-          </Space>
+        <Form.Item label="Pengantin" name="bride">
+          <Input className="custom-input-produk-ucapan-user" />
         </Form.Item>
 
+        <Form.Item label="WO" name="wo">
+          <Input className="custom-input-produk-ucapan-user" />
+        </Form.Item>
       </Form>
+
+      <Button danger onClick={() => history.goBack()}>
+        Kembali
+      </Button>
     </CardForm>
   );
 };
 
-
-export default index
+export default index;
