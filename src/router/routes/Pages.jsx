@@ -239,6 +239,14 @@ const PagesRoutes = [
     ),
     layout: "VerticalLayout",
   },
+
+  // pages artikel
+  {
+    path: "/admin/crud-artikel",
+    component: lazy(() => import("../../view/pages/artikel")),
+    layout: "VerticalLayout",
+  },
+
   {
     path: "/admin/afiliasi-ucapan/:userid",
     component: lazy(() =>
