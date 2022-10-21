@@ -56,21 +56,21 @@ const PagesRoutes = [
   {
     path: "/admin/pengantin/detail/:userid",
     component: lazy(() =>
-      import("../../view/pages/master-data/pengantin/form2/read")
+      import("../../view/pages/master-data/pengantin/form/read")
     ),
     layout: "VerticalLayout",
   },
   {
     path: "/admin/pengantin/edit/:userid",
     component: lazy(() =>
-      import("../../view/pages/master-data/pengantin/form2/update")
+      import("../../view/pages/master-data/pengantin/form/update")
     ),
     layout: "VerticalLayout",
   },
   {
     path: "/admin/pengantin/create",
     component: lazy(() =>
-      import("../../view/pages/master-data/pengantin/form2/create")
+      import("../../view/pages/master-data/pengantin/form/create")
     ),
     layout: "VerticalLayout",
   },
