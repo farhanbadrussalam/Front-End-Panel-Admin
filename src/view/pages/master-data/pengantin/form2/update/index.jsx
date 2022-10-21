@@ -17,7 +17,6 @@ const index = (props) => {
   useEffect(async () => {
     setDate(bride?.wedding_date)
     setTime(bride?.wedding_time)
-    console.log(bride);
   }, [bride])
 
   const onFinish = async (values) => {
@@ -84,35 +83,35 @@ const index = (props) => {
         ]}
       >
         <Form.Item
-          label="Groom"
+          label="Pengantin Pria"
           name="groom"
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Bride"
+          label="Pengantin Wanita"
           name="bride"
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Phone"
+          label="No Telp"
           name="phone"
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Address"
+          label="Alamat"
           name="address"
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Wedding Date"
+          label="Tanggal Pernikahan"
           name="wedding_date"
         >
           <DatePicker
@@ -126,7 +125,7 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Wedding Time"
+          label="Waktu Pernikahan"
           name="wedding_time"
         >
           <TimePicker
@@ -140,14 +139,14 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Wedding Address"
+          label="Alamat Pernikahan"
           name="wedding_address"
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Wedding Place"
+          label="Tempat Pernikahan"
           name="wedding_place"
         >
           <Input />

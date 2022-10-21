@@ -1,7 +1,9 @@
-import { Button, Form, Space } from 'antd';
+import { Button, Form, Input, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { putUser } from '../../../../../../api/kelola-user/putUser';
 import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
 
 const index = (props) => {
@@ -10,58 +12,62 @@ const index = (props) => {
   const id = props.location.state.id
 
   const { data: user } = getOneUser(id)
-  console.log(user);
+
+  const onFinish = async (values) => {
+    values.status = 1
+    const success = await putUser(values, id)
+
+    if (success.success) {
+      message.success('Berhasil mengubah data user')
+      history.goBack()
+    }
+    else message.error('Gagal mengubah data user')
+  };
 
   return (
-    <CardForm title={title}>
+    <CardForm title={title} >
       <Form
         name="basic"
         labelCol={{
           span: 4,
         }}
+        wrapperCol={{
+          span: 14,
+        }}
+        onFinish={onFinish}
         autoComplete="off"
-        size='small'
       >
         <Form.Item
           label="Nama"
-          name="nama"
+          name="name"
         >
-          <p>{user && user.name}</p>
+          <Input placeholder={user && user.name} />
         </Form.Item>
 
         <Form.Item
           label="Username"
           name="username"
         >
-          <p>{user && user.username}</p>
+          <Input placeholder={user && user.username} />
         </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
+          rules={[
+            {
+              type: 'email',
+            },
+          ]}
         >
-          <p>{user && user.email}</p>
+          <Input placeholder={user && user.email} />
         </Form.Item>
 
         <Form.Item
-          label="Status"
-          name="status"
+          label="Password"
+          name="password"
         >
-          <p>{user && user.status}</p>
-        </Form.Item>
-
-        <Form.Item
-          label="Creator"
-          name="creator"
-        >
-          <p>{user && user.creator}</p>
-        </Form.Item>
-
-        <Form.Item
-          label="Editor"
-          name="Editor"
-        >
-          <p>{user && user.creator}</p>
+          <Input.Password minLength={8} />
         </Form.Item>
 
         <Form.Item
@@ -71,8 +77,11 @@ const index = (props) => {
           }}
         >
           <Space size='middle'>
+            <Button type='primary' danger htmlType="submit">
+              Simpan
+            </Button>
             <Button danger htmlType="button" onClick={() => history.goBack()}>
-              Kembali
+              Batal
             </Button>
           </Space>
         </Form.Item>

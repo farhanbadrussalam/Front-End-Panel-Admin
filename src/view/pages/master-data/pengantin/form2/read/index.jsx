@@ -1,4 +1,4 @@
-import { Button, Form, Space } from 'antd';
+import { Button, Form, Space, DatePicker, TimePicker, Input } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
@@ -15,96 +15,132 @@ const index = (props) => {
       <Form
         name="basic"
         labelCol={{
-          span: 6,
+          span: 7,
         }}
         wrapperCol={{
           span: 14,
         }}
         autoComplete="off"
-        size='small'
       >
         <Form.Item
-          label="Groom"
+          label="Pengantin Pria"
           name="groom"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan nama pengantin pria',
+            },
+          ]}
         >
-          <p>{bride?.groom}</p>
+          <p>{bride && bride.groom}</p>
         </Form.Item>
 
         <Form.Item
-          label="Bride"
+          label="Pengantin Wanita"
           name="bride"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan nama pengantin wanita',
+            },
+          ]}
         >
-          <p>{bride?.bride}</p>
+          <p>{bride && bride.bride}</p>
         </Form.Item>
 
         <Form.Item
-          label="Phone"
+          label="Nomor Telp"
           name="phone"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>{bride?.phone}</p>
+          <p>{bride && bride.phone}</p>
         </Form.Item>
 
         <Form.Item
-          label="Address"
+          label="Alamat"
           name="address"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>{bride?.address}</p>
+          <p>{bride && bride.address}</p>
         </Form.Item>
 
         <Form.Item
-          label="Wedding Date"
+          label="Tanggal Pernikahan"
           name="wedding_date"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>{bride?.wedding_date}</p>
+          <p>{bride && bride.wedding_date}</p>
         </Form.Item>
 
         <Form.Item
-          label="Wedding Time"
+          label="Waktu Pernikahan"
           name="wedding_time"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>{bride?.wedding_time}</p>
+          <p>{bride && bride.wedding_time}</p>
         </Form.Item>
 
         <Form.Item
-          label="Wedding Address"
+          label="Alamat Pernikahan"
           name="wedding_address"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>{bride?.wedding_address}</p>
+          <p>{bride && bride.wedding_address}</p>
         </Form.Item>
 
         <Form.Item
-          label="Wedding Place"
+          label="Tempat Pernikahan"
           name="wedding_place"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>{bride?.wedding_place}</p>
+          <p>{bride && bride.wedding_place}</p>
         </Form.Item>
 
         <Form.Item
           label="Wedding Organizer"
           name="wedding_organizer"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>{bride?.wedding_organizer?.name}</p>
-        </Form.Item>
-
-        <Form.Item
-          label="Status"
-          name="status"
-        >
-          <p>{bride?.status}</p>
+          <p>{bride && bride.wedding_organizer?.name}</p>
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 6,
+            offset: 7,
             span: 4,
           }}
         >
           <Space size='middle'>
-            <Button type='primary' danger htmlType="submit">
-              Simpan
-            </Button>
             <Button danger htmlType="button" onClick={() => history.goBack()}>
-              Batal
+              Kembali
             </Button>
           </Space>
         </Form.Item>

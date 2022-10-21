@@ -1,6 +1,6 @@
-import { Button, Form, Input, Space, DatePicker, TimePicker, message } from 'antd';
+import { Button, Form, Input, Space, message, DatePicker, TimePicker } from 'antd';
 import { useHistory } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { postBride } from '../../../../../../api/pengantin/postBride';
 
@@ -47,12 +47,12 @@ const index = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Groom"
+          label="Pengantin Pria"
           name="groom"
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan nama',
+              message: 'Mohon masukkan nama pengantin pria',
             },
           ]}
         >
@@ -60,12 +60,12 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Bride"
+          label="Pengantin Wanita"
           name="bride"
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan nama',
+              message: 'Mohon masukkan nama pengantin wanita',
             },
           ]}
         >
@@ -73,7 +73,7 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Phone"
+          label="Nomor Telp"
           name="phone"
           rules={[
             {
@@ -85,7 +85,7 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Address"
+          label="Alamat"
           name="address"
           rules={[
             {
@@ -97,7 +97,7 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Wedding Date"
+          label="Tanggal Pernikahan"
           name="wedding_date"
           rules={[
             {
@@ -105,16 +105,15 @@ const index = () => {
             },
           ]}
         >
-          <DatePicker
-            onChange={(value, stringDate) => {
-              setDate(stringDate)
+          <DatePicker format='YYYY-MM-DD' placeholder='Tanggal'
+            onChange={(value, dateString) => {
+              setDate(dateString);
             }}
-            format="YYYY-MM-DD"
           />
         </Form.Item>
 
         <Form.Item
-          label="Wedding Time"
+          label="Waktu Pernikahan"
           name="wedding_time"
           rules={[
             {
@@ -122,16 +121,15 @@ const index = () => {
             },
           ]}
         >
-          <TimePicker
-            onChange={(value, stringTime) => {
-              setTime(stringTime)
+          <TimePicker format='HH:mm' placeholder='Waktu'
+            onChange={(value, timeString) => {
+              setTime(timeString);
             }}
-            format="HH:mm"
           />
         </Form.Item>
 
         <Form.Item
-          label="Wedding Address"
+          label="Alamat Pernikahan"
           name="wedding_address"
           rules={[
             {
@@ -143,7 +141,7 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Wedding Place"
+          label="Tempat Pernikahan"
           name="wedding_place"
           rules={[
             {
