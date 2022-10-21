@@ -1,23 +1,20 @@
 import { Row, Col } from 'antd'
-import { useState } from 'react'
 
 import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
 import Column from './PengantinColumn'
-import Data from './PengantinData'
+import { getBrides } from '../../../../api/pengantin/getBrides'
 
 const MasterDisplay = () => {
-  const [data, setData] = useState([])
+  const { data } = getBrides()
 
   return (
-    <TableCard setData={setData} Data={Data} addButton={true} >
-
+    <TableCard>
       <Row>
         <Col span={24}>
-          <TableDisplay data={data} column={Column} />
+          <TableDisplay data={data} column={Column} addButton />
         </Col>
       </Row>
-
     </TableCard>
   )
 }

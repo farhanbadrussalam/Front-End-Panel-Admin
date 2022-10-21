@@ -1,6 +1,29 @@
-import { Space, Popover } from "antd";
-import { Edit, Trash, Eye } from "iconsax-react";
+import { Space, Popover, Modal, message } from "antd";
+import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
+import { deleteBride } from "../../../../api/pengantin/deleteBride";
+
+const { confirm } = Modal;
+const showModal = (id, groom, bride) => {
+  confirm({
+    title: `Apa anda yakin ingin menghapus ${groom} ${bride}?`,
+    icon: <Danger color="red" />,
+    okText: 'Yakin',
+    cancelText: 'Batal',
+    okType: 'primary',
+    async onOk() {
+      const response = await deleteBride(id)
+      const success = response.data.success
+      if (success) {
+        message.success("Berhasil menghapus pengantin")
+        window.location.reload(false)
+      }
+      else {
+        message.error("Gagal menghapus pengantin")
+      }
+    },
+  })
+}
 
 const columns = [
   {
@@ -34,16 +57,16 @@ const columns = [
   // Kolom aksi
   {
     title: 'Action',
-    dataIndex: 'key',
     key: 'action',
-    render: (key) => (
+    render: payload => (
       <Space size="large" className="icons-container" >
         <Popover content={"Detail"}>
           <Link to={{
-            pathname: `pengantin/detail/${key}`,
+            pathname: `pengantin/detail/${payload.id}`,
             state: {
               permission: 'Detail',
-              data: 'Pengantin'
+              data: 'Pengantin',
+              id: payload.id
             },
           }} >
             <Eye size={20} />
@@ -52,10 +75,11 @@ const columns = [
 
         <Popover content={"Edit"}>
           <Link to={{
-            pathname: `pengantin/edit/${key}`,
+            pathname: `pengantin/edit/${payload.id}`,
             state: {
               permission: 'Edit',
-              data: 'Pengantin'
+              data: 'Pengantin',
+              id: payload.id
             },
           }}>
             <Edit size={20} />
@@ -63,15 +87,7 @@ const columns = [
         </Popover>
 
         <Popover content={"Delete"}>
-          <Link to={{
-            pathname: `pengantin/delete/${key}`,
-            state: {
-              permission: 'Delete',
-              data: 'Pengantin'
-            },
-          }} className="trash" >
-            <Trash color="red" size={20} />
-          </Link>
+          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.groom, payload.bride)} />
         </Popover>
       </Space>
     ),
