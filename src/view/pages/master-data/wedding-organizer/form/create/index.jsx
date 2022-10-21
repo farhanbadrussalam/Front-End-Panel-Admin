@@ -1,13 +1,22 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { postWeddingOrganizer } from '../../../../../../api/wedding-organizer/postWeddingOrganizer';
 
 const index = () => {
   const history = useHistory()
 
-  const onFinish = (values) => {
-    alert('Success:', values);
+  const onFinish = async (values) => {
+    const success = await postWeddingOrganizer(values)
+
+    if (success.data.success) {
+      message.success('Berhasil menambahkan WO')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal menambahkan WO')
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -15,7 +24,7 @@ const index = () => {
   };
 
   return (
-    <CardForm title="Tambah data . . . .">
+    <CardForm title="Tambah data customer">
       <Form
         name="basic"
         labelCol={{
@@ -29,12 +38,12 @@ const index = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Nama"
-          name="nama"
+          label="Nama WO"
+          name="name"
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan nama!',
+              message: 'Mohon masukkan nama WO',
             },
           ]}
         >
@@ -42,13 +51,13 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Email"
+          label="Email WO"
           name="email"
           rules={[
             {
               required: true,
               type: 'email',
-              message: 'Mohon masukkan email!',
+              message: 'Mohon masukkan email WO',
             },
           ]}
         >
@@ -56,15 +65,39 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Website WO"
+          name="website"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <InputNumber />
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Nomor telp WO"
+          name="phone"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Alamat WO"
+          name="address"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
 
         <Form.Item

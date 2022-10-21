@@ -2,10 +2,14 @@ import { Button, Form, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { getOneWeddingOrganizer } from '../../../../../../api/wedding-organizer/getOneWeddingOrganizer';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
+
+  const { data: wo } = getOneWeddingOrganizer(id)
 
   return (
     <CardForm title={title}>
@@ -18,31 +22,31 @@ const index = (props) => {
         size='small'
       >
         <Form.Item
-          label="Nama"
+          label="Nama WO"
           name="nama"
         >
-          <p>Nama User</p>
+          <p>{wo?.name}</p>
         </Form.Item>
 
         <Form.Item
-          label="Email"
+          label="Email WO"
           name="email"
         >
-          <p>Email user</p>
+          <p>{wo?.email}</p>
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="No telp WO"
+          name="phone"
         >
-          <p>Level user</p>
+          <p>{wo?.phone}</p>
         </Form.Item>
 
         <Form.Item
-          label="Status"
-          name="status"
+          label="Website WO"
+          name="website"
         >
-          <p>Status user</p>
+          <p>{wo?.website}</p>
         </Form.Item>
 
         <Form.Item
