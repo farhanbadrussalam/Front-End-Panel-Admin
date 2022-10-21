@@ -1,5 +1,5 @@
-import menu from "./admin";
+import adminNav from "./admin";
 
-const navigation = [...menu];
+const navigation = [...adminNav];
 
 export default navigation;

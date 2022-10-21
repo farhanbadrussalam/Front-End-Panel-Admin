@@ -1,24 +1,27 @@
-import { Sun1 } from "iconsax-react"
-
 export const dummy = [
   {
-    icon: Sun1,
-    value: 10,
-    text: "Dummy Data"
+    name: "product 1",
+    price: 1000000,
+    wo: "wo",
   },
   {
-    icon: Sun1,
-    value: 10,
-    text: "Dummy Data"
+    name: "product 2",
+    price: 1000000,
+    wo: "wo",
   },
   {
-    icon: Sun1,
-    value: 10,
-    text: "Dummy Data"
+    name: "product 3",
+    price: 1000000,
+    wo: "wo",
   },
   {
-    icon: Sun1,
-    value: 10,
-    text: "Dummy Data"
+    name: "product 4",
+    price: 1000000,
+    wo: "wo",
   },
-]
+  {
+    name: "product 5",
+    price: 1000000,
+    wo: "wo",
+  },
+];
