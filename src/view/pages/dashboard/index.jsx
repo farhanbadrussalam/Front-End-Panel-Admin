@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Col, Row, Card, Statistic, Button, List, Avatar } from "antd";
+import { Col, Row, Card, Statistic, Button, List, Avatar, Table } from "antd";
 import {
   UserAddOutlined,
   SettingOutlined,
@@ -12,7 +12,9 @@ import {
   Profile2User,
   ShoppingCart,
 } from "iconsax-react";
-import { dummy } from "./dummy.js";
+
+import { dummy } from "./dummy";
+import { dummyColumns } from "./dummyColumns";
 
 import "./style.css";
 
@@ -20,20 +22,8 @@ export default function DashBoard() {
   return (
     <>
       <Row gutter={[32, 32]}>
-        <Col span={7}>
-          <Card
-            style={{
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            actions={[
-              <UserAddOutlined key="edit" />,
-              <SettingOutlined key="setting" />,
-            ]}
-          >
+        <Col span={6}>
+          <Card>
             <Statistic
               title="Total User"
               value={10827}
@@ -42,40 +32,28 @@ export default function DashBoard() {
             />
           </Card>
         </Col>
-        <Col span={10}>
-          <Row>
-            <Col span={24}>
-              <Card>
-                <Statistic
-                  title="Wedding Organizer"
-                  value={830}
-                  prefix={<SecurityUser color="#F45000" size={30} />}
-                  suffix="/ 10,827"
-                />
-              </Card>
-
-              <Card>
-                <Statistic
-                  title="Pelanggan"
-                  value={9997}
-                  prefix={<Profile2User color="#F45000" size={30} />}
-                  suffix="/ 10,827"
-                />
-              </Card>
-            </Col>
-          </Row>
+        <Col span={6}>
+          <Card>
+            <Statistic
+              title="Wedding Organizer"
+              value={830}
+              prefix={<SecurityUser color="#F45000" size={30} />}
+            />
+          </Card>
         </Col>
-        <Col span={7}>
-          <Card
-            style={{
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            actions={[<Button>Kelola Products</Button>]}
-          >
+
+        <Col span={6}>
+          <Card>
+            <Statistic
+              title="Pelanggan"
+              value={9997}
+              prefix={<Profile2User color="#F45000" size={30} />}
+            />
+          </Card>
+        </Col>
+
+        <Col span={6}>
+          <Card>
             <Statistic
               title="Pesanan"
               value={215402}
@@ -84,50 +62,50 @@ export default function DashBoard() {
           </Card>
         </Col>
 
-        <Col span={12}>
+        <Col span={24}>
           <Card>
-            <List
-              header="Best Seller"
-              itemLayout="horizontal"
-              dataSource={[
-                { title: "product 1", description: "lorem ipsum dolor" },
-                { title: "product 2", description: "lorem ipsum dolor" },
-                { title: "product 3", description: "lorem ipsum dolor" },
-              ]}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<GiftTwoTone />}
-                    title={<a href="https://ant.design">{item.title}</a>}
-                    description={item.description}
-                  />
-                </List.Item>
-              )}
+            <Table
+              dataSource={dummy}
+              columns={dummyColumns}
+              title={() => "Best Seller Products"}
+              footer={() => {
+                return (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <Button>Selengkapnya</Button>
+                  </div>
+                );
+              }}
+              pagination={false}
             />
           </Card>
         </Col>
-        <Col span={12}>
+
+        <Col span={24}>
           <Card>
-            <List
-              header="Pesanan Terbaru"
-              itemLayout="horizontal"
-              dataSource={[
-                { title: "si A", description: "wo 1" },
-                { title: "si B", description: "wo 2" },
-                { title: "si C", description: "wo 3" },
-              ]}
-              renderItem={(item) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title={<a href="https://ant.design">{item.title}</a>}
-                    description={item.description}
-                  />
-                  ini adalah deskripsi dari produk. ini adalah deskripsi dari
-                  produk. ini adalah deskripsi dari produk. ini adalah deskripsi
-                  dari produk.
-                </List.Item>
-              )}
+            <Table
+              dataSource={dummy}
+              columns={dummyColumns}
+              title={() => "Pesanan Terbaru"}
+              footer={() => {
+                return (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <Button>Selengkapnya</Button>
+                  </div>
+                );
+              }}
+              pagination={false}
             />
           </Card>
         </Col>
