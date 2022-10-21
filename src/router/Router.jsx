@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 // Motion
 import { motion } from "framer-motion/dist/framer-motion";
@@ -26,6 +26,8 @@ export default function Router() {
   // Redux
   const customise = useSelector((state) => state.customise);
   const dispatch = useDispatch();
+
+  const auth = localStorage.getItem("token");
 
   // Dark Mode
   useEffect(() => {
@@ -67,7 +69,6 @@ export default function Router() {
   const ResolveRoutes = () => {
     return Object.keys(Layouts).map((layout, index) => {
       const { LayoutRoutes, LayoutPaths } = LayoutRoutesAndPaths(layout);
-      const auth = localStorage.getItem("token");
 
       let LayoutTag;
       if (DefaultLayout == "HorizontalLayout") {
@@ -170,23 +171,25 @@ export default function Router() {
     <BrowserRouter>
       <Switch>
         {ResolveRoutes()}
-
         {/* Home Page */}
-        <Route
-          exact
-          path={"/"}
-          render={() => {
-            return DefaultLayout == "HorizontalLayout" ? (
-              <Layouts.HorizontalLayout>
-                <Home />
-              </Layouts.HorizontalLayout>
-            ) : (
-              <Layouts.VerticalLayout>
-                <Home />
-              </Layouts.VerticalLayout>
-            );
-          }}
-        />
+
+        {auth ? (
+          <Redirect
+            to={{
+              pathname: "/admin/dashboard",
+            }}
+          />
+        ) : (
+          <Route
+            render={() => (
+              <Redirect
+                to={{
+                  pathname: "/admin/login",
+                }}
+              />
+            )}
+          />
+        )}
 
         {/* NotFound */}
         <Route path="*">
@@ -194,25 +197,5 @@ export default function Router() {
         </Route>
       </Switch>
     </BrowserRouter>
-  );
-}
-
-function PrivateRoute({ children, ...rest }) {
-  let auth = localStorage.getItem("token");
-  return (
-    <Route
-      {...rest}
-      render={() =>
-        auth ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/admin/login",
-            }}
-          />
-        )
-      }
-    />
   );
 }
