@@ -1,6 +1,7 @@
 import { Space, Popover, Modal, message } from "antd";
-import { Edit, Trash, Eye } from "iconsax-react";
+import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
+import { deleteWeddingOrganizer } from "../../../../api/wedding-organizer/deleteWeddingOrganizer";
 
 const { confirm } = Modal;
 const showModal = (id, name) => {
@@ -12,7 +13,7 @@ const showModal = (id, name) => {
     okType: 'primary',
 
     async onOk() {
-      const response = await deleteCustomer(id)
+      const response = await deleteWeddingOrganizer(id)
       const success = response.data.success
       if (success) {
         message.success("Berhasil menghapus WO")
@@ -36,21 +37,21 @@ const columns = [
   },
 
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-
-  {
     title: 'Phone',
     dataIndex: 'phone',
     key: 'phone',
   },
 
   {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
+    title: 'Website',
+    dataIndex: 'website',
+    key: 'website',
+  },
+
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
   },
 
 

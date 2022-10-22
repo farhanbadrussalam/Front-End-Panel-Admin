@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-export const putUser = async (values, id) => {
+export const putWeddingOrganizer = async (values, id) => {
   const response = await axios.put('http://127.0.0.1:8000/api/wedding-organizers/update/' + id, values, {
     headers: {
-      'Authorization': 'Bearer 5|0HCSR3sQeuygpAXv5tfdoZH6ls5tkyPH9XEydT8F'
+      'Authorization': localStorage.getItem("token")
     }
   })
     .then(res => res)

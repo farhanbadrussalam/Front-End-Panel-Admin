@@ -2,6 +2,8 @@ import { Button, Form, Input, InputNumber, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { putWeddingOrganizer } from '../../../../../../api/wedding-organizer/putWeddingOrganizer';
+import { getOneWeddingOrganizer } from '../../../../../../api/wedding-organizer/getOneWeddingOrganizer';
 
 const index = (props) => {
   const history = useHistory()
@@ -10,8 +12,16 @@ const index = (props) => {
 
   const { data: wo } = getOneWeddingOrganizer(id)
 
-  const onFinish = (values) => {
-    alert('Success:', values);
+  const onFinish = async (values) => {
+    const success = await putWeddingOrganizer(values)
+
+    if (success.data.success) {
+      message.success('Berhasil mengubah data WO')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal mengubah data WO')
+    }
   };
 
   return (
@@ -19,7 +29,7 @@ const index = (props) => {
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         wrapperCol={{
           span: 14,
@@ -102,7 +112,7 @@ const index = (props) => {
 
         <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >

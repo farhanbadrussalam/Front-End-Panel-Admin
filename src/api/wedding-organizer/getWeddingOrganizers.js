@@ -12,7 +12,7 @@ export const getWeddingOrganizers = (url = "http://127.0.0.1:8000/api/wedding-or
           Authorization: localStorage.getItem("token"),
         },
       })
-      .then((res) => setData(res.data.data.data))
+      .then((res) => setData(res.data.data))
       .catch((err) => setError(err));
   }, [url]);
 

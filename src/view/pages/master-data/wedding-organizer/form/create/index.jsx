@@ -24,11 +24,11 @@ const index = () => {
   };
 
   return (
-    <CardForm title="Tambah data customer">
+    <CardForm title="Tambah Data WO">
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         wrapperCol={{
           span: 14,
@@ -65,8 +65,8 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Website WO"
-          name="website"
+          label="Nomor telp WO"
+          name="phone"
           rules={[
             {
               required: true,
@@ -77,8 +77,8 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Nomor telp WO"
-          name="phone"
+          label="Website WO"
+          name="website"
           rules={[
             {
               required: true,
@@ -102,7 +102,7 @@ const index = () => {
 
         <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >

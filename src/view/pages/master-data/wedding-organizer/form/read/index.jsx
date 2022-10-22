@@ -16,14 +16,17 @@ const index = (props) => {
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
+        }}
+        wrapperCol={{
+          span: 14,
         }}
         autoComplete="off"
-        size='small'
       >
+
         <Form.Item
           label="Nama WO"
-          name="nama"
+          name="name"
         >
           <p>{wo?.name}</p>
         </Form.Item>
@@ -31,12 +34,17 @@ const index = (props) => {
         <Form.Item
           label="Email WO"
           name="email"
+          rules={[
+            {
+              type: 'email',
+            },
+          ]}
         >
           <p>{wo?.email}</p>
         </Form.Item>
 
         <Form.Item
-          label="No telp WO"
+          label="Nomor telp WO"
           name="phone"
         >
           <p>{wo?.phone}</p>
@@ -50,14 +58,31 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
+          label="Alamat WO"
+          name="address"
+        >
+          <p>{wo?.address}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Status WO"
+          name="status"
+        >
+          <p>{wo?.status}</p>
+        </Form.Item>
+
+        <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >
           <Space size='middle'>
+            <Button type='primary' danger htmlType="submit">
+              Simpan
+            </Button>
             <Button danger htmlType="button" onClick={() => history.goBack()}>
-              Kembali
+              Batal
             </Button>
           </Space>
         </Form.Item>
