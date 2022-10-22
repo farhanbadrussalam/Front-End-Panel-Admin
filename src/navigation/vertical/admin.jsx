@@ -16,7 +16,7 @@ import { MdWeb } from "react-icons/md";
 import { RiArticleFill } from "react-icons/ri";
 import { RiDashboardLine } from "react-icons/ri";
 
-const company = [
+const adminNav = [
   {
     header: "MENU SUPER ADMIN",
   },
@@ -269,4 +269,4 @@ const company = [
   },
 ];
 
-export default company;
+export default adminNav;
