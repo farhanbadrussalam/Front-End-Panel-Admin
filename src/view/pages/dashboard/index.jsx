@@ -14,7 +14,9 @@ import {
 } from "iconsax-react";
 
 import { dummy } from "./dummy";
+import { dummy2 } from "./dummy2";
 import { dummyColumns } from "./dummyColumns";
+import { dummyColumns2 } from "./dummyColumns2";
 
 import "./style.css";
 
@@ -89,8 +91,8 @@ export default function DashBoard() {
         <Col span={24}>
           <Card>
             <Table
-              dataSource={dummy}
-              columns={dummyColumns}
+              dataSource={dummy2}
+              columns={dummyColumns2}
               title={() => "Pesanan Terbaru"}
               footer={() => {
                 return (
