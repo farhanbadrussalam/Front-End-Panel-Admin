@@ -1,53 +1,140 @@
-import { Button, Form, Space } from 'antd';
+import { Button, Form, Space, DatePicker, TimePicker, Input } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { getOneBride } from '../../../../../../api/pengantin/getOneBride';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
+  const { data: bride } = getOneBride(id)
 
   return (
     <CardForm title={title}>
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 7,
+        }}
+        wrapperCol={{
+          span: 14,
         }}
         autoComplete="off"
-        size='small'
       >
         <Form.Item
-          label="Nama"
-          name="nama"
+          label="Pengantin Pria"
+          name="groom"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan nama pengantin pria',
+            },
+          ]}
         >
-          <p>Nama User</p>
+          <p>{bride && bride.groom}</p>
         </Form.Item>
 
         <Form.Item
-          label="Email"
-          name="email"
+          label="Pengantin Wanita"
+          name="bride"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan nama pengantin wanita',
+            },
+          ]}
         >
-          <p>Email user</p>
+          <p>{bride && bride.bride}</p>
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Nomor Telp"
+          name="phone"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>Level user</p>
+          <p>{bride && bride.phone}</p>
         </Form.Item>
 
         <Form.Item
-          label="Status"
-          name="status"
+          label="Alamat"
+          name="address"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
-          <p>Status user</p>
+          <p>{bride && bride.address}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Tanggal Pernikahan"
+          name="wedding_date"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <p>{bride && bride.wedding_date}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Waktu Pernikahan"
+          name="wedding_time"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <p>{bride && bride.wedding_time}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Alamat Pernikahan"
+          name="wedding_address"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <p>{bride && bride.wedding_address}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Tempat Pernikahan"
+          name="wedding_place"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <p>{bride && bride.wedding_place}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Wedding Organizer"
+          name="wedding_organizer"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <p>{bride && bride.wedding_organizer?.name}</p>
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 7,
             span: 4,
           }}
         >

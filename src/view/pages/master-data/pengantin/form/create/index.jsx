@@ -1,40 +1,58 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, Space, message, DatePicker, TimePicker } from 'antd';
 import { useHistory } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { postBride } from '../../../../../../api/pengantin/postBride';
 
 const index = () => {
   const history = useHistory()
+  const [date, setDate] = useState(null)
+  const [time, setTime] = useState(null)
 
-  const onFinish = (values) => {
-    alert('Success:', values);
-  };
+  // todo: menambahkan seleksi kondisi
+  // useEffect(() => {
+  //   if(wedding organizer belum dibuat maka jangan beri akses buat pengantin)
+  // }, [])
 
-  const onFinishFailed = (errorInfo) => {
-    alert('Failed:', errorInfo);
+  const onFinish = async (values) => {
+    values.wedding_time = time
+    values.wedding_date = date
+
+    // todo : ubah id di bawah agar dropdown
+    values.wedding_organizer_id = 1
+
+    const response = await postBride(values)
+
+    const success = response.data.success
+    if (success) {
+      message.success("Berhasil menambahkan pengantin")
+      history.goBack()
+    }
+    else {
+      message.error("Gagal menambahkan pengantin")
+    }
   };
 
   return (
-    <CardForm title="Tambah data . . . .">
+    <CardForm title="Tambah Data Pengantin">
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         wrapperCol={{
           span: 14,
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
-          label="Nama"
-          name="nama"
+          label="Pengantin Pria"
+          name="groom"
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan nama!',
+              message: 'Mohon masukkan nama pengantin pria',
             },
           ]}
         >
@@ -42,13 +60,12 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Email"
-          name="email"
+          label="Pengantin Wanita"
+          name="bride"
           rules={[
             {
               required: true,
-              type: 'email',
-              message: 'Mohon masukkan email!',
+              message: 'Mohon masukkan nama pengantin wanita',
             },
           ]}
         >
@@ -56,20 +73,100 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Nomor Telp"
+          name="phone"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <InputNumber />
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Alamat"
+          name="address"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Tanggal Pernikahan"
+          name="wedding_date"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <DatePicker format='YYYY-MM-DD' placeholder='Tanggal'
+            onChange={(value, dateString) => {
+              setDate(dateString);
+            }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Waktu Pernikahan"
+          name="wedding_time"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <TimePicker format='HH:mm' placeholder='Waktu'
+            onChange={(value, timeString) => {
+              setTime(timeString);
+            }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Alamat Pernikahan"
+          name="wedding_address"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Tempat Pernikahan"
+          name="wedding_place"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Wedding Organizer"
+          name="wedding_organizer"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >
