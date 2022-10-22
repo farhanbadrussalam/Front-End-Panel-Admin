@@ -8,7 +8,7 @@ export const getOneUser = (id) => {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/users/' + id, {
       headers: {
-        'Authorization': 'Bearer 5|0HCSR3sQeuygpAXv5tfdoZH6ls5tkyPH9XEydT8F'
+        'Authorization': localStorage.getItem("token")
       }
     })
       .then(res => setData(res.data.data))
