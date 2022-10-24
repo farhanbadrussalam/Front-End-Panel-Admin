@@ -186,18 +186,7 @@ const adminNav = [
     id: "artikel-blog",
     title: "Artikel/Blog",
     icon: <Notepad2 set="curved" className="remix-icon" size={18} />,
-    children: [
-      {
-        id: "kelola-kategori-artikel",
-        title: "Kelola Kategori Artikel",
-        navLink: "/admin/kelola-kategori-artikel",
-      },
-      {
-        id: "crud-artikel",
-        title: "Tambah, Update, dan Hapus Artikel",
-        navLink: "/admin/crud-artikel",
-      },
-    ],
+    navLink: "/admin/artikel/",
   },
 
   /**

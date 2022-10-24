@@ -1,9 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Row, Col, Card } from "antd";
 import TableTitle from "./TableTitle";
+import { Back } from "iconsax-react";
 
-const TableCard = ({ children }) => {
-
+const TableCard = ({ back, children }) => {
+  const history = useHistory();
   return (
     <Card
       bodyStyle={{ padding: "15px 20px" }}
@@ -11,7 +14,20 @@ const TableCard = ({ children }) => {
       className="custom-component-table-card"
     >
       <Row>
-        <Col>
+        {back ? (
+          <Col>
+            <Back
+              size="25"
+              color="#000000"
+              onClick={history.goBack}
+              className="custom-component-back-button"
+            />
+          </Col>
+        ) : (
+          ""
+        )}
+
+        <Col offset={back ? 1 : 0}>
           <TableTitle />
         </Col>
       </Row>

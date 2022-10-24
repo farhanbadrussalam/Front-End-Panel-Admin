@@ -24,16 +24,22 @@ const columns = [
     key: "name",
   },
 
-  {
-    title: "Slug",
-    dataIndex: "slug",
-    key: "slug",
-  },
+  // {
+  //   title: "Slug",
+  //   dataIndex: "slug",
+  //   key: "slug",
+  // },
+
+  // {
+  //   title: "Deskripsi",
+  //   dataIndex: "description",
+  //   key: "description",
+  // },
 
   {
-    title: "Deskripsi",
-    dataIndex: "description",
-    key: "description",
+    title: "Category",
+    dataIndex: "article_category",
+    key: "article_category",
   },
 
   {
