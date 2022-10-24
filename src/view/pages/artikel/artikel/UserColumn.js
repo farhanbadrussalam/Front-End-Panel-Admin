@@ -1,9 +1,10 @@
-import { Space, Popover, Modal } from "antd";
 import { Link } from "react-router-dom";
+
+import { Space, Popover, Modal } from "antd";
 import { Edit, Trash, Eye, Danger } from "iconsax-react";
 
 const { confirm } = Modal;
-const showModal = (id, name) => {
+const showModal = (id, name, destroy) => {
   confirm({
     title: `Apa anda yakin ingin menghapus ${name}?`,
     icon: <Danger color="red" />,
@@ -11,8 +12,7 @@ const showModal = (id, name) => {
     cancelText: "Batal",
     okType: "primary",
     onOk() {
-      // deleteProduct(id);
-      window.location.reload(true);
+      destroy(id);
     },
   });
 };
@@ -90,7 +90,7 @@ const columns = [
           <Link
             onClick={(e) => {
               e.preventDefault();
-              showModal(payload.id, payload.name);
+              showModal(payload.id, payload.name, payload.destroy);
             }}
           >
             <Trash color="red" size={20} />

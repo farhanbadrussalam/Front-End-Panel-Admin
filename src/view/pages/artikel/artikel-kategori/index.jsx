@@ -1,5 +1,3 @@
-import { useParams } from "react-router-dom";
-
 import { Row, Col } from "antd";
 
 import TableCard from "../../../components/custom-components/TableCard";
@@ -7,11 +5,19 @@ import TableDisplay from "../../../components/custom-components/TableDisplay";
 
 import columns from "./UserColumn";
 
-import { getArticleCategories } from "../../../../api/artikel/category/getCategories";
+import { getArticleCategories } from "../../../../api/artikel/category";
 
 export default function index() {
-  let { simpleData, error } = getArticleCategories();
-  const { userid } = useParams();
+  let { data, error, destroy } = getArticleCategories();
+
+  data = data.map((d) => {
+    return {
+      name: d.name,
+      description: d.description,
+      id: d.id,
+      destroy,
+    };
+  });
 
   return (
     <>
@@ -19,7 +25,7 @@ export default function index() {
         <Row>
           <Col span={24}>
             <TableDisplay
-              data={simpleData}
+              data={data}
               column={columns}
               addButton={true}
               createLink="/admin/kategori-artikel/create"

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
 import { postArticle } from "../../../../../../api/artikel/postArticles";
-import { getArticleCategories } from "../../../../../../api/artikel/category/getCategories";
+import { getArticleCategories } from "../../../../../../api/artikel/category";
 
 const index = () => {
   const history = useHistory();
@@ -13,8 +13,6 @@ const index = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [article_category_id, setArticle_category_id] = useState(1);
-
-  console.log(data.map((d) => d.name));
 
   const onFinish = async () => {
     const success = await postArticle({
