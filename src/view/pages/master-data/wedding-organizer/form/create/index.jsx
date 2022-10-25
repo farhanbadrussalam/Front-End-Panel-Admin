@@ -12,7 +12,7 @@ const index = () => {
 
     if (success.data.success) {
       message.success('Berhasil menambahkan WO')
-      history.goBack()
+      history.push("/admin/wedding-organizer")
     }
     else {
       message.error('Gagal menambahkan WO')
@@ -70,6 +70,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan nomor telepon WO',
             },
           ]}
         >
@@ -82,6 +83,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan website WO',
             },
           ]}
         >
@@ -94,6 +96,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan alamat WO',
             },
           ]}
         >
@@ -110,7 +113,7 @@ const index = () => {
             <Button type='primary' danger htmlType="submit">
               Simpan
             </Button>
-            <Button danger htmlType="button" onClick={() => history.goBack()}>
+            <Button danger htmlType="button" onClick={() => history.push("/admin/wedding-organizer")}>
               Batal
             </Button>
           </Space>

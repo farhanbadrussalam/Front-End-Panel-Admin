@@ -10,7 +10,6 @@ const index = (props) => {
   const id = props.location.state.id
 
   const { data: user } = getOneUser(id)
-  console.log(user);
 
   return (
     <CardForm title={title}>

@@ -44,7 +44,7 @@ const index = () => {
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan nama!',
+              message: 'Mohon masukkan nama',
             },
           ]}
         >
@@ -58,7 +58,7 @@ const index = () => {
             {
               required: true,
               type: 'email',
-              message: 'Mohon masukkan email!',
+              message: 'Mohon masukkan email',
             },
           ]}
         >
@@ -71,6 +71,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan nomor telepon',
             },
           ]}
         >
@@ -83,6 +84,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan alamat',
             },
           ]}
         >

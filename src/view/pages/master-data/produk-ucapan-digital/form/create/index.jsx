@@ -61,6 +61,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan level!',
             },
           ]}
         >
