@@ -4,7 +4,6 @@ import { useState } from 'react'
 import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
 import Column from './WoColumn'
-import Data from './WoData'
 
 const MasterDisplay = () => {
   const [data, setData] = useState([])

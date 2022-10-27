@@ -6,12 +6,14 @@ export const getProducts = (url = "products") => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
+  const [deleteToggle, setDeleteToggle] = useState(false)
+
   useEffect(() => {
     api
       .get(url)
       .then((res) => setData(res.data.data))
       .catch((err) => setError(err));
-  }, [url]);
+  }, [deleteToggle]);
 
   const refetch = () => {
     api
@@ -20,5 +22,16 @@ export const getProducts = (url = "products") => {
       .catch((err) => setError(err));
   };
 
-  return { data, error, refetch };
+  const deleteProduct = (id) => {
+    const deleted = api.delete(url + '/destroy/' + id)
+      .then(res => {
+        setDeleteToggle(!deleteToggle)
+        return res.data.success
+      })
+      .catch(err => setError(err))
+
+    return deleted
+  }
+
+  return { data, error, refetch, deleteProduct };
 };
