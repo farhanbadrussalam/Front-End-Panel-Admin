@@ -1,25 +1,22 @@
 import { Row, Col } from 'antd'
-import { useState } from 'react'
 
 import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
 import Column from './WoColumn'
-import Data from './WoData'
+import { getWeddingOrganizers } from '../../../../api/wedding-organizer/getWeddingOrganizers'
 
-const MasterDisplay = () => {
-  const [data, setData] = useState([])
+const WeddingOrganizer = () => {
+  const { data } = getWeddingOrganizers()
 
   return (
-    <TableCard>
-
+    <TableCard >
       <Row>
         <Col span={24}>
-          <TableDisplay setData={setData} data={data} column={Column} addButton={true} />
+          <TableDisplay data={data} column={Column} addButton={true} />
         </Col>
       </Row>
-
     </TableCard>
   )
 }
 
-export default MasterDisplay
+export default WeddingOrganizer

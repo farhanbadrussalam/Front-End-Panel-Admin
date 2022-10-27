@@ -2,13 +2,26 @@ import { Button, Form, Input, InputNumber, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { putWeddingOrganizer } from '../../../../../../api/wedding-organizer/putWeddingOrganizer';
+import { getOneWeddingOrganizer } from '../../../../../../api/wedding-organizer/getOneWeddingOrganizer';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
 
-  const onFinish = (values) => {
-    alert('Success:', values);
+  const { data: wo } = getOneWeddingOrganizer(id)
+
+  const onFinish = async (values) => {
+    const success = await putWeddingOrganizer(values)
+
+    if (success.data.success) {
+      message.success('Berhasil mengubah data WO')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal mengubah data WO')
+    }
   };
 
   return (
@@ -16,23 +29,49 @@ const index = (props) => {
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         wrapperCol={{
           span: 14,
         }}
         onFinish={onFinish}
         autoComplete="off"
+        fields={[
+          {
+            name: 'name',
+            value: wo?.name
+          },
+          {
+            name: 'email',
+            value: wo?.email
+          },
+          {
+            name: 'phone',
+            value: wo?.phone
+          },
+          {
+            name: 'website',
+            value: wo?.website
+          },
+          {
+            name: 'address',
+            value: wo?.address
+          },
+          {
+            name: 'status',
+            value: wo?.status
+          },
+        ]}
       >
         <Form.Item
-          label="Nama"
-          name="nama"
+          label="Nama WO"
+          name="name"
         >
-          <Input value="Nama user" placeholder='Nama user' />
+          <Input />
         </Form.Item>
 
         <Form.Item
-          label="Email"
+          label="Email WO"
           name="email"
           rules={[
             {
@@ -40,19 +79,40 @@ const index = (props) => {
             },
           ]}
         >
-          <Input value="Email user" placeholder='Email user' />
+          <Input />
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Website WO"
+          name="website"
         >
-          <InputNumber value="Value user" placeholder='Value user' />
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Nomor telp WO"
+          name="phone"
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Alamat WO"
+          name="address"
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Status WO"
+          name="status"
+        >
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >
