@@ -1,6 +1,30 @@
-import { Space, Popover } from "antd";
-import { Edit, Trash, Eye } from "iconsax-react";
+import { Space, Popover, Modal, message } from "antd";
+import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
+import { deleteWeddingOrganizer } from "../../../../api/wedding-organizer/deleteWeddingOrganizer";
+
+const { confirm } = Modal;
+const showModal = (id, name) => {
+  confirm({
+    title: `Apa anda yakin ingin menghapus ${name}?`,
+    icon: <Danger color="red" />,
+    okText: 'Yakin',
+    cancelText: 'Batal',
+    okType: 'primary',
+
+    async onOk() {
+      const response = await deleteWeddingOrganizer(id)
+      const success = response.data.success
+      if (success) {
+        message.success("Berhasil menghapus WO")
+        window.location.reload(false)
+      }
+      else {
+        message.error("Gagal menghapus WO")
+      }
+    },
+  })
+}
 
 const columns = [
   // Kolom nama
@@ -13,37 +37,37 @@ const columns = [
   },
 
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-
-  {
     title: 'Phone',
     dataIndex: 'phone',
     key: 'phone',
   },
 
   {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
+    title: 'Website',
+    dataIndex: 'website',
+    key: 'website',
+  },
+
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
   },
 
 
   // Kolom aksi
   {
     title: 'Action',
-    dataIndex: 'key',
     key: 'action',
-    render: (key) => (
+    render: payload => (
       <Space size="large" className="icons-container" >
         <Popover content={"Detail"}>
           <Link to={{
-            pathname: `wedding-organizer/detail/${key}`,
+            pathname: `wedding-organizer/detail/${payload.id}`,
             state: {
               permission: 'Detail',
-              data: 'Wedding Organizer'
+              data: 'Wedding Organizer',
+              id: payload.id
             },
           }} >
             <Eye size={20} />
@@ -52,10 +76,11 @@ const columns = [
 
         <Popover content={"Edit"}>
           <Link to={{
-            pathname: `wedding-organizer/edit/${key}`,
+            pathname: `wedding-organizer/edit/${payload.id}`,
             state: {
               permission: 'Edit',
-              data: 'Wedding Organizer'
+              data: 'Wedding Organizer',
+              id: payload.id
             },
           }}>
             <Edit size={20} />
@@ -63,15 +88,7 @@ const columns = [
         </Popover>
 
         <Popover content={"Delete"}>
-          <Link to={{
-            pathname: `wedding-organizer/delete/${key}`,
-            state: {
-              permission: 'Delete',
-              data: 'Wedding Organizer'
-            },
-          }} className="trash" >
-            <Trash color="red" size={20} />
-          </Link>
+          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name)} />
         </Popover>
       </Space>
     ),
