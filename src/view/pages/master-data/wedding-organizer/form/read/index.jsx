@@ -78,9 +78,6 @@ const index = (props) => {
           }}
         >
           <Space size='middle'>
-            <Button type='primary' danger htmlType="submit">
-              Simpan
-            </Button>
             <Button danger htmlType="button" onClick={() => history.goBack()}>
               Batal
             </Button>

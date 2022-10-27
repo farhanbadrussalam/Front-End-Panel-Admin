@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, InputNumber, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
@@ -13,7 +13,7 @@ const index = (props) => {
   const { data: wo } = getOneWeddingOrganizer(id)
 
   const onFinish = async (values) => {
-    const success = await putWeddingOrganizer(values)
+    const success = await putWeddingOrganizer(values, id)
 
     if (success.data.success) {
       message.success('Berhasil mengubah data WO')
