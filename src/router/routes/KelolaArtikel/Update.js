@@ -2,16 +2,16 @@ import { lazy } from "react";
 
 const Update = [
   {
-    path: "/admin/artikel/update/:userid",
+    path: "/admin/artikel/update/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/group-user/komisi")
+      import("../../../view/pages/artikel/artikel/form/update/index")
     ),
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/artikel-category/update/:userid",
+    path: "/admin/kategori-artikel/update/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/group-user/komisi")
+      import("../../../view/pages/artikel/artikel-kategori/form/update/index")
     ),
     layout: "VerticalLayout",
   },

@@ -1,6 +1,6 @@
 import { api } from "../../configs/apiConfig";
 
-export const updateArticleCategory = (values, id) =>
+export const updateArticle = (values, id) =>
   api
     .put(`/articles/update/${id}`, values)
     .then((res) => res)

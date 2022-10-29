@@ -2,12 +2,12 @@ import { lazy } from "react";
 
 const GetAll = [
   {
-    path: "/admin/artikel/",
+    path: "/admin/artikel",
     component: lazy(() => import("../../../view/pages/artikel/artikel")),
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/kategori-artikel/",
+    path: "/admin/kategori-artikel",
     component: lazy(() =>
       import("../../../view/pages/artikel/artikel-kategori")
     ),
