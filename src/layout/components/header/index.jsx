@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Layout, Button, Row, Col, Card } from "antd";
 import { RiCloseLine, RiMenuFill } from "react-icons/ri";
@@ -112,6 +112,22 @@ export default function MenuHeader(props) {
 
   // Children
   const headerChildren = () => {
+    const [greeting, setGreeting] = useState("Selamat Pagi, Admin!");
+
+    useEffect(() => {
+      const time = new Date().getHours();
+
+      if (time >= 18 || time <= 3) {
+        setGreeting("Selamat Malam, Admin. Jangan Lupa Untuk Istirahat Min!");
+      } else if (time < 18 && time >= 15) {
+        setGreeting("Selamat Sore, Admin!");
+      } else if (time < 15 && time >= 10) {
+        setGreeting("Selamat Siang, Admin. Jangan Lupa Untuk Makan Siang!");
+      } else if (time > 3 && time < 10) {
+        setGreeting("Selamat Pagi, Admin. Jangan Lupa Sarapan!");
+      }
+    }, []);
+
     return (
       <Row
         className="hp-w-100 hp-position-relative"
@@ -138,7 +154,7 @@ export default function MenuHeader(props) {
               />
               <div className="header-greet">
                 <Sun1 className="sun-icon" />
-                <p>Selamat Pagi, Admin</p>
+                <p>{greeting}</p>
               </div>
 
               <div className="header-button">
