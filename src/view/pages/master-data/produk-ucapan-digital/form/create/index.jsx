@@ -1,40 +1,46 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Input, InputNumber, Space, message, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { postProduct } from '../../../../../../api/produk-wo/postProduct';
+import { getProductCategory2 } from '../../../../../../api/produk-wo/product-categories/getProductCategory2';
 
 const index = () => {
   const history = useHistory()
+  const { data: categories } = getProductCategory2()
 
-  const onFinish = (values) => {
-    alert('Success:', values);
-  };
+  const onFinish = async (values) => {
+    const success = await postProduct(values)
 
-  const onFinishFailed = (errorInfo) => {
-    alert('Failed:', errorInfo);
+    if (success) {
+      message.success("Berhasil menambahkan produk")
+      history.push("/admin/produk-ucapan-digital")
+    }
+    else {
+      message.error("Gagal menambahkan produk")
+    }
   };
 
   return (
-    <CardForm title="Tambah data . . . .">
+    <CardForm title="Tambah data produk ucapan digital">
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         wrapperCol={{
           span: 14,
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
-          label="Nama"
-          name="nama"
+          label="Nama Produk"
+          name="name"
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan nama!',
+              message: 'Mohon masukkan nama produk',
             },
           ]}
         >
@@ -42,26 +48,33 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Email"
-          name="email"
+          label="Kategori Produk"
+          name="product_category_id"
           rules={[
             {
               required: true,
-              type: 'email',
-              message: 'Mohon masukkan email!',
+              message: 'Mohon pilih kategori produk',
             },
           ]}
         >
-          <Input />
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            {categories?.map((category) => (
+              <Select.Option value={category?.id}>{category?.name}</Select.Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Harga Produk"
+          name="price"
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan level!',
+              message: 'Mohon tentukan harga produk',
             },
           ]}
         >
@@ -69,8 +82,21 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
+          label="Deskripsi Produk"
+          name="description"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon tentukan harga produk',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >
@@ -78,7 +104,7 @@ const index = () => {
             <Button type='primary' danger htmlType="submit">
               Simpan
             </Button>
-            <Button danger htmlType="button" onClick={() => history.goBack()}>
+            <Button danger htmlType="button" onClick={() => history.push('/admin/produk-ucapan-digital')}>
               Batal
             </Button>
           </Space>

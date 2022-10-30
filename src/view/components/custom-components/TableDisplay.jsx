@@ -1,6 +1,7 @@
 import { Table, Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 import TableSearch from "./TableSearch";
 
@@ -8,6 +9,18 @@ const TableDisplay = ({
   data,
   column,
   addButton,
+
+  /**
+   * Array of Button
+   * ex: [
+   *    {
+   *      name: "button name",
+   *      link: "button link"
+   *    },
+   * ]
+   */
+  otherButton,
+
   createLink = `${window.location.pathname}/create`,
   colomWidth = 400,
 }) => {
@@ -27,15 +40,38 @@ const TableDisplay = ({
         <Col lg={6} md={8} sm={10} span={12}>
           <TableSearch data={data} setTableData={setTableData} />
         </Col>
-        {addButton ? (
-          <Col span={10} className="button-right">
-            <Link to={createLink}>
-              <Button type="primary" danger size="small">
-                Tambah Data
-              </Button>
-            </Link>
-          </Col>
-        ) : undefined}
+
+        <Col className="button-right">
+          <div
+            style={{ display: "flex", justifyContent: "center", gap: "5px" }}
+          >
+            {otherButton
+              ? otherButton.map((btn) => {
+                  return (
+                    <Link to={btn.link}>
+                      <Button
+                        type="primary"
+                        danger
+                        size="small"
+                        style={
+                          btn.name.length <= 15 ? { fontSize: "12px" } : {}
+                        }
+                      >
+                        {btn.name}
+                      </Button>
+                    </Link>
+                  );
+                })
+              : undefined}
+            {addButton ? (
+              <Link to={createLink}>
+                <Button type="primary" danger size="small">
+                  Tambah Data
+                </Button>
+              </Link>
+            ) : undefined}
+          </div>
+        </Col>
       </Row>
 
       <Table

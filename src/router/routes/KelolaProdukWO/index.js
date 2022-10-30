@@ -1,7 +1,6 @@
 import { lazy } from "react";
 
 const kelolaProdukWO = [
-
   // get detail data
   {
     path: "/admin/group-user/:userid",

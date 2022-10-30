@@ -1,7 +1,6 @@
 import { lazy } from "react";
 
 const kelolaUser = [
-
   // get detail data
   {
     path: "/admin/crud-user/detail/:userid",

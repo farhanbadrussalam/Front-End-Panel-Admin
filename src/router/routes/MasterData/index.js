@@ -1,7 +1,6 @@
 import { lazy } from "react";
 
 const masterData = [
-
   // get detail data
   {
     path: "/admin/wedding-organizer/detail/:userid",
