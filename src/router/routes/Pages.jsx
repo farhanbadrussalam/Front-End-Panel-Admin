@@ -3,6 +3,7 @@ import { lazy } from "react";
 import kelolaUser from "./KelolaUser";
 import masterData from "./MasterData";
 import kelolaProdukWO from "./KelolaProdukWO";
+import KelolaArtikel from "./KelolaArtikel";
 
 const PagesRoutes = [
   // AUTH
@@ -26,8 +27,11 @@ const PagesRoutes = [
   // Pages Master Data
   ...masterData,
 
-  // pages data produk wo
+  // pages Data Produk WO
   ...kelolaProdukWO,
+
+  // pages Artikel
+  ...KelolaArtikel,
 
   // PAGES
   {

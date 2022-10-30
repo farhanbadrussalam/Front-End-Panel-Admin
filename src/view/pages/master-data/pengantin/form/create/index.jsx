@@ -1,29 +1,43 @@
-import { Button, Form, Input, Space, message, DatePicker, TimePicker } from 'antd';
+import { Button, Form, Input, Space, message, DatePicker, TimePicker, Select, Modal } from 'antd';
 import { useHistory } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { postBride } from '../../../../../../api/pengantin/postBride';
+import { getWeddingOrganizers } from '../../../../../../api/wedding-organizer/getWeddingOrganizers';
+import { Warning2 } from 'iconsax-react';
 
 const index = () => {
   const history = useHistory()
   const [date, setDate] = useState(null)
   const [time, setTime] = useState(null)
 
-  // todo: menambahkan seleksi kondisi
-  // useEffect(() => {
-  //   if(wedding organizer belum dibuat maka jangan beri akses buat pengantin)
-  // }, [])
+  const { data: wo } = getWeddingOrganizers()
+  const { confirm } = Modal
+
+  useEffect(() => {
+    if (wo?.length == 0)
+      confirm({
+        title: 'Tidak Dapat Tambah Pengantin',
+        icon: <Warning2 primary />,
+        content: 'Tambahkan data WO terlebih dahulu',
+        onOk() {
+          history.push('/admin/wedding-organizer/create')
+        },
+        onCancel() {
+          history.goBack()
+        },
+        okType: "primary",
+        okText: "Tambah WO",
+        cancelText: 'Kembali'
+      })
+  }, [wo])
 
   const onFinish = async (values) => {
     values.wedding_time = time
     values.wedding_date = date
-
-    // todo : ubah id di bawah agar dropdown
-    values.wedding_organizer_id = 1
-
     const response = await postBride(values)
-
     const success = response.data.success
+
     if (success) {
       message.success("Berhasil menambahkan pengantin")
       history.goBack()
@@ -78,6 +92,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan nomor telepon',
             },
           ]}
         >
@@ -90,6 +105,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan alamat',
             },
           ]}
         >
@@ -102,6 +118,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan tanggal pernikahan',
             },
           ]}
         >
@@ -118,6 +135,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan waktu pernikahan',
             },
           ]}
         >
@@ -134,6 +152,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan alamat pernikahan',
             },
           ]}
         >
@@ -146,6 +165,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan tempat pernikahan',
             },
           ]}
         >
@@ -154,14 +174,23 @@ const index = () => {
 
         <Form.Item
           label="Wedding Organizer"
-          name="wedding_organizer"
+          name="wedding_organizer_id"
           rules={[
             {
               required: true,
+              message: 'Mohon pilih Wedding Organizer',
             },
           ]}
         >
-          <Input />
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            {wo?.map((value) => (
+              <Option value={value?.id}>{value?.name}</Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item

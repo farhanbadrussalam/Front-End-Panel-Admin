@@ -1,27 +1,6 @@
 import { lazy } from "react";
 
 const kelolaUser = [
-  // get all data
-  {
-    path: "/admin/crud-user/",
-    component: lazy(() => import("../../../view/pages/kelola-user/crud-user")),
-    layout: "VerticalLayout",
-  },
-  {
-    path: "/admin/atur-role",
-    component: lazy(() =>
-      import("../../../view/pages/kelola-user/atur-role-staff")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
-    path: "/admin/policy-user",
-    component: lazy(() =>
-      import("../../../view/pages/kelola-user/atur-permission")
-    ),
-    layout: "VerticalLayout",
-  },
-
   // get detail data
   {
     path: "/admin/crud-user/detail/:userid",
@@ -59,6 +38,27 @@ const kelolaUser = [
     path: "/admin/crud-user/edit/:userid",
     component: lazy(() =>
       import("../../../view/pages/kelola-user/crud-user/form/update")
+    ),
+    layout: "VerticalLayout",
+  },
+
+  // get all data
+  {
+    path: "/admin/crud-user/",
+    component: lazy(() => import("../../../view/pages/kelola-user/crud-user")),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/atur-role",
+    component: lazy(() =>
+      import("../../../view/pages/kelola-user/atur-role-staff")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/policy-user",
+    component: lazy(() =>
+      import("../../../view/pages/kelola-user/atur-permission")
     ),
     layout: "VerticalLayout",
   },
