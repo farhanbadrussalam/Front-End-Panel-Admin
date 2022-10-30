@@ -15,7 +15,7 @@ export const getArticleCategoryDetail = (id) => {
         setData(res.data.data);
       })
       .catch((err) => setError(err))
-      .finally(() => setTimeout(() => setLoading(false), 500));
+      .finally(() => setLoading(false), 500);
   }, []);
 
   const refetch = () => {
