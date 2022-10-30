@@ -15,7 +15,7 @@ export const getArticleDetail = (id) => {
         setData(res.data.data);
       })
       .catch((err) => setError(err))
-      .finally(() => setLoading(false), 500);
+      .finally(() => setLoading(false));
   }, []);
 
   const refetch = () => {
