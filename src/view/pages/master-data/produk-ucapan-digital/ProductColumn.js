@@ -1,10 +1,30 @@
-import { Space, Popover } from "antd";
-import { Edit, Trash, Eye } from "iconsax-react";
+import { Space, Popover, Modal, message } from "antd";
+import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
+
+const { confirm } = Modal
+const showModal = (id, name, deleteProduct) => {
+  confirm({
+    title: `Apa anda yakin ingin menghapus produk ${name}?`,
+    icon: <Danger color="red" />,
+    okText: 'Yakin',
+    cancelText: 'Batal',
+    okType: 'primary',
+    async onOk() {
+      const success = await deleteProduct(id)
+      if (success) {
+        message.success("Berhasil menghapus produk")
+      }
+      else {
+        message.error("Gagal menghapus produk")
+      }
+    },
+  })
+}
 
 const columns = [
   {
-    title: 'Name',
+    title: 'Nama',
     dataIndex: 'name',
     key: 'name',
     render: (text) => <a>{text}</a>,
@@ -12,15 +32,22 @@ const columns = [
   },
 
   {
-    title: 'Price',
+    title: 'Harga',
     dataIndex: 'price',
     key: 'price',
   },
 
+  // {
+  //   title: 'Deskripsi',
+  //   dataIndex: 'description',
+  //   key: 'description',
+  // },
+
   {
-    title: 'Attachment',
-    dataIndex: 'attachment',
-    key: 'attachment',
+    title: 'Kategori Produk',
+    dataIndex: 'product_category',
+    key: 'product_category',
+    render: product => <p>{product?.name}</p>
   },
 
   {
@@ -32,48 +59,44 @@ const columns = [
 
   // Kolom aksi
   {
-    title: 'Action',
-    dataIndex: 'product_id',
+    title: 'Aksi',
     key: 'action',
-    render: (id) => (
-      <Space size="large" className="icons-container" >
-        <Popover content={"Detail"}>
-          <Link to={{
-            pathname: `produk-ucapan-digital/detail/${id}`,
-            state: {
-              permission: 'Detail',
-              data: 'Produk Ucapan Digital'
-            },
-          }} >
-            <Eye size={20} />
-          </Link>
-        </Popover>
+    render: payload => {
 
-        <Popover content={"Edit"}>
-          <Link to={{
-            pathname: `produk-ucapan-digital/edit/${id}`,
-            state: {
-              permission: 'Edit',
-              data: 'Produk Ucapan Digital'
-            },
-          }}>
-            <Edit size={20} />
-          </Link>
-        </Popover>
+      return (
+        <Space size="large" className="icons-container" >
+          <Popover content={"Detail"}>
+            <Link to={{
+              pathname: `produk-ucapan-digital/detail/${payload.id}`,
+              state: {
+                permission: 'Detail',
+                data: 'Produk Ucapan Digital',
+                id: payload.id
+              },
+            }} >
+              <Eye size={20} />
+            </Link>
+          </Popover>
 
-        <Popover content={"Delete"}>
-          <Link to={{
-            pathname: `produk-ucapan-digital/delete/${id}`,
-            state: {
-              permission: 'Delete',
-              data: 'Produk Ucapan Digital'
-            },
-          }} className="trash" >
-            <Trash color="red" size={20} />
-          </Link>
-        </Popover>
-      </Space>
-    ),
+          <Popover content={"Edit"}>
+            <Link to={{
+              pathname: `produk-ucapan-digital/edit/${payload.id}`,
+              state: {
+                permission: 'Edit',
+                data: 'Produk Ucapan Digital',
+                id: payload.id
+              },
+            }}>
+              <Edit size={20} />
+            </Link>
+          </Popover>
+
+          <Popover content={"Delete"}>
+            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteProduct)} />
+          </Popover>
+        </Space>
+      )
+    },
   },
 ];
 

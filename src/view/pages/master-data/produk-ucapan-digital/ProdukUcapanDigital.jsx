@@ -1,25 +1,29 @@
 import { Row, Col } from 'antd'
-import { useState } from 'react'
 
 import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
 import Column from './ProductColumn'
-import Data from './ProductData'
+import { getProducts } from '../../../../api/produk-wo/getProducts'
 
-const MasterDisplay = () => {
-  const [data, setData] = useState([])
+const ProdukUcapanDigital = () => {
+  let { data, deleteProduct } = getProducts()
+
+  data = data?.map((product) => {
+    return {
+      ...product,
+      deleteProduct: deleteProduct,
+    }
+  })
 
   return (
-    <TableCard setData={setData} Data={Data} addButton={true} >
-
+    <TableCard>
       <Row>
         <Col span={24}>
-          <TableDisplay data={data} column={Column} />
+          <TableDisplay data={data} column={Column} addButton />
         </Col>
       </Row>
-
     </TableCard>
   )
 }
 
-export default MasterDisplay
+export default ProdukUcapanDigital
