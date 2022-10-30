@@ -118,13 +118,13 @@ export default function MenuHeader(props) {
       const time = new Date().getHours();
 
       if (time >= 18 || time <= 3) {
-        setGreeting("Selamat Malam, Admin. Jangan Lupa Untuk Istirahat Min!");
+        setGreeting("Selamat Malam, Admin!");
       } else if (time < 18 && time >= 15) {
         setGreeting("Selamat Sore, Admin!");
       } else if (time < 15 && time >= 10) {
-        setGreeting("Selamat Siang, Admin. Jangan Lupa Untuk Makan Siang!");
+        setGreeting("Selamat Siang, Admin!");
       } else if (time > 3 && time < 10) {
-        setGreeting("Selamat Pagi, Admin. Jangan Lupa Sarapan!");
+        setGreeting("Selamat Pagi, Admin!");
       }
     }, []);
 
