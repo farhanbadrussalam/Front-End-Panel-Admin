@@ -32,28 +32,25 @@ const columns = [
   },
 
   {
-    title: 'Harga',
-    dataIndex: 'price',
-    key: 'price',
-  },
-
-  // {
-  //   title: 'Deskripsi',
-  //   dataIndex: 'description',
-  //   key: 'description',
-  // },
-
-  {
-    title: 'Kategori Produk',
-    dataIndex: 'product_category',
-    key: 'product_category',
-    render: product => <p>{product?.name}</p>
+    title: 'Deskripsi',
+    dataIndex: 'description',
+    key: 'description',
   },
 
   {
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    render: (status) => {
+      switch (status) {
+        case 1:
+          return <p>Aktif</p>
+        case 2:
+          return <p>Non Aktif</p>
+        default:
+          return <p>{status}</p>
+      }
+    }
   },
 
 
@@ -67,7 +64,7 @@ const columns = [
         <Space size="large" className="icons-container" >
           <Popover content={"Detail"}>
             <Link to={{
-              pathname: `produk-ucapan-digital/detail/${payload.id}`,
+              pathname: `kategori-produk-ucapan-digital/detail/${payload.id}`,
               state: {
                 permission: 'Detail',
                 data: 'Produk Ucapan Digital',
@@ -80,7 +77,7 @@ const columns = [
 
           <Popover content={"Edit"}>
             <Link to={{
-              pathname: `produk-ucapan-digital/edit/${payload.id}`,
+              pathname: `kategori-produk-ucapan-digital/edit/${payload.id}`,
               state: {
                 permission: 'Edit',
                 data: 'Produk Ucapan Digital',

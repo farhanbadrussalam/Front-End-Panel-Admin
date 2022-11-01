@@ -27,14 +27,14 @@ const showModal = (id, groom, bride) => {
 
 const columns = [
   {
-    title: 'Groom',
+    title: 'Pengantin Pria',
     dataIndex: 'groom',
     key: 'groom',
     render: (text) => <a>{text}</a>,
     sorter: (a, b) => a.groom.length - b.groom.length,
   },
   {
-    title: 'Bride',
+    title: 'Pengantin Wanita',
     dataIndex: 'bride',
     key: 'bride',
     render: (text) => <a>{text}</a>,
@@ -42,7 +42,7 @@ const columns = [
   },
 
   {
-    title: 'Phone',
+    title: 'No Telp',
     dataIndex: 'phone',
     key: 'phone',
   },
@@ -51,12 +51,22 @@ const columns = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    render: (status) => {
+      switch (status) {
+        case 1:
+          return <p>Aktif</p>
+        case 2:
+          return <p>Non Aktif</p>
+        default:
+          return <p>{status}</p>
+      }
+    }
   },
 
 
   // Kolom aksi
   {
-    title: 'Action',
+    title: 'Aksi',
     key: 'action',
     render: payload => (
       <Space size="large" className="icons-container" >

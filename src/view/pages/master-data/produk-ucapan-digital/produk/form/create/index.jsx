@@ -1,33 +1,28 @@
-import { Button, Form, Space, Input, InputNumber, Select, message } from 'antd';
+import { Button, Form, Input, InputNumber, Space, message, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
-import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { getOneProduct } from '../../../../../../api/produk-wo/getOneProduct';
-import { getProductCategory2 } from '../../../../../../api/produk-wo/product-categories/getProductCategory2';
-import { putProduct } from '../../../../../../api/produk-wo/putProduct';
+import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
+import { postProduct } from '../../../../../../../api/produk-wo/postProduct';
+import { getProductCategory2 } from '../../../../../../../api/produk-wo/product-categories/getProductCategory2';
 
-const index = (props) => {
+const index = () => {
   const history = useHistory()
-  const title = `${props.location.state.permission} Data ${props.location.state.data}`
-  const id = props.location.state.id
-
-  const { data: product } = getOneProduct(id)
   const { data: categories } = getProductCategory2()
 
   const onFinish = async (values) => {
-    const success = await putProduct(values, id)
+    const success = await postProduct(values)
 
-    if (success == true) {
-      message.success("Berhasil mengubah produk")
+    if (success) {
+      message.success("Berhasil menambahkan produk")
       history.push("/admin/produk-ucapan-digital")
     }
     else {
-      message.error("Gagal mengubah produk")
+      message.error("Gagal menambahkan produk")
     }
   };
 
   return (
-    <CardForm title={title}>
+    <CardForm title="Tambah data produk ucapan digital">
       <Form
         name="basic"
         labelCol={{
@@ -36,34 +31,18 @@ const index = (props) => {
         wrapperCol={{
           span: 14,
         }}
-        autoComplete="off"
         onFinish={onFinish}
-        fields={[
-          {
-            name: 'name',
-            value: product?.name
-          },
-          {
-            name: 'product_category_id',
-            value: product?.product_category?.name
-          },
-          {
-            name: 'price',
-            value: product?.price
-          },
-          {
-            name: 'description',
-            value: product?.description
-          },
-          {
-            name: 'status',
-            value: product?.status
-          },
-        ]}
+        autoComplete="off"
       >
         <Form.Item
           label="Nama Produk"
           name="name"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan nama produk',
+            },
+          ]}
         >
           <Input />
         </Form.Item>
@@ -71,6 +50,12 @@ const index = (props) => {
         <Form.Item
           label="Kategori Produk"
           name="product_category_id"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon pilih kategori produk',
+            },
+          ]}
         >
           <Select
             style={{
@@ -86,6 +71,12 @@ const index = (props) => {
         <Form.Item
           label="Harga Produk"
           name="price"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon tentukan harga produk',
+            },
+          ]}
         >
           <InputNumber />
         </Form.Item>
@@ -93,15 +84,14 @@ const index = (props) => {
         <Form.Item
           label="Deskripsi Produk"
           name="description"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon tentukan harga produk',
+            },
+          ]}
         >
           <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Status"
-          name="status"
-        >
-          <InputNumber />
         </Form.Item>
 
         <Form.Item

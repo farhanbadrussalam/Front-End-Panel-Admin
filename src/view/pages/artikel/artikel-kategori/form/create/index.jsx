@@ -8,12 +8,12 @@ import { postArticleCategory } from "../../../../../../api/artikel/category/post
 const index = () => {
   const history = useHistory();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
 
   const onFinish = async () => {
-    const success = await postArticleCategory({ name, description });
-    if (success.data.success) {
+    const success = await postArticleCategory({ name: name, description: description });
+    if (success?.data?.success) {
       message.success("Berhasil menambahkan customer");
       history.goBack();
     } else {

@@ -1,10 +1,10 @@
 import { Button, Form, Space, Input, InputNumber, Select, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
-import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { getOneProduct } from '../../../../../../api/produk-wo/getOneProduct';
-import { getProductCategory2 } from '../../../../../../api/produk-wo/product-categories/getProductCategory2';
-import { putProduct } from '../../../../../../api/produk-wo/putProduct';
+import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
+import { getOneProduct } from '../../../../../../../api/produk-wo/getOneProduct';
+import { getProductCategory2 } from '../../../../../../../api/produk-wo/product-categories/getProductCategory2';
+import { putProduct } from '../../../../../../../api/produk-wo/putProduct';
 
 const index = (props) => {
   const history = useHistory()
