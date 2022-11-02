@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
 import { getOneProduct } from '../../../../../../../api/produk-wo/getOneProduct';
-import { getProductCategory2 } from '../../../../../../../api/produk-wo/product-categories/getProductCategory2';
+import { getProductCategories2 } from '../../../../../../../api/produk-wo/product-categories/getProductCategories2';
 import { putProduct } from '../../../../../../../api/produk-wo/putProduct';
 
 const index = (props) => {
@@ -12,7 +12,7 @@ const index = (props) => {
   const id = props.location.state.id
 
   const { data: product } = getOneProduct(id)
-  const { data: categories } = getProductCategory2()
+  const { data: categories } = getProductCategories2()
 
   const onFinish = async (values) => {
     const success = await putProduct(values, id)

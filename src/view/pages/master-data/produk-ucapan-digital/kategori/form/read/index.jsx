@@ -2,14 +2,14 @@ import { Button, Form, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
-import { getOneProduct } from '../../../../../../../api/produk-wo/getOneProduct';
+import { getOneProductCategory } from '../../../../../../../api/produk-wo/product-categories/getOneProductCategory';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
   const id = props.location.state.id
 
-  const { data: product } = getOneProduct(id)
+  const { data: category } = getOneProductCategory(id)
 
   return (
     <CardForm title={title}>
@@ -24,31 +24,24 @@ const index = (props) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Nama Produk"
+          label="Nama Kategori"
           name="name"
         >
-          <p>{product?.name}</p>
+          <p>{category?.name}</p>
         </Form.Item>
 
         <Form.Item
-          label="Kategori Produk"
-          name="product_category_id"
-        >
-          <p>{product?.product_category?.name}</p>
-        </Form.Item>
-
-        <Form.Item
-          label="Harga Produk"
-          name="price"
-        >
-          <p>{product?.price}</p>
-        </Form.Item>
-
-        <Form.Item
-          label="Deskripsi Produk"
+          label="Deskripsi"
           name="description"
         >
-          <p>{product?.description}</p>
+          <p>{category?.description}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Status"
+          name="status"
+        >
+          <p>{category?.status == 1 ? "Aktif" : "Non-Aktif"}</p>
         </Form.Item>
 
         <Form.Item

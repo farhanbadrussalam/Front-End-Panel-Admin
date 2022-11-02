@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
 import { postProduct } from '../../../../../../../api/produk-wo/postProduct';
-import { getProductCategory2 } from '../../../../../../../api/produk-wo/product-categories/getProductCategory2';
+import { getProductCategories2 } from '../../../../../../../api/produk-wo/product-categories/getProductCategories2';
 
 const index = () => {
   const history = useHistory()
-  const { data: categories } = getProductCategory2()
+  const { data: categories } = getProductCategories2()
 
   const onFinish = async (values) => {
     const success = await postProduct(values)

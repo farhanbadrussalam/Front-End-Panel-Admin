@@ -2,24 +2,22 @@ import { Button, Form, Space, Input, InputNumber, Select, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
-import { getOneProduct } from '../../../../../../../api/produk-wo/getOneProduct';
-import { getProductCategory2 } from '../../../../../../../api/produk-wo/product-categories/getProductCategory2';
-import { putProduct } from '../../../../../../../api/produk-wo/putProduct';
+import { getOneProductCategory } from '../../../../../../../api/produk-wo/product-categories/getOneProductCategory';
+import { putProductCategory } from '../../../../../../../api/produk-wo/product-categories/putProductCategory';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
   const id = props.location.state.id
 
-  const { data: product } = getOneProduct(id)
-  const { data: categories } = getProductCategory2()
+  const { data: category } = getOneProductCategory(id)
 
   const onFinish = async (values) => {
-    const success = await putProduct(values, id)
+    const success = await putProductCategory(values, id)
 
     if (success == true) {
       message.success("Berhasil mengubah produk")
-      history.push("/admin/produk-ucapan-digital")
+      history.push("/admin/kategori-produk-ucapan-digital")
     }
     else {
       message.error("Gagal mengubah produk")
@@ -41,23 +39,15 @@ const index = (props) => {
         fields={[
           {
             name: 'name',
-            value: product?.name
-          },
-          {
-            name: 'product_category_id',
-            value: product?.product_category?.name
-          },
-          {
-            name: 'price',
-            value: product?.price
+            value: category?.name
           },
           {
             name: 'description',
-            value: product?.description
+            value: category?.description
           },
           {
             name: 'status',
-            value: product?.status
+            value: category?.status
           },
         ]}
       >
@@ -69,28 +59,6 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Kategori Produk"
-          name="product_category_id"
-        >
-          <Select
-            style={{
-              width: 200,
-            }}
-          >
-            {categories?.map((category) => (
-              <Select.Option value={category?.id}>{category?.name}</Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="Harga Produk"
-          name="price"
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item
           label="Deskripsi Produk"
           name="description"
         >
@@ -98,10 +66,17 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Status"
+          label="Kategori Produk"
           name="status"
         >
-          <InputNumber />
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            <Select.Option value={1}>Aktif</Select.Option>
+            <Select.Option value={0}>Non-Aktif</Select.Option>
+          </Select>
         </Form.Item>
 
         <Form.Item
@@ -114,7 +89,7 @@ const index = (props) => {
             <Button type='primary' danger htmlType="submit">
               Simpan
             </Button>
-            <Button danger htmlType="button" onClick={() => history.push('/admin/produk-ucapan-digital')}>
+            <Button danger htmlType="button" onClick={() => history.push('/admin/kategori-produk-ucapan-digital')}>
               Batal
             </Button>
           </Space>

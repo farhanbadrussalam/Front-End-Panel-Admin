@@ -3,7 +3,7 @@ import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
 
 const { confirm } = Modal
-const showModal = (id, name, deleteProduct) => {
+const showModal = (id, name, deleteProductCategory) => {
   confirm({
     title: `Apa anda yakin ingin menghapus produk ${name}?`,
     icon: <Danger color="red" />,
@@ -11,12 +11,12 @@ const showModal = (id, name, deleteProduct) => {
     cancelText: 'Batal',
     okType: 'primary',
     async onOk() {
-      const success = await deleteProduct(id)
+      const success = await deleteProductCategory(id)
       if (success) {
-        message.success("Berhasil menghapus produk")
+        message.success("Berhasil menghapus kategori produk")
       }
       else {
-        message.error("Gagal menghapus produk")
+        message.error("Gagal menghapus kategori produk")
       }
     },
   })
@@ -89,7 +89,7 @@ const columns = [
           </Popover>
 
           <Popover content={"Delete"}>
-            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteProduct)} />
+            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteProductCategory)} />
           </Popover>
         </Space>
       )

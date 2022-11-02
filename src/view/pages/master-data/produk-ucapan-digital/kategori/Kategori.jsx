@@ -3,20 +3,20 @@ import { Row, Col } from 'antd'
 import TableDisplay from '../../../../components/custom-components/TableDisplay'
 import TableCard from '../../../../components/custom-components/TableCard'
 import Column from './kategoriCol'
-import { getProductCategory2 } from '../../../../../api/produk-wo/product-categories/getProductCategory2'
+import { getProductCategories2 } from '../../../../../api/produk-wo/product-categories/getProductCategories2'
 
 const ProdukUcapanDigital = () => {
-  let { data, deleteProduct } = getProductCategory2()
+  let { data, deleteProductCategory } = getProductCategories2()
 
   data = data?.map((product) => {
     return {
       ...product,
-      deleteProduct: deleteProduct,
+      deleteProductCategory: deleteProductCategory,
     }
   })
 
   return (
-    <TableCard>
+    <TableCard back>
       <Row>
         <Col span={24}>
           <TableDisplay data={data} column={Column} addButton />

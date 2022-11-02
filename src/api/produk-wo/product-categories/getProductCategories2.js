@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../../configs/apiConfig';
 
-export const getProductCategory2 = () => {
+export const getProductCategories2 = (url = "product-categories") => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [deleteToggle, setDeleteToggle] = useState(null)
 
   useEffect(() => {
     api
-      .get("product-categories")
+      .get(url)
       .then((res) => setData(res.data.data))
       .catch((err) => setError(err));
 
   }, [deleteToggle])
 
-  const deleteProduct = (id) => {
+  const deleteProductCategory = (id) => {
     const deleted = api.delete(url + '/destroy/' + id)
       .then(res => {
         setDeleteToggle(!deleteToggle)
@@ -25,5 +25,5 @@ export const getProductCategory2 = () => {
     return deleted
   }
 
-  return { data, error, deleteProduct }
+  return { data, error, deleteProductCategory }
 }
