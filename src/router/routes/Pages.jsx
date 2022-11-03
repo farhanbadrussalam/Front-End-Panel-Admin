@@ -4,6 +4,7 @@ import kelolaUser from "./KelolaUser";
 import masterData from "./MasterData";
 import kelolaProdukWO from "./KelolaProdukWO";
 import KelolaArtikel from "./KelolaArtikel";
+import WebsiteSettings from "./WebsiteSettings";
 
 const PagesRoutes = [
   // AUTH
@@ -32,6 +33,9 @@ const PagesRoutes = [
 
   // pages Artikel
   ...KelolaArtikel,
+
+  // pages Pengaturan Website
+  ...WebsiteSettings,
 
   // PAGES
   {
