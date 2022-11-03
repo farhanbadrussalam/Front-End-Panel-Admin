@@ -1,8 +1,8 @@
-import { api } from "../../configs/apiConfig";
+import { api } from "../../../configs/apiConfig";
 
 import { useState, useEffect } from "react";
 
-export const getArticleDetail = (id) => {
+export const getArticleCategoryDetail = (id) => {
   const [data, setData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -10,7 +10,7 @@ export const getArticleDetail = (id) => {
   useEffect(() => {
     setLoading(true);
     api
-      .get(`articles/${id}`)
+      .get(`article-categories/${id}`)
       .then((res) => {
         setData(res.data.data);
       })
@@ -21,7 +21,7 @@ export const getArticleDetail = (id) => {
   const refetch = () => {
     setLoading(true);
     api
-      .get(`articles/${id}`)
+      .get(`article-categories/${id}`)
       .then((res) => {
         setData(res.data.data);
       })

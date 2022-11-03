@@ -10,29 +10,32 @@ import { getArticles } from "../../../../api/artikel";
 export default function index() {
   let { data, error, destroy } = getArticles();
 
-  data = data.map((d) => {
-    return {
-      name: d.title,
-      status: d.status,
-      article_category: d.article_category ? d.article_category.name : "",
-      id: d.id,
-      destroy,
-    };
-  });
+  data = data
+    .filter((d) => !d.id === undefined)
+    .map((d) => {
+      return {
+        name: d.title,
+        status: d.status,
+        article_category: d.article_category ? d.article_category.name : "",
+        id: d.id,
+        destroy,
+      };
+    });
+  console.log(data);
 
   return (
     <>
-      <TableCard>
+      <TableCard customTitle="Artikel">
         <Row>
           <Col span={24}>
             <TableDisplay
               data={data}
               column={columns}
               addButton={true}
-              createLink={`${window.location.pathname}create`}
+              createLink={`${window.location.pathname}/create`}
               otherButton={[
                 {
-                  name: "Kategori Artikel",
+                  name: "Kelola Kategori",
                   link: "/admin/kategori-artikel",
                 },
               ]}

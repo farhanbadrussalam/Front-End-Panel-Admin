@@ -186,7 +186,18 @@ const adminNav = [
     id: "artikel-blog",
     title: "Artikel/Blog",
     icon: <Notepad2 set="curved" className="remix-icon" size={18} />,
-    navLink: "/admin/artikel/",
+    navLink: "/admin/artikel",
+  },
+
+  /**
+   * Menu Kupon
+   * 1.
+   */
+  {
+    id: "kupon",
+    title: "Kupon",
+    icon: <PercentageSquare set="curved" className="remix-icon" size={18} />,
+    navLink: "/admin/kupon",
   },
 
   /**
@@ -234,27 +245,6 @@ const adminNav = [
         navLink: "/admin/pengaturan-payment-gateway",
       },
     ],
-  },
-
-  /**
-   * Menu Notifikasi
-   */
-  {
-    id: "menu-notifikasi",
-    title: "Notifikasi",
-    icon: <Notification set="curved" className="remix-icon" size={18} />,
-    navLink: "/admin/menu-notifikasi",
-  },
-
-  /**
-   * Menu Kupon
-   * 1.
-   */
-  {
-    id: "kupon",
-    title: "Kupon",
-    icon: <PercentageSquare set="curved" className="remix-icon" size={18} />,
-    navLink: "/admin/kupon",
   },
 ];
 

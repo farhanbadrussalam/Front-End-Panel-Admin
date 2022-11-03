@@ -58,13 +58,7 @@ const columns = [
         <Popover content={"Detail"}>
           <Link
             to={{
-              pathname: `/admin/produk-ucapan-user/detail/${payload.id}`,
-              state: {
-                permission: "Detail",
-                dataType: "Produk WO",
-                id: payload.id,
-                data: payload,
-              },
+              pathname: `/admin/artikel/${payload.id}`,
             }}
           >
             <Eye size={20} />
@@ -74,12 +68,7 @@ const columns = [
         <Popover content={"Edit"}>
           <Link
             to={{
-              pathname: `crud-user/edit/${payload.id}`,
-              state: {
-                permission: "Edit",
-                data: "User",
-                id: payload.id,
-              },
+              pathname: `/admin/artikel/update/${payload.id}`,
             }}
           >
             <Edit size={20} />

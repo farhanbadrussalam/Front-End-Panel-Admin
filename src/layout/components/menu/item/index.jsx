@@ -143,7 +143,7 @@ export default function MenuItem(props) {
         splitLocation[splitLocation.length - 2],
       ]}
       theme={customise.theme == "light" ? "light" : "dark"}
-      className="hp-bg-black-20 hp-bg-dark-90"
+      // className="hp-bg-black-20 hp-bg-dark-90"
     >
       {menuItem}
     </Menu>

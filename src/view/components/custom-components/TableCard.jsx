@@ -5,7 +5,7 @@ import { Row, Col, Card } from "antd";
 import TableTitle from "./TableTitle";
 import { Back } from "iconsax-react";
 
-const TableCard = ({ back, children }) => {
+const TableCard = ({ back, customTitle, children }) => {
   const history = useHistory();
   return (
     <Card
@@ -28,7 +28,7 @@ const TableCard = ({ back, children }) => {
         )}
 
         <Col offset={back ? 1 : 0}>
-          <TableTitle />
+          <TableTitle customTitle={customTitle} />
         </Col>
       </Row>
 
