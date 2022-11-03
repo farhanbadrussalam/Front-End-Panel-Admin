@@ -1,4 +1,5 @@
-import { Button, Form, Input, Space, message, Select } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Space, message, Select, Upload } from "antd";
 import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
@@ -13,13 +14,44 @@ const index = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [article_category_id, setArticle_category_id] = useState(1);
+  const [thumbnail, setThumbnail] = useState();
+
+  const thumbnailOnChangeHandler = (info) => {
+    (i) => {
+      if (i.fileList.length === 0) setThumbnail("");
+      else {
+        i.file.status = "done";
+
+        const isJpgOrPng =
+          i.file.type === "image/jpeg" || i.file.type === "image/png";
+        if (!isJpgOrPng) {
+          message.error("You can only upload JPG/PNG file!");
+        }
+
+        const isLt2M = i.file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+          message.error("Image must smaller than 2MB!");
+        }
+
+        if (!isJpgOrPng || !isLt2M) {
+          i.fileList.splice(0, 1);
+        } else {
+          setThumbnail(i.file.originFileObj);
+        }
+      }
+    };
+  };
 
   const onFinish = async () => {
-    const success = await postArticle({
-      title,
-      description,
-      article_category_id,
-    });
+    const form = new FormData();
+
+    form.append("title", title);
+    form.append("description", description);
+    form.append("article_category_id", article_category_id);
+    form.append("thumbnail", thumbnail);
+
+    const success = await postArticle(form);
+
     if (success.data.success) {
       message.success("Berhasil menambahkan artikel");
       history.goBack();
@@ -48,6 +80,7 @@ const index = () => {
       >
         <Form.Item
           label="Judul"
+          key="title"
           name="title"
           rules={[
             {
@@ -61,6 +94,7 @@ const index = () => {
 
         <Form.Item
           label="Deskripsi"
+          key="description"
           name="description"
           rules={[
             {
@@ -78,6 +112,7 @@ const index = () => {
 
         <Form.Item
           label="Kategori"
+          key="article_category_id"
           name="article_category_id"
           rules={[
             {
@@ -99,6 +134,33 @@ const index = () => {
               ))}
             </Select>
           )}
+        </Form.Item>
+
+        <Form.Item
+          label="Thumbnail"
+          key="thumbnail"
+          name="thumbnail"
+          rules={[
+            {
+              required: true,
+              message: "Mohon masukkan thumbnail!",
+            },
+          ]}
+        >
+          <Upload
+            accept=".jpg,.png,.jpeg,.svg"
+            customRequest={undefined}
+            className="avatar-uploader"
+            listType="picture"
+            maxCount={1}
+            onChange={thumbnailOnChangeHandler}
+          >
+            {!thumbnail && (
+              <Button icon={<UploadOutlined />}>
+                Upload file png atau jpg
+              </Button>
+            )}
+          </Upload>
         </Form.Item>
 
         <Form.Item
