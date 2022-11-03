@@ -190,6 +190,17 @@ const adminNav = [
   },
 
   /**
+   * Menu Kupon
+   * 1.
+   */
+  {
+    id: "kupon",
+    title: "Kupon",
+    icon: <PercentageSquare set="curved" className="remix-icon" size={18} />,
+    navLink: "/admin/kupon",
+  },
+
+  /**
    * Pengaturan Website
    * 1. Kontak Admin
    * 2. Sosial Media Dealer
@@ -234,27 +245,6 @@ const adminNav = [
         navLink: "/admin/pengaturan-payment-gateway",
       },
     ],
-  },
-
-  /**
-   * Menu Notifikasi
-   */
-  {
-    id: "menu-notifikasi",
-    title: "Notifikasi",
-    icon: <Notification set="curved" className="remix-icon" size={18} />,
-    navLink: "/admin/menu-notifikasi",
-  },
-
-  /**
-   * Menu Kupon
-   * 1.
-   */
-  {
-    id: "kupon",
-    title: "Kupon",
-    icon: <PercentageSquare set="curved" className="remix-icon" size={18} />,
-    navLink: "/admin/kupon",
   },
 ];
 
