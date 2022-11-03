@@ -29,7 +29,7 @@ const showModal = (id, name) => {
 const columns = [
   // Kolom nama
   {
-    title: 'Name',
+    title: 'Nama',
     dataIndex: 'name',
     key: 'name',
     render: (text) => <a>{text}</a>,
@@ -37,16 +37,16 @@ const columns = [
   },
 
   {
-    title: 'Phone',
+    title: 'No Telp',
     dataIndex: 'phone',
     key: 'phone',
   },
 
-  {
-    title: 'Website',
-    dataIndex: 'website',
-    key: 'website',
-  },
+  // {
+  //   title: 'Website',
+  //   dataIndex: 'website',
+  //   key: 'website',
+  // },
 
   {
     title: 'Email',
@@ -54,10 +54,25 @@ const columns = [
     key: 'email',
   },
 
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    render: (status) => {
+      switch (status) {
+        case 1:
+          return <p>Aktif</p>
+        case 2:
+          return <p>Non Aktif</p>
+        default:
+          return <p>{status}</p>
+      }
+    }
+  },
 
   // Kolom aksi
   {
-    title: 'Action',
+    title: 'Aksi',
     key: 'action',
     render: payload => (
       <Space size="large" className="icons-container" >

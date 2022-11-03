@@ -8,8 +8,8 @@ import { postArticleCategory } from "../../../../../../api/artikel/category/post
 const index = () => {
   const history = useHistory();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
 
   const onFinish = async () => {
     const success = await postArticleCategory({ name, description });

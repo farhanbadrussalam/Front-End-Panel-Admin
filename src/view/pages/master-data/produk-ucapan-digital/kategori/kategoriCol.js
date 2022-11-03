@@ -3,7 +3,7 @@ import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
 
 const { confirm } = Modal
-const showModal = (id, name, deleteProduct) => {
+const showModal = (id, name, deleteProductCategory) => {
   confirm({
     title: `Apa anda yakin ingin menghapus produk ${name}?`,
     icon: <Danger color="red" />,
@@ -11,12 +11,12 @@ const showModal = (id, name, deleteProduct) => {
     cancelText: 'Batal',
     okType: 'primary',
     async onOk() {
-      const success = await deleteProduct(id)
+      const success = await deleteProductCategory(id)
       if (success) {
-        message.success("Berhasil menghapus produk")
+        message.success("Berhasil menghapus kategori produk")
       }
       else {
-        message.error("Gagal menghapus produk")
+        message.error("Gagal menghapus kategori produk")
       }
     },
   })
@@ -32,28 +32,25 @@ const columns = [
   },
 
   {
-    title: 'Harga',
-    dataIndex: 'price',
-    key: 'price',
-  },
-
-  // {
-  //   title: 'Deskripsi',
-  //   dataIndex: 'description',
-  //   key: 'description',
-  // },
-
-  {
-    title: 'Kategori Produk',
-    dataIndex: 'product_category',
-    key: 'product_category',
-    render: product => <p>{product?.name}</p>
+    title: 'Deskripsi',
+    dataIndex: 'description',
+    key: 'description',
   },
 
   {
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    render: (status) => {
+      switch (status) {
+        case 1:
+          return <p>Aktif</p>
+        case 2:
+          return <p>Non Aktif</p>
+        default:
+          return <p>{status}</p>
+      }
+    }
   },
 
 
@@ -67,7 +64,7 @@ const columns = [
         <Space size="large" className="icons-container" >
           <Popover content={"Detail"}>
             <Link to={{
-              pathname: `produk-ucapan-digital/detail/${payload.id}`,
+              pathname: `kategori-produk-ucapan-digital/detail/${payload.id}`,
               state: {
                 permission: 'Detail',
                 data: 'Produk Ucapan Digital',
@@ -80,7 +77,7 @@ const columns = [
 
           <Popover content={"Edit"}>
             <Link to={{
-              pathname: `produk-ucapan-digital/edit/${payload.id}`,
+              pathname: `kategori-produk-ucapan-digital/edit/${payload.id}`,
               state: {
                 permission: 'Edit',
                 data: 'Produk Ucapan Digital',
@@ -92,7 +89,7 @@ const columns = [
           </Popover>
 
           <Popover content={"Delete"}>
-            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteProduct)} />
+            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteProductCategory)} />
           </Popover>
         </Space>
       )

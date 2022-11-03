@@ -20,7 +20,7 @@ const showModal = (id, name) => {
 
 const columns = [
   {
-    title: 'Name',
+    title: 'Nama',
     dataIndex: 'name',
     key: 'name',
     render: (text) => <a>{text}</a>,
@@ -37,10 +37,20 @@ const columns = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    render: (status) => {
+      switch (status) {
+        case 1:
+          return <p>Aktif</p>
+        case 2:
+          return <p>Non Aktif</p>
+        default:
+          return <p>{status}</p>
+      }
+    }
   },
 
   {
-    title: 'Action',
+    title: 'Aksi',
     key: 'action',
     render: payload => (
       <Space size="large" className="icons-container" >
