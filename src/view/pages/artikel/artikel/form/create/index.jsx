@@ -14,7 +14,7 @@ const index = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [article_category_id, setArticle_category_id] = useState(1);
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState();
 
   const thumbnailOnChangeHandler = (info) => {
     (i) => {
