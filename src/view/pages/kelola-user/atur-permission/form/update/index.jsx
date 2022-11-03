@@ -2,12 +2,20 @@ import { Button, Form, Input, Space, message, Row, Col, Checkbox } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import PermissionMenu from './PermissionMenu';
+import { PermissionMenu } from '../../component/PermissionMenu';
+import { Menus } from '../../component/Menu'
 
 const index = () => {
   const history = useHistory()
 
   const onFinish = async (values) => {
+    // if (success.data.success) {
+    //   message.success('Berhasil menambahkan role')
+    //   history.goBack()
+    // }
+    // else {
+    //   message.error('Gagal menambahkan role')
+    // }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -15,7 +23,7 @@ const index = () => {
   };
 
   return (
-    <CardForm title="Ubah Permission Role">
+    <CardForm title="Ubah Jenis Role">
       <Form
         name="basic"
         labelCol={{
@@ -27,11 +35,12 @@ const index = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        layout='inline'
+        layout='vertical'
+        size='small'
         style={{ display: 'block' }}
       >
 
-        <Space direction='vertical' size='large' style={{ display: 'flex' }}>
+        <Space direction='vertical' size='small' style={{ display: 'flex' }}>
           <Row gutter={20}>
             <Col span={12}>
               <Form.Item
@@ -66,17 +75,19 @@ const index = () => {
           </Row>
 
           {/* Checkbox */}
-          <Row>
-            <Col span={24}>
-              <Form.Item
-                label="Data pengguna"
-                name="pengguna"
-                labelAlign='left'
-              >
-                <PermissionMenu />
-              </Form.Item>
-            </Col>
-          </Row>
+          {Menus?.map((menu) => (
+            <Row>
+              <Col span={24}>
+                <Form.Item
+                  label={menu.title}
+                  name="user"
+                  labelAlign='left'
+                >
+                  <PermissionMenu menus={menu.value} />
+                </Form.Item>
+              </Col>
+            </Row>
+          ))}
 
           {/* Button */}
           <Row>
