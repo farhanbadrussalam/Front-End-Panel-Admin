@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { contacts } from "../../../api/website-settings/admin-contacts";
+import { faq } from "../../../api/website-settings/faq";
 
 import {
   List,
@@ -17,7 +17,7 @@ import { Trash, Danger } from "iconsax-react";
 export default function () {
   const [isAdding, setIsAdding] = useState(false);
 
-  let { data, error, loading, method } = contacts();
+  let { data, error, loading, method } = faq();
   data = data.filter((d) => d.id !== undefined);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function () {
         <List
           itemLayout="horizontal"
           dataSource={data}
-          header={<div>Kontak Admin</div>}
+          header={<div>Frequently Asked Questions</div>}
           loading={loading.update || loading.destroy || loading.getAll}
           renderItem={(item) => (
             <>
@@ -69,8 +69,8 @@ export default function () {
                   </Popover>,
                 ]}
               >
-                <Skeleton avatar title={false} loading={item.loading} active>
-                  <List.Item.Meta title={item.name} description={item.value} />
+                <Skeleton title={false} loading={item.loading} active>
+                  <List.Item.Meta title={item.name} description={item.answer} />
                   <div>
                     <Select
                       value={statusConverter(item.status)}
@@ -80,7 +80,7 @@ export default function () {
                       onChange={(e) =>
                         method.update(item.id, {
                           name: item.name,
-                          value: item.value,
+                          answer: item.answer,
                           status: e,
                         })
                       }
@@ -116,7 +116,7 @@ export default function () {
               danger
               onClick={() => setIsAdding(true)}
             >
-              tambah kontak admin
+              tambah FAQ
             </Button>
           </div>
         )}
@@ -147,12 +147,12 @@ const AddForm = ({ submit, setIsAdding, createErr }) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Nama Kontak"
+          label="Pertanyaan"
           name="name"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan nama kontak!",
+              message: "Mohon masukkan pertanyaan!",
             },
           ]}
         >
@@ -163,12 +163,12 @@ const AddForm = ({ submit, setIsAdding, createErr }) => {
           />
         </Form.Item>
         <Form.Item
-          label="Kontak"
-          name="value"
+          label="Jawaban"
+          name="anser"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan kontak!",
+              message: "Mohon masukkan jawaban!",
             },
           ]}
         >

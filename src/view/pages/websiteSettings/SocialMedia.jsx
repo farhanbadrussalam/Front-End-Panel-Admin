@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { contacts } from "../../../api/website-settings/admin-contacts";
+import { socialMedia } from "../../../api/website-settings/social-medias";
 
 import {
   List,
@@ -17,7 +17,7 @@ import { Trash, Danger } from "iconsax-react";
 export default function () {
   const [isAdding, setIsAdding] = useState(false);
 
-  let { data, error, loading, method } = contacts();
+  let { data, error, loading, method } = socialMedia();
   data = data.filter((d) => d.id !== undefined);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function () {
         <List
           itemLayout="horizontal"
           dataSource={data}
-          header={<div>Kontak Admin</div>}
+          header={<div>Sosial Media</div>}
           loading={loading.update || loading.destroy || loading.getAll}
           renderItem={(item) => (
             <>
@@ -82,6 +82,7 @@ export default function () {
                           name: item.name,
                           value: item.value,
                           status: e,
+                          icon: "-",
                         })
                       }
                       options={[
@@ -116,7 +117,7 @@ export default function () {
               danger
               onClick={() => setIsAdding(true)}
             >
-              tambah kontak admin
+              tambah akun media sosial
             </Button>
           </div>
         )}
@@ -147,34 +148,34 @@ const AddForm = ({ submit, setIsAdding, createErr }) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Nama Kontak"
+          label="Nama Social Media"
           name="name"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan nama kontak!",
+              message: "Mohon masukkan nama social media!",
             },
           ]}
         >
           <Input
             value={name}
-            placeholder="Whatsapp, Line, Telegram"
+            placeholder="Instagram, Facebook, Twiter"
             onChange={(e) => setName(e.target.value)}
           />
         </Form.Item>
         <Form.Item
-          label="Kontak"
+          label="Nama Akun"
           name="value"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan kontak!",
+              message: "Mohon masukkan nama akun!",
             },
           ]}
         >
           <Input
             value={value}
-            placeholder="@admin123, 089..."
+            placeholder="wo123"
             onChange={(e) => setValue(e.target.value)}
           />
         </Form.Item>

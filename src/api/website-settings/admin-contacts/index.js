@@ -1,5 +1,5 @@
 import { useData } from "../apiTemplate";
 
-export const contactsTest = (url) => {
+export const contacts = (url) => {
   return useData("admin-contacts");
 };
