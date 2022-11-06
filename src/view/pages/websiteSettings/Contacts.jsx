@@ -10,16 +10,16 @@ import {
   Space,
   Select,
   Modal,
+  Spin,
   Popover,
 } from "antd";
 import { Trash, Danger } from "iconsax-react";
 
 export default function () {
   const [isAdding, setIsAdding] = useState(false);
-  const [name, setName] = useState();
-  const [value, setValue] = useState();
 
-  const { contacts } = contactsTest();
+  let { contacts, error, loading, method } = contactsTest();
+  contacts = contacts.filter((d) => d.id !== undefined);
 
   useEffect(() => {
     setIsAdding(false);
@@ -36,10 +36,6 @@ export default function () {
     }
   };
 
-  const submitHandler = (e) => {
-    name && value && setIsAdding(false);
-  };
-
   const deleteContact = (id, name) => {
     Modal.confirm({
       title: `Apa anda yakin ingin menghapus ${name}?`,
@@ -47,9 +43,9 @@ export default function () {
       okText: "Yakin",
       cancelText: "Batal",
       okType: "primary",
-      // onOk() {
-      //   destroy(id);
-      // },
+      onOk() {
+        method.destroy(id);
+      },
     });
   };
 
@@ -60,6 +56,12 @@ export default function () {
           itemLayout="horizontal"
           dataSource={contacts}
           header={<div>Kontak Admin</div>}
+          loading={
+            loading.create ||
+            loading.destroy ||
+            loading.getAll ||
+            loading.update
+          }
           renderItem={(item) => (
             <>
               <List.Item
@@ -67,7 +69,7 @@ export default function () {
                   <Popover
                     content="delete"
                     key="delete-contact"
-                    onClick={(e) => deleteContact(item.id)}
+                    onClick={() => deleteContact(item.id, item.name)}
                   >
                     <Trash color="red" size={20} />
                   </Popover>,
@@ -77,12 +79,17 @@ export default function () {
                   <List.Item.Meta title={item.name} description={item.value} />
                   <div>
                     <Select
-                      defaultValue={statusConverter(item.status)}
-                      // value={status}
+                      value={statusConverter(item.status)}
                       style={{
                         width: 120,
                       }}
-                      // onChange={handleChange}
+                      onChange={(e) =>
+                        method.update(item.id, {
+                          name: item.name,
+                          value: item.value,
+                          status: e,
+                        })
+                      }
                       options={[
                         {
                           value: "0",
@@ -101,81 +108,15 @@ export default function () {
           )}
         />
         {isAdding ? (
-          <div className="addForm">
-            <Form
-              name="addForm"
-              labelCol={{
-                span: 8,
-              }}
-              wrapperCol={{
-                span: 8,
-              }}
-              autoComplete="off"
-            >
-              <Form.Item
-                label="Nama Kontak"
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Mohon masukkan nama kontak!",
-                  },
-                ]}
-              >
-                <Input
-                  value={name}
-                  placeholder="Whatsapp, Line, Telegram"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item
-                label="Kontak"
-                name="value"
-                rules={[
-                  {
-                    required: true,
-                    message: "Mohon masukkan kontak!",
-                  },
-                ]}
-              >
-                <Input
-                  value={value}
-                  placeholder="@admin123, 089..."
-                  onChange={(e) => setValue(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 8,
-                }}
-              >
-                <Space
-                  size="small"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <Button
-                    htmlType="submit"
-                    type="primary"
-                    danger
-                    onClick={submitHandler}
-                  >
-                    Simpan
-                  </Button>
-                  <Button
-                    danger
-                    htmlType="button"
-                    onClick={() => setIsAdding(false)}
-                  >
-                    Batal
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Form>
-          </div>
+          <AddForm
+            submit={method.create}
+            setIsAdding={setIsAdding}
+            createErr={error.create}
+          />
         ) : (
           <div className="button">
             <Button
+              disabled={loading.create}
               size="small"
               type="primary"
               danger
@@ -189,3 +130,84 @@ export default function () {
     </>
   );
 }
+
+const AddForm = ({ submit, setIsAdding, createErr }) => {
+  const [name, setName] = useState();
+  const [value, setValue] = useState();
+
+  const submitHandler = (e) => {
+    submit({ name, value });
+    name && value && setIsAdding(false);
+  };
+
+  return (
+    <div className="addForm">
+      <Form
+        name="addForm"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 8,
+        }}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="Nama Kontak"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Mohon masukkan nama kontak!",
+            },
+          ]}
+        >
+          <Input
+            value={name}
+            placeholder="Whatsapp, Line, Telegram"
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Kontak"
+          name="value"
+          rules={[
+            {
+              required: true,
+              message: "Mohon masukkan kontak!",
+            },
+          ]}
+        >
+          <Input
+            value={value}
+            placeholder="@admin123, 089..."
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 8,
+          }}
+        >
+          <Space
+            size="small"
+            style={{ display: "flex", justifyContent: "space-evenly" }}
+          >
+            <Button
+              htmlType="submit"
+              type="primary"
+              danger
+              onClick={submitHandler}
+            >
+              Simpan
+            </Button>
+            <Button danger htmlType="button" onClick={() => setIsAdding(false)}>
+              Batal
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
