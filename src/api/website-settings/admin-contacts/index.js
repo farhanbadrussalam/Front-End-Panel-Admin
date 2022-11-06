@@ -9,7 +9,7 @@ const METHOD_ID = {
 };
 
 export const contactsTest = () => {
-  const [contacts, setContacts] = useState([{}]);
+  const [data, setData] = useState([{}]);
   const [changed, setChanged] = useState(true);
   const [error, setError] = useState({
     getAll: null,
@@ -24,119 +24,89 @@ export const contactsTest = () => {
     create: false,
   });
 
-  const resetControlFlowState = (methodId) => {
+  const generateApi = (methodId, url, id = null, value = null) => {
+    setLoading((prev) => ({ ...prev, [methodId]: true }));
     setError({ ...error, [methodId]: null });
-    setLoading({ ...loading, [methodId]: true });
-    setChanged(false);
-  };
 
-  const generateApi = (methodId, id = null, value = null, url) => {
-    resetControlFlowState(methodId);
     let req;
+
+    url = id ? `${url}/${id}` : url;
 
     switch (methodId) {
       case METHOD_ID.GET_ALL_DATA:
         req = api.get(url);
         break;
       case METHOD_ID.CREATE_DATA:
-        req = api.post(url);
+        setChanged(false);
+        req = api.post(url, value);
         break;
       case METHOD_ID.UPDATE_DATA:
-        req = api.put(url);
+        setChanged(false);
+        req = api.put(url, value);
         break;
       case METHOD_ID.DESTROY_DATA:
+        setChanged(false);
         req = api.delete(url);
         break;
       default:
         throw "methodId may be wrong!";
     }
 
-    if (methodId === METHOD_ID.GET_ALL_DATA) {
-      return req
-        .then((d) => {
-          setContacts(d.data.data);
-          return d;
-        })
-        .catch((e) => setError({ ...error, getAll: e }))
-        .finally(() => setLoading({ ...loading, getAll: false }));
-    }
+    req =
+      methodId === METHOD_ID.GET_ALL_DATA
+        ? req.then((d) => {
+            setData(d.data.data);
+            return d;
+          })
+        : req.then((d) => {
+            setChanged(true);
+            setChanged(true);
+            return d;
+          });
 
     return req
-      .then((d) => {
-        setChanged(true);
-        return d;
-      })
       .catch((e) => setError({ ...error, [methodId]: e }))
-      .finally(() => setLoading({ ...loading, [methodId]: false }));
+      .finally(() =>
+        setTimeout(() => {
+          setLoading((prev) => ({ ...prev, [methodId]: false }));
+        }, 0)
+      );
   };
 
   useEffect(() => {
     if (changed) {
-      resetControlFlowState(METHOD_ID.GET_ALL_DATA);
-
-      setTimeout(() => {
-        api
-          .get("admin-contacts")
-          .then((d) => setContacts(d.data.data))
-          .catch((e) => setError({ ...error, getAll: e }))
-          .finally(() => setLoading({ ...loading, getAll: false }));
-      }, 2000);
+      generateApi(METHOD_ID.GET_ALL_DATA, "admin-contacts");
     }
   }, [changed]);
 
-  const getAll = async () => {
-    resetControlFlowState(METHOD_ID.GET_ALL_DATA);
-
-    return await api
-      .get("admin-contacts")
-      .then((d) => d.data.data)
-      .catch((e) => setError({ ...error, getAll: e }))
-      .finally(() =>
-        setLoading({ ...loading, [METHOD_ID.GET_ALL_DATA]: false })
-      );
+  const getAll = () => {
+    return generateApi(METHOD_ID.GET_ALL_DATA, "admin-contacts");
   };
 
-  const destroy = async (id) => {
-    resetControlFlowState(METHOD_ID.DESTROY_DATA);
-
-    return await api
-      .delete(`admin-contacts/destroy/${id}`)
-      .then((d) => {
-        setChanged(true);
-        return d;
-      })
-      .catch((e) => setError({ ...error, destroy: e }))
-      .finally(() => setLoading({ ...loading, destroy: false }));
+  const destroy = (id) => {
+    return generateApi(METHOD_ID.DESTROY_DATA, "admin-contacts/destroy", id);
   };
 
-  const update = async (id, data) => {
-    resetControlFlowState(METHOD_ID.UPDATE_DATA);
-
-    return await api
-      .put(`admin-contacts/update/${id}`, data)
-      .then((d) => {
-        setChanged(true);
-        return d;
-      })
-      .catch((e) => setError({ ...error, update: e }))
-      .finally(() => setLoading({ ...loading, update: false }));
+  const update = (id, data) => {
+    return generateApi(
+      METHOD_ID.UPDATE_DATA,
+      "admin-contacts/update",
+      id,
+      data
+    );
   };
 
-  const create = async (value) => {
-    resetControlFlowState(METHOD_ID.CREATE_DATA);
-
-    return await api
-      .post("admin-contacts", value)
-      .then((d) => {
-        setChanged(true);
-        return d;
-      })
-      .catch((e) => setError({ ...error, create: e }))
-      .finally(() => setLoading({ ...loading, create: false }));
+  const create = (value) => {
+    return generateApi(
+      METHOD_ID.CREATE_DATA,
+      "admin-contacts/store",
+      null,
+      value
+    );
   };
 
   return {
-    contacts,
+    data,
     error,
     loading,
     method: { getAll, destroy, update, create },

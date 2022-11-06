@@ -10,7 +10,6 @@ import {
   Space,
   Select,
   Modal,
-  Spin,
   Popover,
 } from "antd";
 import { Trash, Danger } from "iconsax-react";
@@ -18,8 +17,8 @@ import { Trash, Danger } from "iconsax-react";
 export default function () {
   const [isAdding, setIsAdding] = useState(false);
 
-  let { contacts, error, loading, method } = contactsTest();
-  contacts = contacts.filter((d) => d.id !== undefined);
+  let { data, error, loading, method } = contactsTest();
+  data = data.filter((d) => d.id !== undefined);
 
   useEffect(() => {
     setIsAdding(false);
@@ -54,14 +53,9 @@ export default function () {
       <div className="custom_website-settings_contacts">
         <List
           itemLayout="horizontal"
-          dataSource={contacts}
+          dataSource={data}
           header={<div>Kontak Admin</div>}
-          loading={
-            loading.create ||
-            loading.destroy ||
-            loading.getAll ||
-            loading.update
-          }
+          loading={loading.update || loading.destroy || loading.getAll}
           renderItem={(item) => (
             <>
               <List.Item
