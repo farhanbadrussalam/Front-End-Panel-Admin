@@ -41,8 +41,31 @@ export default function VerticalLayout(props) {
         </Content>
 
         {/* <MenuFooter /> */}
+        <Row
+          style={{
+            fontSize: "12.5px",
+            backgroundColor: "rgb(252,252,252)",
+            padding: "0 15px",
+            marginTop: "30px",
+            height: " 70px",
+            alignItems: "center",
+          }}
+        >
+          <Col flex="auto" style={{ padding: "15px" }}>
+            Best Wishes
+          </Col>
+          <Col
+            flex="auto"
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              padding: "15px",
+            }}
+          >
+            2022 © tokoweb.co
+          </Col>
+        </Row>
       </Layout>
-
       <ScrollTop />
     </Layout>
   );
