@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { contacts } from "../../../api/website-settings/admin-contacts";
+import { useData } from "../../../api/website-settings/apiTemplate";
 
 import {
   List,
@@ -11,13 +11,14 @@ import {
   Select,
   Modal,
   Popover,
+  Typography,
 } from "antd";
 import { Trash, Danger } from "iconsax-react";
 
 export default function () {
   const [isAdding, setIsAdding] = useState(false);
 
-  let { data, error, loading, method } = contacts();
+  let { data, error, loading, method } = useData("admin-contacts");
   data = data.filter((d) => d.id !== undefined);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function () {
 
   const statusConverter = (status) => {
     switch (status) {
-      case 0:
+      case 2:
         return "tidak aktif";
       case 1:
         return "aktif";
@@ -50,11 +51,11 @@ export default function () {
 
   return (
     <>
-      <div className="custom_website-settings_contacts">
+      <div className="custom_website-settings">
         <List
           itemLayout="horizontal"
           dataSource={data}
-          header={<div>Kontak Admin</div>}
+          header={<Typography.Title level={4}>Kontak Admin</Typography.Title>}
           loading={loading.update || loading.destroy || loading.getAll}
           renderItem={(item) => (
             <>
@@ -86,7 +87,7 @@ export default function () {
                       }
                       options={[
                         {
-                          value: "0",
+                          value: "2",
                           label: "tidak aktif",
                         },
                         {

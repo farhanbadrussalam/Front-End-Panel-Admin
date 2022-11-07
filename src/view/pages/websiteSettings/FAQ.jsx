@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { faq } from "../../../api/website-settings/faq";
+import { useData } from "../../../api/website-settings/apiTemplate";
 
 import {
   List,
@@ -11,13 +11,14 @@ import {
   Select,
   Modal,
   Popover,
+  Typography,
 } from "antd";
 import { Trash, Danger } from "iconsax-react";
 
 export default function () {
   const [isAdding, setIsAdding] = useState(false);
 
-  let { data, error, loading, method } = faq();
+  let { data, error, loading, method } = useData("frequently-ask-questions");
   data = data.filter((d) => d.id !== undefined);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function () {
 
   const statusConverter = (status) => {
     switch (status) {
-      case 0:
+      case 2:
         return "tidak aktif";
       case 1:
         return "aktif";
@@ -50,11 +51,15 @@ export default function () {
 
   return (
     <>
-      <div className="custom_website-settings_contacts">
+      <div className="custom_website-settings">
         <List
           itemLayout="horizontal"
           dataSource={data}
-          header={<div>Frequently Asked Questions</div>}
+          header={
+            <Typography.Title level={4}>
+              Frequently Asked Questions
+            </Typography.Title>
+          }
           loading={loading.update || loading.destroy || loading.getAll}
           renderItem={(item) => (
             <>
@@ -82,11 +87,12 @@ export default function () {
                           name: item.name,
                           answer: item.answer,
                           status: e,
+                          wedding_organizer_id: 0,
                         })
                       }
                       options={[
                         {
-                          value: "0",
+                          value: "2",
                           label: "tidak aktif",
                         },
                         {
@@ -130,7 +136,7 @@ const AddForm = ({ submit, setIsAdding, createErr }) => {
   const [value, setValue] = useState();
 
   const submitHandler = (e) => {
-    submit({ name, value });
+    submit({ name, answer: value, wedding_organizer_id: 0 });
     name && value && setIsAdding(false);
   };
 
