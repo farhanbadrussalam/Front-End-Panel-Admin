@@ -37,6 +37,13 @@ const masterData = [
     ),
     layout: "VerticalLayout",
   },
+  {
+    path: "/admin/pesanan/detail/:userid",
+    component: lazy(() =>
+      import("../../../view/pages/master-data/pesanan/form/read")
+    ),
+    layout: "VerticalLayout",
+  },
 
   // create data
   {
@@ -111,7 +118,15 @@ const masterData = [
   {
     path: "/admin/kategori-produk-ucapan-digital/edit/:userid",
     component: lazy(() =>
-      import("../../../view/pages/master-data/produk-ucapan-digital/kategori/form/update")
+      import("../../../view/pages/master-data/produk-ucapan-digital/kategori/form/update")),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/pesanan/edit/:userid",
+    component: lazy(() =>
+      import(
+        "../../../view/pages/master-data/pesanan/form/update"
+      )
     ),
     layout: "VerticalLayout",
   },
@@ -145,6 +160,13 @@ const masterData = [
     path: "/admin/kategori-produk-ucapan-digital",
     component: lazy(() =>
       import("../../../view/pages/master-data/produk-ucapan-digital/kategori")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/pesanan",
+    component: lazy(() =>
+      import("../../../view/pages/master-data/pesanan")
     ),
     layout: "VerticalLayout",
   },
