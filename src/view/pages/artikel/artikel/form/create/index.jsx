@@ -16,30 +16,28 @@ const index = () => {
   const [article_category_id, setArticle_category_id] = useState(1);
   const [thumbnail, setThumbnail] = useState();
 
-  const thumbnailOnChangeHandler = (info) => {
-    (i) => {
-      if (i.fileList.length === 0) setThumbnail("");
-      else {
-        i.file.status = "done";
+  const thumbnailOnChangeHandler = (i) => {
+    if (i.fileList.length === 0) setThumbnail("");
+    else {
+      i.file.status = "done";
 
-        const isJpgOrPng =
-          i.file.type === "image/jpeg" || i.file.type === "image/png";
-        if (!isJpgOrPng) {
-          message.error("You can only upload JPG/PNG file!");
-        }
-
-        const isLt2M = i.file.size / 1024 / 1024 < 2;
-        if (!isLt2M) {
-          message.error("Image must smaller than 2MB!");
-        }
-
-        if (!isJpgOrPng || !isLt2M) {
-          i.fileList.splice(0, 1);
-        } else {
-          setThumbnail(i.file.originFileObj);
-        }
+      const isJpgOrPng =
+        i.file.type === "image/jpeg" || i.file.type === "image/png";
+      if (!isJpgOrPng) {
+        message.error("You can only upload JPG/PNG file!");
       }
-    };
+
+      const isLt2M = i.file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        message.error("Image must smaller than 2MB!");
+      }
+
+      if (!isJpgOrPng || !isLt2M) {
+        i.fileList.splice(0, 1);
+      } else {
+        setThumbnail(i.file.originFileObj);
+      }
+    }
   };
 
   const onFinish = async () => {
@@ -50,13 +48,13 @@ const index = () => {
     form.append("article_category_id", article_category_id);
     form.append("thumbnail", thumbnail);
 
-    const success = await postArticle(form);
+    const response = await postArticle(form);
 
-    if (success.data.success) {
+    if (response?.data?.success) {
       message.success("Berhasil menambahkan artikel");
       history.goBack();
     } else {
-      message.error("Gagal menambahkan artikel");
+      message.error(`Gagal menambahkan artikel!: ${response}`);
     }
   };
 
