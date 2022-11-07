@@ -21,6 +21,8 @@ const TableDisplay = ({
    */
   otherButton,
 
+  loading,
+  expandable,
   createLink = `${window.location.pathname}/create`,
   colomWidth = 400,
 }) => {
@@ -75,22 +77,25 @@ const TableDisplay = ({
       </Row>
 
       <Table
+        loading={loading}
         size="small"
         columns={column}
         dataSource={tableData}
         scroll={{ x: colomWidth, y: 300 }}
         className="master-table"
-        expandable={{
-          expandedRowRender: () => (
-            <div className="expanded-row">
-              <p>Judul expanded row : </p>
-              <ol>
-                <li>list 1</li>
-                <li>list 2</li>
-              </ol>
-            </div>
-          ),
-        }}
+        expandable={
+          expandable && {
+            expandedRowRender: () => (
+              <div className="expanded-row">
+                <p>Judul expanded row : </p>
+                <ol>
+                  <li>list 1</li>
+                  <li>list 2</li>
+                </ol>
+              </div>
+            ),
+          }
+        }
         pagination={{
           size: "small",
         }}
