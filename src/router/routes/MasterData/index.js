@@ -26,7 +26,14 @@ const masterData = [
   {
     path: "/admin/produk-ucapan-digital/detail/:userid",
     component: lazy(() =>
-      import("../../../view/pages/master-data/produk-ucapan-digital/form/read")
+      import("../../../view/pages/master-data/produk-ucapan-digital/produk/form/read")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/kategori-produk-ucapan-digital/detail",
+    component: lazy(() =>
+      import("../../../view/pages/master-data/produk-ucapan-digital/kategori/form/read")
     ),
     layout: "VerticalLayout",
   },
@@ -57,8 +64,15 @@ const masterData = [
     path: "/admin/produk-ucapan-digital/create",
     component: lazy(() =>
       import(
-        "../../../view/pages/master-data/produk-ucapan-digital/form/create"
+        "../../../view/pages/master-data/produk-ucapan-digital/produk/form/create"
       )
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/kategori-produk-ucapan-digital/create",
+    component: lazy(() =>
+      import("../../../view/pages/master-data/produk-ucapan-digital/kategori/form/create")
     ),
     layout: "VerticalLayout",
   },
@@ -89,8 +103,15 @@ const masterData = [
     path: "/admin/produk-ucapan-digital/edit/:userid",
     component: lazy(() =>
       import(
-        "../../../view/pages/master-data/produk-ucapan-digital/form/update"
+        "../../../view/pages/master-data/produk-ucapan-digital/produk/form/update"
       )
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/kategori-produk-ucapan-digital/edit/:userid",
+    component: lazy(() =>
+      import("../../../view/pages/master-data/produk-ucapan-digital/kategori/form/update")
     ),
     layout: "VerticalLayout",
   },
@@ -116,7 +137,14 @@ const masterData = [
   {
     path: "/admin/produk-ucapan-digital",
     component: lazy(() =>
-      import("../../../view/pages/master-data/produk-ucapan-digital")
+      import("../../../view/pages/master-data/produk-ucapan-digital/produk")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/kategori-produk-ucapan-digital",
+    component: lazy(() =>
+      import("../../../view/pages/master-data/produk-ucapan-digital/kategori")
     ),
     layout: "VerticalLayout",
   },
