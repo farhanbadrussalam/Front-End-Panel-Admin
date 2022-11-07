@@ -1,9 +1,9 @@
 import React from 'react'
-import AturRole from './AturRole'
+import AturPermission from './AturPermission'
 
 const index = () => {
   return (
-    <AturRole />
+    <AturPermission />
   )
 }
 
