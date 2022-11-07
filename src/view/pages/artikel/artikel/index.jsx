@@ -22,17 +22,17 @@ export default function index() {
 
   return (
     <>
-      <TableCard>
+      <TableCard customTitle="Artikel">
         <Row>
           <Col span={24}>
             <TableDisplay
               data={data}
               column={columns}
               addButton={true}
-              createLink={`${window.location.pathname}create`}
+              createLink={`${window.location.pathname}/create`}
               otherButton={[
                 {
-                  name: "Kategori Artikel",
+                  name: "Kelola Kategori",
                   link: "/admin/kategori-artikel",
                 },
               ]}

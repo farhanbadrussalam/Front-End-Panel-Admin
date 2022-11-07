@@ -14,10 +14,10 @@ const index = () => {
   const onFinish = async () => {
     const success = await postArticleCategory({ name, description });
     if (success.data.success) {
-      message.success("Berhasil menambahkan customer");
+      message.success("Berhasil menambahkan kategori artikel");
       history.goBack();
     } else {
-      message.error("Gagal menambahkan customer");
+      message.error("Gagal menambahkan kategori artikel");
     }
   };
 
@@ -26,7 +26,7 @@ const index = () => {
   };
 
   return (
-    <CardForm title="Tambah data customer">
+    <CardForm title="Tambah data kategori artikel">
       <Form
         name="basic"
         labelCol={{

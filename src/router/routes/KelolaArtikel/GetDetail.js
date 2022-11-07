@@ -2,16 +2,16 @@ import { lazy } from "react";
 
 const GetDetail = [
   {
-    path: "/admin/artikel/:userid",
+    path: "/admin/artikel/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/group-user/komisi")
+      import("../../../view/pages/artikel/artikel/form/read")
     ),
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/artikel-category/:userid",
+    path: "/admin/kategori-artikel/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/group-user/komisi")
+      import("../../../view/pages/artikel/artikel-kategori/form/read")
     ),
     layout: "VerticalLayout",
   },

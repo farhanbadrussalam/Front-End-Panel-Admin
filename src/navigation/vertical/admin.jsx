@@ -186,7 +186,7 @@ const adminNav = [
     id: "artikel-blog",
     title: "Artikel/Blog",
     icon: <Notepad2 set="curved" className="remix-icon" size={18} />,
-    navLink: "/admin/artikel/",
+    navLink: "/admin/artikel",
   },
 
   /**

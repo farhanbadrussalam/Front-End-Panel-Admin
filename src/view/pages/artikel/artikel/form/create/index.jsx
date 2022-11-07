@@ -2,7 +2,7 @@ import { Button, Form, Input, Space, message, Select } from "antd";
 import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
-import { postArticle } from "../../../../../../api/artikel/postArticles";
+import { postArticle } from "../../../../../../api/artikel";
 import { getArticleCategories } from "../../../../../../api/artikel/category";
 
 const index = () => {
@@ -21,10 +21,10 @@ const index = () => {
       article_category_id,
     });
     if (success.data.success) {
-      message.success("Berhasil menambahkan customer");
+      message.success("Berhasil menambahkan artikel");
       history.goBack();
     } else {
-      message.error("Gagal menambahkan customer");
+      message.error("Gagal menambahkan artikel");
     }
   };
 
@@ -33,7 +33,7 @@ const index = () => {
   };
 
   return (
-    <CardForm title="Tambah data customer">
+    <CardForm title="Tambah data artikel">
       <Form
         name="basic"
         labelCol={{
@@ -87,11 +87,10 @@ const index = () => {
           ]}
         >
           {loading ? (
-            <Select style={{ width: 120 }} loading></Select>
+            <Select loading></Select>
           ) : (
             <Select
               defaultValue={article_category_id}
-              style={{ width: 120 }}
               value={article_category_id}
               onChange={(e) => setArticle_category_id(e)}
             >

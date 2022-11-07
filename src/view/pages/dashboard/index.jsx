@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 
 import { Col, Row, Card, Statistic, Button, List, Avatar, Table } from "antd";
 import {
@@ -18,9 +18,14 @@ import { dummy2 } from "./dummy2";
 import { dummyColumns } from "./dummyColumns";
 import { dummyColumns2 } from "./dummyColumns2";
 
+import { getCount, getBestSelling } from "../../../api/dashboard";
+
 import "./style.css";
 
 export default function DashBoard() {
+  const count = getCount();
+  const bestSelling = getBestSelling();
+
   return (
     <>
       <Row gutter={[32, 32]}>
@@ -28,17 +33,17 @@ export default function DashBoard() {
           <Card>
             <Statistic
               title="Total User"
-              value={10827}
+              value={count.data.total_user_count}
               prefix={<UserOctagon color="#f47373" size={30} />}
-              // prefixCls="custom-dashboard-statistic"
             />
           </Card>
         </Col>
+
         <Col span={6}>
           <Card>
             <Statistic
               title="Wedding Organizer"
-              value={830}
+              value={count.data.user_count}
               prefix={<SecurityUser color="#F45000" size={30} />}
             />
           </Card>
@@ -48,7 +53,7 @@ export default function DashBoard() {
           <Card>
             <Statistic
               title="Pelanggan"
-              value={9997}
+              value={count.data.customer_count}
               prefix={<Profile2User color="#F45000" size={30} />}
             />
           </Card>
@@ -58,7 +63,7 @@ export default function DashBoard() {
           <Card>
             <Statistic
               title="Pesanan"
-              value={215402}
+              value={count.data.sales_order_count}
               prefix={<ShoppingCart color="#37d67a" />}
             />
           </Card>
