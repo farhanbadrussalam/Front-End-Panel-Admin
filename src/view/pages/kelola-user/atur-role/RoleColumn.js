@@ -48,7 +48,7 @@ const columns = [
       <Space size='large' className="icons-container">
         <Popover content={"Edit"}>
           <Link to={{
-            pathname: `policy-user/edit/${payload.id}`,
+            pathname: `atur-role/edit/${payload.id}`,
             state: {
               permission: 'Edit',
               data: 'User',

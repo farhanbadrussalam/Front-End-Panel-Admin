@@ -11,15 +11,8 @@ const index = (props) => {
   const { data: role } = getOneRole(id)
 
   const onFinish = async (values) => {
-    console.log(values);
-    //todo: mengambil nilai checkbox
-    // if (success.data.success) {
-    //   message.success('Berhasil menambahkan role')
-    //   history.goBack()
-    // }
-    // else {
-    //   message.error('Gagal menambahkan role')
-    // }
+    const form = new FormData()
+    form.append('data', values)
   };
 
   const onFinishFailed = () => {
@@ -45,11 +38,11 @@ const index = (props) => {
         fields={[
           {
             name: ['name'],
-            value: role && role?.name
+            value: role?.name
           },
           {
             name: ['status'],
-            value: role && role?.status
+            value: role?.status
           },
           {
             name: ['role'],
@@ -91,12 +84,12 @@ const index = (props) => {
                   labelAlign='left'
                   valuePropName="checked"
                 >
-                  <Checkbox.Group defaultValue={["Lihat user", "Ubah user"]} style={{ lineHeight: '32px', width: '100%' }}>
+                  <Checkbox.Group defaultValue={["Ubah permission", "Buat permission"]} style={{ lineHeight: '32px', width: '100%' }}>
                     <Row>
-                      {menu?.value?.map((value, i) => (
+                      {menu.label?.map((label, i) => (
                         <Col span={6}>
-                          <Checkbox key={i} value={value} style={{ lineHeight: '32px' }}>
-                            {value}
+                          <Checkbox key={i} value={menu.value[i]} style={{ lineHeight: '32px' }}>
+                            {label}
                           </Checkbox>
                         </Col>
                       ))}

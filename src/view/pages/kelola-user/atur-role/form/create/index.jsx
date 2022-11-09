@@ -3,11 +3,28 @@ import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { Menus } from '../../data/Menu'
+import { postRole } from '../../../../../../api/role/postRole';
 
 const index = () => {
   const history = useHistory()
 
   const onFinish = async (values) => {
+    console.log(values)
+    const postData = { name: values.name, system_name: values.system_name, permission: [] }
+
+    for (let value in values) {
+      if (values[value] != undefined && value != "name" && value != "system_name") {
+        postData.permission.push({ name: value, url: values[value] })
+      }
+    }
+    console.log(postData);
+
+
+
+
+    // const form = new FormData()
+    // form.append('data', values)
+    // const success = postRole(form)
     // if (success.data.success) {
     //   message.success('Berhasil menambahkan role')
     //   history.goBack()
@@ -84,10 +101,10 @@ const index = () => {
                 >
                   <Checkbox.Group defaultChecked={true} style={{ lineHeight: '32px', width: '100%' }}>
                     <Row>
-                      {menu?.value?.map((value, i) => (
+                      {menu.label?.map((label, i) => (
                         <Col span={6}>
-                          <Checkbox key={i} value={value} defaultChecked={true} style={{ lineHeight: '32px' }}>
-                            {value}
+                          <Checkbox key={i} value={menu.value[i]} defaultChecked={true} style={{ lineHeight: '32px' }}>
+                            {label}
                           </Checkbox>
                         </Col>
                       ))}
