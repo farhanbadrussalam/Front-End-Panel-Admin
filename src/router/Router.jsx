@@ -117,34 +117,53 @@ export default function Router() {
                   );
                 } else {
                   if (auth) {
-                    return (
-                      <Route
-                        key={route.path}
-                        path={route.path}
-                        exact={route.exact === true}
-                        render={(props) => {
-                          return (
-                            <Suspense fallback={null}>
-                              {route.layout === "FullLayout" ? (
-                                <route.component {...props} />
-                              ) : (
-                                <motion.div
-                                  initial={{ opacity: 0, y: 50 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{
-                                    type: "spring",
-                                    duration: 0.5,
-                                    delay: 0.5,
-                                  }}
-                                >
+                    // todo: perbaiki routing
+                    if (true) {
+                      return (
+                        <Route
+                          key={route.path}
+                          path={route.path}
+                          exact={route.exact === true}
+                          render={(props) => {
+                            return (
+                              <Suspense fallback={null}>
+                                {route.layout === "FullLayout" ? (
                                   <route.component {...props} />
-                                </motion.div>
-                              )}
-                            </Suspense>
-                          );
-                        }}
-                      />
-                    );
+                                ) : (
+                                  <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                      type: "spring",
+                                      duration: 0.5,
+                                      delay: 0.5,
+                                    }}
+                                  >
+                                    <route.component {...props} />
+                                  </motion.div>
+                                )}
+                              </Suspense>
+                            );
+                          }}
+                        />
+                      );
+                    }
+                    else {
+                      return (
+                        <Route
+                          key={route.path}
+                          path={route.path}
+                          exact={route.exact === true}
+                          render={() => (
+                            <Redirect
+                              to={{
+                                pathname: "/admin/dashboard",
+                              }}
+                            />
+                          )}
+                        />
+                      );
+                    }
                   } else {
                     return (
                       <Route

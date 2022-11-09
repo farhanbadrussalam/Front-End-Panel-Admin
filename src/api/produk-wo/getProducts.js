@@ -5,7 +5,6 @@ import { api } from "../../configs/apiConfig";
 export const getProducts = (url = "products") => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-
   const [deleteToggle, setDeleteToggle] = useState(false)
 
   useEffect(() => {

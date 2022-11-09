@@ -32,6 +32,13 @@ const kelolaUser = [
     ),
     layout: "VerticalLayout",
   },
+  {
+    path: "/admin/atur-role/create",
+    component: lazy(() =>
+      import("../../../view/pages/kelola-user/atur-role/form/create")
+    ),
+    layout: "VerticalLayout",
+  },
 
   // update data
   {
@@ -44,14 +51,14 @@ const kelolaUser = [
 
   // get all data
   {
-    path: "/admin/crud-user/",
+    path: "/admin/crud-user",
     component: lazy(() => import("../../../view/pages/kelola-user/crud-user")),
     layout: "VerticalLayout",
   },
   {
     path: "/admin/atur-role",
     component: lazy(() =>
-      import("../../../view/pages/kelola-user/atur-role-staff")
+      import("../../../view/pages/kelola-user/atur-role")
     ),
     layout: "VerticalLayout",
   },

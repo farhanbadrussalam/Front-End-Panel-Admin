@@ -1,18 +1,22 @@
 import { Col, Row } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
 import TableCard from '../../../components/custom-components/TableCard'
 import TableDisplay from '../../../components/custom-components/TableDisplay'
-import Data from './RoleData'
-import Column from './RoleColumn'
+import Column from './PermissionColumn'
+import { getRoles } from '../../../../api/role/getRoles'
 
 const AturRole = () => {
-  // const [data, setData] = useState([])
+
+  let { data, deleteProduct } = getRoles()
+  data?.map((value) => (
+    { ...value, deleteProduct: deleteProduct }
+  ))
 
   return (
     <TableCard >
       <Row>
         <Col span={24}>
-          <TableDisplay data={Data} column={Column} addButton={true} />
+          <TableDisplay data={data} column={Column} addButton={true} />
         </Col>
       </Row>
     </TableCard>

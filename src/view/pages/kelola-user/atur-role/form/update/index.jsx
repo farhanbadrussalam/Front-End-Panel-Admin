@@ -3,11 +3,12 @@ import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { Menus } from '../../data/Menu'
+import { getOneRole } from '../../../../../../api/role/getOneRole';
 
 const index = (props) => {
   const history = useHistory()
   const id = props.location.state.id
-  // const { data: role } = getOnePermission(id)
+  const { data: role } = getOneRole(id)
 
   const onFinish = async (values) => {
     console.log(values);

@@ -14,7 +14,7 @@ const index = (props) => {
   const [date, setDate] = useState(null)
   const [time, setTime] = useState(null)
 
-  useEffect(async () => {
+  useEffect(() => {
     setDate(bride?.wedding_date)
     setTime(bride?.wedding_time)
   }, [bride])
