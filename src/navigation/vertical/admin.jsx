@@ -103,6 +103,11 @@ const adminNav = [
         title: "Data Produk Ucapan Digital",
         navLink: "/admin/produk-ucapan-digital",
       },
+      {
+        id: "pesanan",
+        title: "Data Pesanan",
+        navLink: "/admin/pesanan",
+      },
     ],
   },
 
