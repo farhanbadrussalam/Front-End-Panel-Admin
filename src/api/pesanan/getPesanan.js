@@ -16,12 +16,5 @@ export const getPesanan = (id) => {
       })
   }, [])
 
-  const refetch = () => {
-    api
-      .get(`articles/${id}`)
-      .then((res) => setData(res.data.data.data))
-      .catch((err) => setError(err))
-  }
-
-  return { data, error, refetch }
+  return { data, error }
 }

@@ -1,58 +1,89 @@
-import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { Button, Form, Space, message, InputNumber } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { getPesanan } from "../../../../../../api/pesanan/getPesanan"
+import { putPesanan } from '../../../../../../api/pesanan/putPesanan';
 
 const index = (props) => {
   const history = useHistory()
-  const title = `${props.location.state.permission} Data ${props.location.state.data}`
+  const id = props.location.state.id
+  const { data, error } = getPesanan(id)
 
-  const onFinish = (values) => {
-    alert('Success:', values);
+  const onFinish = async (values) => {
+    const response = await putPesanan(values, id)
+    const success = response.data?.success
+    if (success) {
+      message.success("Berhasil mengubah data pesanan")
+      history.goBack()
+    }
+    else {
+      message.error("Gagal mengubah data pesanan")
+    }
   };
 
   return (
-    <CardForm title={title}>
+    <CardForm title="Ubah Data Pesanan">
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         wrapperCol={{
           span: 14,
         }}
         onFinish={onFinish}
         autoComplete="off"
+        fields={[
+          {
+            name: ['sales-order-id'],
+            value: data && data?.sales_order_id
+          },
+          {
+            name: ['product-id'],
+            value: data && data?.product_id
+          },
+          {
+            name: ['price'],
+            value: data && data?.price
+          },
+          {
+            name: ['status'],
+            value: data && data?.status
+          },
+        ]}
       >
         <Form.Item
-          label="Nama"
-          name="nama"
+          label="Sales Order ID"
+          name="sales-order-id"
         >
-          <Input value="Nama user" placeholder='Nama user' />
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              type: 'email',
-            },
-          ]}
+          label="Product ID"
+          name="product-id"
         >
-          <Input value="Email user" placeholder='Email user' />
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
-          label="Level"
-          name="level"
+          label="Price"
+          name="price"
         >
-          <InputNumber value="Value user" placeholder='Value user' />
+          <InputNumber />
+        </Form.Item>
+
+        <Form.Item
+          label="Status"
+          name="status"
+        >
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >

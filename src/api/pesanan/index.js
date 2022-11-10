@@ -5,14 +5,14 @@ import { useState, useEffect } from "react";
 export const getOrders = () => {
   const [data, setData] = useState([{}])
   const [error, setError] = useState(null)
-  const [dataChangedToggle, setDataChangedToggle] = useState(false);
+  const [deleteToggle, setDeleteToggle] = useState(false);
 
   useEffect(() => {
     api
       .get("sales-order-items")
       .then((res) => setData(res.data.data))
       .catch((err) => setError(err))
-  }, [])
+  }, [deleteToggle])
 
   const refetch = () => {
     api
@@ -21,5 +21,16 @@ export const getOrders = () => {
       .catch((err) => setError(err));
   }
 
-  return { data, error, refetch }
+  const deletePesanan = (id) => {
+    const isDeleted = api.delete(`sales-order-items/destroy/${id}`)
+    .then(res => {
+      setDeleteToggle(!deleteToggle)
+      return res.data?.success
+    })
+    .catch(err => setError(err))
+
+    return isDeleted
+  }
+
+  return { data, error, refetch, deletePesanan }
 }

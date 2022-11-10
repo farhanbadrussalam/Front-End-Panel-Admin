@@ -1,26 +1,22 @@
 import { Space, Popover, Modal, message } from "antd";
-import { Edit, Trash, Eye } from "iconsax-react";
+import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
 
-import { deletePesanan } from "../../../../api/pesanan/deletePesanan"
-
-const { confirm } = Modal;
-const showModal = (id, product) => {
+const { confirm } = Modal
+const showModal = (id, name, wo, deletePesanan) => {
   confirm({
-    title: `Apa anda yakin ingin menghapus pesanan ${product}?`,
+    title: `Apa anda yakin ingin menghapus riwayat pesanan ${name} dari WO ${wo}?`,
     icon: <Danger color="red" />,
     okText: 'Yakin',
     cancelText: 'Batal',
     okType: 'primary',
     async onOk() {
-      const response = await deletePesanan(id)
-      const success = response.data.success
+      const success = await deletePesanan(id)
       if (success) {
-        message.success("Berhasil menghapus pesanan")
-        window.location.reload(false)
+        message.success("Berhasil menghapus produk")
       }
       else {
-        message.error("Gagal menghapus pesanan")
+        message.error("Gagal menghapus produk")
       }
     },
   })
@@ -46,13 +42,6 @@ const columns = [
     dataIndex: 'wo',
     key: 'wo',
   },
-
-  // {
-  //   title: 'Status',
-  //   dataIndex: 'status',
-  //   key: 'status',
-  // },
-
 
   // Kolom aksi
   {
@@ -86,22 +75,9 @@ const columns = [
           </Link>
         </Popover> */}
 
-        {/* <Popover content={"Delete"}>
-          <Link to={{
-            pathname: `pesanan/delete/${payload.id}`,
-            state: {
-              permission: 'Delete',
-              data: 'Pesanan',
-              id: payload.id
-            },
-          }} className="trash" >
-            <Trash color="red" size={20} />
-          </Link>
-        </Popover> */}
-
-        {/* <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.product)} />
-        </Popover> */}
+        <Popover content={"Delete"}>
+          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.wo, payload.deletePesanan)} />
+        </Popover>
       </Space>
     ),
   },

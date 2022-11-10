@@ -1,15 +1,9 @@
 import { api } from "../../configs/apiConfig";
 
-export const deletePesanan = async (
-  id,
-  url = "http://127.0.0.1:8000/api/sales-order-items/destroy"
-) => {
-  let response;
+export const deletePesanan = async (id) => {
+  const response = await api.delete(`sales-order-items/destroy/${id}`)
+    .then(res => res.data.success)
+    .catch(err => err)
 
-  response = await api
-    .delete(`${url}/${id}`)
-    .then((res) => setData(res))
-    .catch((err) => setError(err));
-
-  return response;
-};
+  return response
+}
