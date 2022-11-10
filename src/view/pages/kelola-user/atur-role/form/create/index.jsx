@@ -4,9 +4,12 @@ import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { Menus } from '../../data/Menu'
 import { postRole } from '../../../../../../api/role/postRole';
+import { getPermissions } from '../../../../../../api/permission/getPermissions';
 
 const index = () => {
   const history = useHistory()
+
+  const { data: permissions } = getPermissions()
 
   const onFinish = async (values) => {
     console.log(values)
@@ -91,20 +94,20 @@ const index = () => {
           </Row>
 
           {/* Checkbox */}
-          {Menus?.map((menu) => (
+          {permissions?.map((permission) => (
             <Row>
               <Col span={24}>
                 <Form.Item
-                  label={menu.title}
-                  name={menu.name}
+                  label={permission?.name}
+                  name={permission?.name}
                   labelAlign='left'
                 >
                   <Checkbox.Group defaultChecked={true} style={{ lineHeight: '32px', width: '100%' }}>
                     <Row>
-                      {menu.label?.map((label, i) => (
+                      {permission?.sub_menus?.map((values, i) => (
                         <Col span={6}>
-                          <Checkbox key={i} value={menu.value[i]} defaultChecked={true} style={{ lineHeight: '32px' }}>
-                            {label}
+                          <Checkbox key={i} value={values?.id} defaultChecked={true} style={{ lineHeight: '32px' }}>
+                            {values?.name}
                           </Checkbox>
                         </Col>
                       ))}

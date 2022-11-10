@@ -53,13 +53,13 @@ const Menus = [
   // },
   {
     title: "Kelola artikel",
-    value: ["/admin/articel", "/admin/articel/create", "/admin/articel/userid:", true],
+    value: ["/admin/artikel", "/admin/artikel/create", "/admin/artikel/userid:", true],
     label: ["Lihat artikel", "Buat artikel", "Ubah artikel", "Hapus artikel"],
     name: "artikel"
   },
   {
     title: "Kelola kupon",
-    value: ["/admin/cupon", "/admin/cupon/create", "/admin/cupon/userid:", true],
+    value: ["/admin/kupon", "/admin/kupon/create", "/admin/kupon/userid:", true],
     label: ["Lihat kupon", "Buat kupon", "Ubah kupon", "Hapus kupon"],
     name: "kupon"
   },
