@@ -7,9 +7,9 @@ import { getRoles } from '../../../../api/role/getRoles'
 
 const AturRole = () => {
 
-  let { data, deleteProduct } = getRoles()
-  data?.map((value) => (
-    { ...value, deleteProduct: deleteProduct }
+  let { data, deleteRole } = getRoles()
+  data = data?.map((value) => (
+    { ...value, deleteRole: deleteRole }
   ))
 
   return (

@@ -13,17 +13,17 @@ export const getRoles = (url = 'access-menus') => {
       .catch(err => setError(err))
   }, [deleteToggle])
 
-  const deleteProduct = (id) => {
+  const deleteRole = async (id) => {
     const deleted = api
       .delete(url + '/destroy/' + id)
       .then(res => {
         setDeleteToggle(!deleteToggle)
-        return res.data.success
+        return res
       })
       .catch(err => setError(err))
 
     return deleted
   }
 
-  return { data, error, deleteProduct }
+  return { data, error, deleteRole }
 }

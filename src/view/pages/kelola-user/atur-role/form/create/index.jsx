@@ -2,39 +2,35 @@ import { Button, Form, Input, Space, message, Row, Col, Checkbox } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { Menus } from '../../data/Menu'
 import { postRole } from '../../../../../../api/role/postRole';
 import { getPermissions } from '../../../../../../api/permission/getPermissions';
 
 const index = () => {
   const history = useHistory()
-
   const { data: permissions } = getPermissions()
 
   const onFinish = async (values) => {
-    console.log(values)
-    const postData = { name: values.name, system_name: values.system_name, permission: [] }
+    const form = new FormData()
+    form.append('name', values.name)
 
-    for (let value in values) {
+    let i = 0
+    for (const value in values) {
       if (values[value] != undefined && value != "name" && value != "system_name") {
-        postData.permission.push({ name: value, url: values[value] })
+        for (let id in values[value]) {
+          form.append(`access_menu_items[${i}][sub_menu_id]`, values[value][id])
+          i++;
+        }
       }
     }
-    console.log(postData);
 
-
-
-
-    // const form = new FormData()
-    // form.append('data', values)
-    // const success = postRole(form)
-    // if (success.data.success) {
-    //   message.success('Berhasil menambahkan role')
-    //   history.goBack()
-    // }
-    // else {
-    //   message.error('Gagal menambahkan role')
-    // }
+    const success = await postRole(form)
+    if (success?.data?.success) {
+      message.success('Berhasil menambahkan role')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal menambahkan role')
+    }
   };
 
   const onFinishFailed = (errorInfo) => {

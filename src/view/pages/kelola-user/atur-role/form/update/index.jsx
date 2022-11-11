@@ -2,17 +2,89 @@ import { Button, Form, Input, Space, Row, Col, message, Checkbox } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { Menus } from '../../data/Menu'
 import { getOneRole } from '../../../../../../api/role/getOneRole';
+import { getPermissions } from '../../../../../../api/permission/getPermissions';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { putRole } from '../../../../../../api/role/putRole';
+
+const field = (rolePermission, permissions) => {
+  const fieldData = permissions?.map((permission) => {
+    const sub_menu_id = permission.sub_menus.map((sub_menu) => {
+      return sub_menu.id
+    })
+
+    const role_permission_id = rolePermission.filter((id) => {
+      return sub_menu_id.includes(id)
+    })
+
+    return {
+      name: [permission.name],
+      value: role_permission_id
+    }
+  })
+  return fieldData
+}
+
+const filterRolePermission = (role) => {
+  if (role == null) return null
+  const id = role?.access_menu_items.map((access_menus) => {
+    return access_menus?.sub_menu_id
+  })
+  return id
+}
+
+const formPut = (values) => {
+  const form = new FormData()
+  form.append('name', values.name)
+
+  let i = 0
+  for (const value in values) {
+    if (values[value] != undefined && value != "name" && value != "system_name") {
+      for (let id in values[value]) {
+        form.append(`access_menu_items[${i}][sub_menu_id]`, values[value][id])
+        i++;
+      }
+    }
+  }
+
+  // for (let pair of form.entries()) {
+  //   console.log(pair[0] + ', ' + pair[1]);
+  // }
+}
 
 const index = (props) => {
   const history = useHistory()
   const id = props.location.state.id
+
   const { data: role } = getOneRole(id)
+  const { data: permissions } = getPermissions()
+
+  const [rolePermission, setRolePermission] = useState(null)
+  const [fields, setFields] = useState([])
+
+  useEffect(() => {
+    const role_permission = filterRolePermission(role)
+    setRolePermission(role_permission)
+  }, [role])
+
+  useEffect(() => {
+    if (rolePermission != null && permissions != null) {
+      setFields(field(rolePermission, permissions))
+    }
+  }, [rolePermission, permissions])
 
   const onFinish = async (values) => {
-    const form = new FormData()
-    form.append('data', values)
+    const form = formPut(values)
+    const success = await putRole(form, id)
+
+    if (success?.data?.success) {
+      message.success('Berhasil mengubah role')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal mengubah role')
+    }
   };
 
   const onFinishFailed = () => {
@@ -44,10 +116,7 @@ const index = (props) => {
             name: ['status'],
             value: role?.status
           },
-          {
-            name: ['role'],
-            value: ["Ubah permission", "Buat permission"]
-          },
+          ...fields
         ]}
       >
 
@@ -66,7 +135,7 @@ const index = (props) => {
             <Col span={12}>
               <Form.Item
                 label="Nama di sistem"
-                name="system_name"
+                name="name"
                 labelAlign='left'
               >
                 <Input />
@@ -75,21 +144,20 @@ const index = (props) => {
           </Row>
 
           {/* Checkbox */}
-          {Menus?.map((menu) => (
+          {permissions?.map((permission) => (
             <Row>
               <Col span={24}>
                 <Form.Item
-                  label={menu.title}
-                  name={menu.name}
+                  label={permission?.name}
+                  name={permission?.name}
                   labelAlign='left'
-                  valuePropName="checked"
                 >
-                  <Checkbox.Group defaultValue={["Ubah permission", "Buat permission"]} style={{ lineHeight: '32px', width: '100%' }}>
+                  <Checkbox.Group style={{ lineHeight: '32px', width: '100%' }}>
                     <Row>
-                      {menu.label?.map((label, i) => (
+                      {permission?.sub_menus?.map((values, i) => (
                         <Col span={6}>
-                          <Checkbox key={i} value={menu.value[i]} style={{ lineHeight: '32px' }}>
-                            {label}
+                          <Checkbox key={i} defaultChecked={true} value={values?.id} style={{ lineHeight: '32px' }}>
+                            {values?.name}
                           </Checkbox>
                         </Col>
                       ))}

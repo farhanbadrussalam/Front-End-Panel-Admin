@@ -1,17 +1,25 @@
-import { Space, Popover, Modal } from "antd";
+import { Space, Popover, Modal, message } from "antd";
 import { Danger, Edit, Trash } from "iconsax-react";
 import { Link } from "react-router-dom";
 
 const { confirm } = Modal;
-const showModal = (id, name) => {
+const showModal = (id, name, deleteRole) => {
+
   confirm({
     title: `Apa anda yakin ingin menghapus ${name}?`,
     icon: <Danger color="red" />,
     okText: 'Yakin',
     cancelText: 'Batal',
     okType: 'primary',
-    onOk() {
+    async onOk() {
+      const success = await deleteRole(id)
 
+      if (success?.data?.success) {
+        message.success('Berhasil menghapus role')
+      }
+      else {
+        message.error('Gagal menghapus role')
+      }
     },
   })
 }
@@ -59,7 +67,7 @@ const columns = [
           </Link>
         </Popover>
         <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name)} />
+          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteRole)} />
         </Popover>
       </Space>
     ),

@@ -1,8 +1,7 @@
 import { api } from "../../configs/apiConfig";
 
-export const postRole = (values) => {
-  console.log(values);
-  api
+export const postRole = async (values) => {
+  const response = api
     .post("access-menus/store", values, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -11,4 +10,5 @@ export const postRole = (values) => {
     .then((res) => res)
     .catch((err) => err);
 
-}
+  return response
+} 
