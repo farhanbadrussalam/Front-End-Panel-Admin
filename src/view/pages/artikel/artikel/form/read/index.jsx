@@ -63,6 +63,14 @@ const index = (props) => {
           <p>{data.updated_at}</p>
         </Form.Item>
 
+        <Form.Item label="Thumbnail" name="thumbnail">
+          <img
+            src={`http://127.0.0.1:8000/uploads/${data.thumbnail}`}
+            alt="thumbnail"
+            style={{ width: 250, height: 200, objectFit: "contain" }}
+          />
+        </Form.Item>
+
         <Form.Item
           wrapperCol={{
             offset: 4,
