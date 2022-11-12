@@ -133,21 +133,27 @@ export const getDetail = (base_url, id) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+
     api
       .get(`${base_url}/${id}`)
       .then((r) => setData(r.data.data))
       .catch((err) => setError(err.response.data.message))
-      .finally(() => setLoading(true));
+      .finally(() => setLoading(false));
   }, []);
 
   const refetch = () => {
-    setLoading(false);
+    setLoading(true);
 
     api
       .get(`${base_url}/${id}`)
       .then((r) => setData(r.data.data))
       .catch((err) => setError(err.response.data.message))
-      .finally(() => setLoading(true));
+      .finally(() =>
+        setTimeout(() => {
+          setLoading(false);
+        }, 0)
+      );
   };
 
   return { data, err, loading, refetch };

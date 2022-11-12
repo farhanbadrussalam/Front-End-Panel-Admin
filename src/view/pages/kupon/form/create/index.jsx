@@ -160,7 +160,7 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Tanggal Mulai"
+          label="Mulai"
           key="begin_date"
           name="begin_date"
           rules={[
@@ -178,7 +178,7 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Tanggal Kadaluwarsa"
+          label="Kadaluwarsa"
           key="end_date"
           name="end_date"
           rules={[
