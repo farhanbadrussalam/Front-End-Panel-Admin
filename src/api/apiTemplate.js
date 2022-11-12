@@ -123,106 +123,39 @@ export const useData = (base_url) => {
   };
 };
 
-// export const getDetail = (base_url,id) => {
-//   const [data, setData] = useState();
-//   const [err, setError] = useState();
-//   const [loading, setLoading] = useState(false);
+// ===================
+// independence method
+// ===================
 
-//   useEffect(() => {
-//     api
-//       .get(`${base_url}/${id}`)
-//       .then((r) => setData(r.data.data))
-//       .catch((err) => setError(err.response.data.message))
-//       .finally(() => setLoading(true));
-//   }, []);
+export const getDetail = (base_url, id) => {
+  const [data, setData] = useState();
+  const [err, setError] = useState();
+  const [loading, setLoading] = useState(false);
 
-//   const refetch = () => {
-//     setLoading(false);
+  useEffect(() => {
+    api
+      .get(`${base_url}/${id}`)
+      .then((r) => setData(r.data.data))
+      .catch((err) => setError(err.response.data.message))
+      .finally(() => setLoading(true));
+  }, []);
 
-//     api
-//       .get(`${base_url}/${id}`)
-//       .then((r) => setData(r.data.data))
-//       .catch((err) => setError(err.response.data.message))
-//       .finally(() => setLoading(true));
-//   };
+  const refetch = () => {
+    setLoading(false);
 
-//   return { data, err, loading, refetch };
-// };
+    api
+      .get(`${base_url}/${id}`)
+      .then((r) => setData(r.data.data))
+      .catch((err) => setError(err.response.data.message))
+      .finally(() => setLoading(true));
+  };
 
-// export const getDetail = (base_url) => {
-//   const [data, setData] = useState();
-//   const [err, setError] = useState();
-//   const [loading, setLoading] = useState(false);
+  return { data, err, loading, refetch };
+};
 
-//   useEffect(() => {
-//     api
-//       .get(base_url)
-//       .then((r) => setData(r.data.data))
-//       .catch((err) => setError(err.response.data.message))
-//       .finally(() => setLoading(true));
-//   }, []);
-
-//   const refetch = () => {
-//     setLoading(false);
-
-//     api
-//       .get(base_url)
-//       .then((r) => setData(r.data.data))
-//       .catch((err) => setError(err.response.data.message))
-//       .finally(() => setLoading(true));
-//   };
-
-//   return { data, err, loading, refetch };
-// };
-
-// export const getDetail = (base_url) => {
-//   const [data, setData] = useState();
-//   const [err, setError] = useState();
-//   const [loading, setLoading] = useState(false);
-
-//   useEffect(() => {
-//     api
-//       .get(base_url)
-//       .then((r) => setData(r.data.data))
-//       .catch((err) => setError(err.response.data.message))
-//       .finally(() => setLoading(true));
-//   }, []);
-
-//   const refetch = () => {
-//     setLoading(false);
-
-//     api
-//       .get(base_url)
-//       .then((r) => setData(r.data.data))
-//       .catch((err) => setError(err.response.data.message))
-//       .finally(() => setLoading(true));
-//   };
-
-//   return { data, err, loading, refetch };
-// };
-
-// export const getDetail = (base_url) => {
-//   const [data, setData] = useState();
-//   const [err, setError] = useState();
-//   const [loading, setLoading] = useState(false);
-
-//   useEffect(() => {
-//     api
-//       .get(base_url)
-//       .then((r) => setData(r.data.data))
-//       .catch((err) => setError(err.response.data.message))
-//       .finally(() => setLoading(true));
-//   }, []);
-
-//   const refetch = () => {
-//     setLoading(false);
-
-//     api
-//       .get(base_url)
-//       .then((r) => setData(r.data.data))
-//       .catch((err) => setError(err.response.data.message))
-//       .finally(() => setLoading(true));
-//   };
-
-//   return { data, err, loading, refetch };
-// };
+export const create = async (base_url, value) => {
+  return await api
+    .post(`${base_url}/store`, value)
+    .then((r) => r)
+    .catch((e) => e);
+};

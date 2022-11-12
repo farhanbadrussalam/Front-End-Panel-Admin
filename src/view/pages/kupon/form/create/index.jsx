@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import {
   Button,
   Form,
@@ -9,13 +12,13 @@ import {
   DatePicker,
   InputNumber,
 } from "antd";
-import { useHistory } from "react-router-dom";
-import React, { useState } from "react";
+
 import CardForm from "../../../../components/custom-components/form-crud/CardForm";
+
+import { createKupon } from "../../../../../api/kupon";
 
 const index = (props) => {
   const history = useHistory();
-  const post = props.location.method;
 
   const [name, setName] = useState("");
   const [type, setType] = useState(1);
@@ -24,10 +27,8 @@ const index = (props) => {
   const [begin_date, setBeginDate] = useState();
   const [end_date, setEndDate] = useState();
 
-  console.log(begin_date);
-
   const onFinish = async () => {
-    const response = await post({
+    const response = await createKupon({
       name,
       type,
       nominal,
@@ -40,7 +41,9 @@ const index = (props) => {
       message.success("Berhasil menambahkan artikel");
       history.goBack();
     } else {
-      message.error(`Gagal menambahkan artikel!: ${response}`);
+      message.error(
+        `Gagal menambahkan artikel!: ${response?.response?.data?.message}`
+      );
     }
   };
 
