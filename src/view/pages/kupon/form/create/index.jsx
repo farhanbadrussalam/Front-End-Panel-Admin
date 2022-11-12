@@ -1,54 +1,40 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Space, message, Select, Upload } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Space,
+  message,
+  Select,
+  Upload,
+  DatePicker,
+  InputNumber,
+} from "antd";
 import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
-import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
-import { postArticle } from "../../../../../../api/artikel";
-import { getArticleCategories } from "../../../../../../api/artikel/category";
+import CardForm from "../../../../components/custom-components/form-crud/CardForm";
 
-const index = () => {
+const index = (props) => {
   const history = useHistory();
+  const post = props.location.method;
 
-  const { data, loading, error } = getArticleCategories();
+  const [name, setName] = useState("");
+  const [type, setType] = useState(1);
+  const [nominal, setNominal] = useState(0);
+  const [quota, setQuota] = useState(0);
+  const [begin_date, setBeginDate] = useState();
+  const [end_date, setEndDate] = useState();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [article_category_id, setArticle_category_id] = useState(1);
-  const [thumbnail, setThumbnail] = useState();
-
-  const thumbnailOnChangeHandler = (i) => {
-    if (i.fileList.length === 0) setThumbnail("");
-    else {
-      i.file.status = "done";
-
-      const isJpgOrPng =
-        i.file.type === "image/jpeg" || i.file.type === "image/png";
-      if (!isJpgOrPng) {
-        message.error("You can only upload JPG/PNG file!");
-      }
-
-      const isLt2M = i.file.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        message.error("Image must smaller than 2MB!");
-      }
-
-      if (!isJpgOrPng || !isLt2M) {
-        i.fileList.splice(0, 1);
-      } else {
-        setThumbnail(i.file.originFileObj);
-      }
-    }
-  };
+  console.log(begin_date);
 
   const onFinish = async () => {
-    const form = new FormData();
-
-    form.append("title", title);
-    form.append("description", description);
-    form.append("article_category_id", article_category_id);
-    form.append("thumbnail", thumbnail);
-
-    const response = await postArticle(form);
+    const response = await post({
+      name,
+      type,
+      nominal,
+      quota,
+      begin_date,
+      end_date,
+    });
 
     if (response?.data?.success) {
       message.success("Berhasil menambahkan artikel");
@@ -63,7 +49,7 @@ const index = () => {
   };
 
   return (
-    <CardForm title="Tambah data artikel">
+    <CardForm title="Tambah data voucher/kupon">
       <Form
         name="basic"
         labelCol={{
@@ -77,88 +63,133 @@ const index = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Judul"
-          key="title"
-          name="title"
+          label="Nama"
+          key="name"
+          name="name"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan judul!",
+              message: "Mohon masukkan nama voucher!",
             },
           ]}
         >
-          <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
         </Form.Item>
 
         <Form.Item
-          label="Deskripsi"
-          key="description"
-          name="description"
+          label="Tipe"
+          key="type"
+          name="type"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan deskripsi!",
+              message: "Mohon masukkan tipe voucher!",
             },
           ]}
         >
-          <Input.TextArea
-            rows={5}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+          <Select onChange={(value) => setType(value)} value={type}>
+            <Select.Option value={1}>Aktif</Select.Option>
+            <Select.Option value={2}>Tidak Aktif</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Nominal"
+          key="nominal"
+          name="nominal"
+          rules={[
+            {
+              required: true,
+              message: "Mohon masukkan nominal diskon!",
+            },
+            {
+              type: "number",
+              message: "Mohon masukkan dengan format angka!",
+            },
+          ]}
+        >
+          <InputNumber
+            value={nominal}
+            onChange={(value) => setNominal(value)}
+            style={{
+              width: "100%",
+            }}
+            addonBefore={
+              <Select
+                defaultValue="persentase"
+                style={{
+                  width: 60,
+                }}
+              >
+                <Select.Option value="persentase">%</Select.Option>
+                <Select.Option value="rupiah">Rp</Select.Option>
+              </Select>
+            }
+            formatter={(value) =>
+              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
           />
         </Form.Item>
 
         <Form.Item
-          label="Kategori"
-          key="article_category_id"
-          name="article_category_id"
+          label="Kuota"
+          key="quota"
+          name="quota"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan judul!",
+              message: "Mohon masukkan kuota voucher!",
+            },
+            {
+              type: "number",
+              message: "Mohon masukkan dengan format angka!",
             },
           ]}
         >
-          {loading ? (
-            <Select loading></Select>
-          ) : (
-            <Select
-              defaultValue={article_category_id}
-              value={article_category_id}
-              onChange={(e) => setArticle_category_id(e)}
-            >
-              {data.map((d) => (
-                <Select.Option value={d.id}>{d.name}</Select.Option>
-              ))}
-            </Select>
-          )}
+          <InputNumber
+            style={{
+              width: "100%",
+            }}
+            value={quota}
+            onChange={(value) => setQuota(value)}
+          />
         </Form.Item>
 
         <Form.Item
-          label="Thumbnail"
-          key="thumbnail"
-          name="thumbnail"
+          label="Tanggal Mulai"
+          key="begin_date"
+          name="begin_date"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan thumbnail!",
+              message: "Mohon masukkan tanggal mulainya voucher berlaku!",
             },
           ]}
         >
-          <Upload
-            accept=".jpg,.png,.jpeg,.svg"
-            customRequest={undefined}
-            className="avatar-uploader"
-            listType="picture"
-            maxCount={1}
-            onChange={thumbnailOnChangeHandler}
-          >
-            {!thumbnail && (
-              <Button icon={<UploadOutlined />}>
-                Upload file png atau jpg
-              </Button>
-            )}
-          </Upload>
+          <DatePicker
+            format="YYYY-MM-DD"
+            onChange={(value, stringValue) => setBeginDate(stringValue)}
+            value={begin_date}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Tanggal Kadaluwarsa"
+          key="end_date"
+          name="end_date"
+          rules={[
+            {
+              required: true,
+              message: "Mohon masukkan tanggal kadaluwarsa voucher!",
+            },
+          ]}
+        >
+          <DatePicker
+            format="YYYY-MM-DD"
+            onChange={(value, stringValue) => setEndDate(stringValue)}
+            value={end_date}
+          />
         </Form.Item>
 
         <Form.Item
