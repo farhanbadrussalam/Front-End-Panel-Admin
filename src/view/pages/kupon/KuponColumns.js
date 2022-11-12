@@ -25,9 +25,15 @@ const columns = [
   },
 
   {
-    title: "Category",
-    dataIndex: "article_category",
-    key: "article_category",
+    title: "Tipe",
+    dataIndex: "type",
+    key: "type",
+  },
+
+  {
+    title: "Nominal",
+    dataIndex: "nominal",
+    key: "nominal",
   },
 
   {
@@ -40,7 +46,6 @@ const columns = [
     title: "Action",
     key: "action",
     width: 200,
-    fixed: "right",
     render: (payload) => (
       <Space size="large" className="icons-container">
         <Popover content={"Detail"}>

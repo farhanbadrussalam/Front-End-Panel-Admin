@@ -66,7 +66,7 @@ const TableDisplay = ({
                 })
               : undefined}
             {addButton ? (
-              <Link to={createLink}>
+              <Link to={{ pathname: createLink, state: { method: addButton } }}>
                 <Button type="primary" danger size="small">
                   Tambah Data
                 </Button>
