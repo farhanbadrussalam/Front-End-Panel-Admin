@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space, Row, Col, message, Checkbox } from 'antd';
+import { Button, Form, Input, Space, Row, Col, message, Checkbox, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
@@ -37,6 +37,8 @@ const filterRolePermission = (role) => {
 const formPut = (values) => {
   const form = new FormData()
   form.append('name', values.name)
+  form.append('status', values.status)
+  form.append("_method", "put")
 
   let i = 0
   for (const value in values) {
@@ -47,6 +49,8 @@ const formPut = (values) => {
       }
     }
   }
+
+  return form
 
   // for (let pair of form.entries()) {
   //   console.log(pair[0] + ', ' + pair[1]);
@@ -167,6 +171,21 @@ const index = (props) => {
               </Col>
             </Row>
           ))}
+
+          <Form.Item
+            label="Status"
+            name="status"
+            labelAlign='left'
+          >
+            <Select
+              style={{
+                width: 200,
+              }}
+            >
+              <Option value={1}>Aktif</Option>
+              <Option value={2}>Non Aktif</Option>
+            </Select>
+          </Form.Item>
 
           {/* Button */}
           <Row>

@@ -2,7 +2,7 @@ import { api } from "../../configs/apiConfig";
 
 export const putRole = async (values, id) => {
   const response = api
-    .put("access-menus/update/" + id, values, {
+    .post("access-menus/update/" + id, values, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
