@@ -37,7 +37,7 @@ const columns = [
   },
 
   {
-    title: "Thumbnail",
+    title: "Image",
     dataIndex: "thumbnail",
     key: "thumbnail",
     render: (data) => (

@@ -63,7 +63,7 @@ const index = (props) => {
           <p>{data.updated_at}</p>
         </Form.Item>
 
-        <Form.Item label="Thumbnail" name="thumbnail">
+        <Form.Item label="Image" name="thumbnail">
           <img
             src={`http://127.0.0.1:8000/uploads/${data.thumbnail}`}
             alt="thumbnail"
