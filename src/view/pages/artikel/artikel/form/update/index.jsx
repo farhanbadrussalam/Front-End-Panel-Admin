@@ -38,7 +38,7 @@ const index = (props) => {
       setTitle(data.title);
       setDescription(data.description);
       setStatus(data.status);
-      setArticle_category_id(data.article_category.id);
+      setArticle_category_id(data.article_category?.id);
       setThumbnail([
         {
           name: data.thumbnail,

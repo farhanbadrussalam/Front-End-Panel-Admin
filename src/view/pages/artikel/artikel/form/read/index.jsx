@@ -11,8 +11,6 @@ const index = (props) => {
   const { id } = useParams();
   const { data, error } = getArticleDetail(id);
 
-  console.log(data);
-
   return (
     <CardForm title={`Detail Data Artikel ${data.title}`}>
       <Form
