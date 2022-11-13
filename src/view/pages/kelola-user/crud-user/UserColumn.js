@@ -1,19 +1,24 @@
-import { Space, Popover, Modal } from "antd";
+import { Space, Popover, Modal, message } from "antd";
 import { Link } from "react-router-dom";
 import { Edit, Trash, Eye, Danger } from "iconsax-react";
-import { deleteUser } from "../../../../api/kelola-user/deleteUser";
 
 const { confirm } = Modal;
-const showModal = (id, name) => {
+const showModal = (id, name, deleteUser) => {
   confirm({
     title: `Apa anda yakin ingin menghapus ${name}?`,
     icon: <Danger color="red" />,
     okText: 'Yakin',
     cancelText: 'Batal',
     okType: 'primary',
-    onOk() {
-      deleteUser(id)
-      window.location.reload(false)
+    async onOk() {
+      const success = await deleteUser(id)
+
+      if (success?.data?.success) {
+        message.success('Berhasil menghapus user')
+      }
+      else {
+        message.error('Gagal menghapus user')
+      }
     },
   })
 }
@@ -61,7 +66,8 @@ const columns = [
             state: {
               permission: 'Detail',
               data: 'User',
-              id: payload.id
+              id: payload.id,
+              access_menu_id: payload.access_menu_id
             },
           }} >
             <Eye size={20} />
@@ -82,7 +88,7 @@ const columns = [
         </Popover>
 
         <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name)} />
+          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteUser)} />
         </Popover>
 
       </Space>

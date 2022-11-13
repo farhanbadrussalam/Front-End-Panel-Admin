@@ -1,17 +1,21 @@
-import { Button, Form, Input, Space, message } from 'antd';
+import { Button, Form, Input, Space, message, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
-
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { putUser } from '../../../../../../api/kelola-user/putUser';
 import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
+import { getRoles } from '../../../../../../api/role/getRoles';
+import { getWeddingOrganizers } from '../../../../../../api/wedding-organizer/getWeddingOrganizers';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
   const id = props.location.state.id
+  // const access_menu_id = props.location.state.access_menu_id
 
   const { data: user } = getOneUser(id)
+  const { data: roles } = getRoles()
+  const { data: wos } = getWeddingOrganizers()
 
   const onFinish = async (values) => {
     values.status = 1
@@ -29,26 +33,52 @@ const index = (props) => {
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         wrapperCol={{
           span: 14,
         }}
         onFinish={onFinish}
         autoComplete="off"
+        fields={[
+          {
+            name: "name",
+            value: user?.name
+          },
+          {
+            name: "username",
+            value: user?.username
+          },
+          {
+            name: "email",
+            value: user?.email
+          },
+          {
+            name: "access_menu_id",
+            value: user?.access_menu_id
+          },
+          {
+            name: "wo",
+            value: user?.wedding_organizer?.id
+          },
+          {
+            name: "type",
+            value: user?.type
+          },
+        ]}
       >
         <Form.Item
           label="Nama"
           name="name"
         >
-          <Input placeholder={user && user.name} />
+          <Input />
         </Form.Item>
 
         <Form.Item
           label="Username"
           name="username"
         >
-          <Input placeholder={user && user.username} />
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -60,7 +90,7 @@ const index = (props) => {
             },
           ]}
         >
-          <Input placeholder={user && user.email} />
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -71,8 +101,52 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
+          label="Tipe"
+          name="type"
+        >
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            <Option value={1}>Admin</Option>
+            <Option value={2}>Customer</Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Wedding Organizer"
+          name="wo"
+        >
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            {wos?.map((wo, i) => (
+              <Option key={i} value={wo?.id}>{wo?.name}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Role"
+          name="access_menu_id"
+        >
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            {roles?.map((role, i) => (
+              <Option key={i} value={role?.id}>{role?.name}</Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >

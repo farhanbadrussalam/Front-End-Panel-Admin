@@ -6,10 +6,12 @@ export const getOneRole = (id) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    api
-      .get("access-menus/" + id)
-      .then(res => setData(res.data.data))
-      .catch(err => setError(err))
+    if (id != null) {
+      api
+        .get("access-menus/" + id)
+        .then(res => setData(res.data.data))
+        .catch(err => setError(err))
+    }
   }, [])
 
   return { data, error }

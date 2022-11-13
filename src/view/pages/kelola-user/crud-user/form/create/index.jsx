@@ -1,11 +1,15 @@
-import { Button, Form, Input, Space, message } from 'antd';
+import { Button, Form, Input, Space, message, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { postUser } from '../../../../../../api/kelola-user/postUser'
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
+import { getWeddingOrganizers } from '../../../../../../api/wedding-organizer/getWeddingOrganizers';
+import { getRoles } from '../../../../../../api/role/getRoles';
 
 const index = () => {
   const history = useHistory()
+  const { data: wos } = getWeddingOrganizers()
+  const { data: roles } = getRoles()
 
   const onFinish = async (values) => {
     const success = await postUser(values)
@@ -55,6 +59,7 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan username!',
             },
           ]}
         >
@@ -81,10 +86,49 @@ const index = () => {
           rules={[
             {
               required: true,
+              message: 'Mohon masukkan password > 7 karakter!',
             },
           ]}
         >
           <Input.Password minLength={8} />
+        </Form.Item>
+
+        <Form.Item
+          label="Tipe"
+          name="type"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan tipe user!',
+            },
+          ]}
+        >
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            {/* {wos?.map((wo, i) => (
+              <Option key={i} value={wo?.id}>{wo?.name}</Option>
+            ))} */}
+            <Option value={1}>Admin</Option>
+            <Option value={2}>Customer</Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Role"
+          name="access_menu_id"
+        >
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            {roles?.map((role, i) => (
+              <Option key={i} value={role?.id}>{role?.name}</Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item
