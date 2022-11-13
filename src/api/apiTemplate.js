@@ -165,3 +165,10 @@ export const create = async (base_url, value) => {
     .then((r) => r)
     .catch((e) => e);
 };
+
+export const update = async (base_url, id, value) => {
+  return await api
+    .put(`${base_url}/update/${id}`, value)
+    .then((r) => r)
+    .catch((e) => e);
+};

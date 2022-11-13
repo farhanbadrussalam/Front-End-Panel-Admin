@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { Button, Form, Space, Spin } from "antd";
 
 import CardForm from "../../../../components/custom-components/form-crud/CardForm";
+import ErrorPage from "../../../../components/custom-components/Feedback/ErrorPage";
+
 import { useKuponDetail } from "../../../../../api/kupon";
 
 const index = () => {
@@ -17,36 +19,7 @@ const index = () => {
       </CardForm>
     );
 
-  if (err)
-    retrun(
-      <CardForm title={`Detail Data Voucher/Kupon ${data?.name}`}>
-        <Form
-          name="basic"
-          labelCol={{
-            span: 4,
-          }}
-          autoComplete="off"
-          size="small"
-        >
-          <Form.Item label="ID Artikel" name="id" key="id">
-            <p>{err}</p>
-          </Form.Item>
-
-          <Form.Item
-            wrapperCol={{
-              offset: 4,
-              span: 4,
-            }}
-          >
-            <Space size="middle">
-              <Button danger htmlType="button" onClick={() => history.goBack()}>
-                Kembali
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
-      </CardForm>
-    );
+  if (err) return <ErrorPage message={err} />;
 
   return (
     <CardForm title={`Detail Data Voucher/Kupon ${data?.name}`}>

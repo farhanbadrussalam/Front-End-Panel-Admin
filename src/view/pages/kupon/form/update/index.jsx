@@ -1,212 +1,205 @@
-// import { UploadOutlined } from "@ant-design/icons";
-// import { useHistory, useParams } from "react-router-dom";
-// import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import moment from "moment";
+import { useState } from "react";
+import { useEffect } from "react";
+6;
+import {
+  Button,
+  Form,
+  Space,
+  Spin,
+  Input,
+  InputNumber,
+  DatePicker,
+  Select,
+  message,
+} from "antd";
 
-// import { getArticleDetail, updateArticle } from "../../../../../../api/artikel";
-// import { getArticleCategories } from "../../../../../../api/artikel/category";
+import CardForm from "../../../../components/custom-components/form-crud/CardForm";
+import ErrorPage from "../../../../components/custom-components/Feedback/ErrorPage";
 
-// import {
-//   Button,
-//   Form,
-//   Space,
-//   Input,
-//   Spin,
-//   Select,
-//   message,
-//   Upload,
-// } from "antd";
-// import { Trash } from "iconsax-react";
+import { useKuponDetail, updateKupon } from "../../../../../api/kupon";
 
-// import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
+const index = () => {
+  const history = useHistory();
+  const { id } = useParams();
+  const { data, err, loading } = useKuponDetail(id);
 
-// const index = (props) => {
-//   const history = useHistory();
-//   const { id } = useParams();
+  const [name, setName] = useState("");
+  const [type, setType] = useState(0);
+  const [nominal, setNominal] = useState(0);
+  const [quota, setQuota] = useState(0);
+  const [begin_date, setBeginDate] = useState();
+  const [end_date, setEndDate] = useState();
+  const [status, setStatus] = useState(1);
 
-//   const { data, error, loading } = getArticleDetail(id);
-//   const articleCategory = getArticleCategories();
+  useEffect(() => {
+    if (data) {
+      setName(data.name);
+      setType(data.type);
+      setNominal(data.nominal);
+      setQuota(data.quota);
+      setBeginDate(data.begin_date);
+      setEndDate(data.end_date);
+      setStatus(data.status);
+    }
+  }, [data]);
 
-//   const [title, setTitle] = useState("");
-//   const [description, setDescription] = useState("");
-//   const [article_category_id, setArticle_category_id] = useState(0);
-//   const [status, setStatus] = useState(0);
-//   const [thumbnail, setThumbnail] = useState([]);
-//   const [thumbnailChanged, setThumbnailChanged] = useState(false);
+  const onFinish = async () => {
+    const response = await updateKupon(id, {
+      name,
+      type,
+      nominal,
+      quota,
+      begin_date,
+      end_date,
+      status,
+    });
 
-//   useEffect(() => {
-//     if (data.title) {
-//       setTitle(data.title);
-//       setDescription(data.description);
-//       setStatus(data.status);
-//       setArticle_category_id(data.article_category.id);
-//       setThumbnail([
-//         {
-//           name: data.thumbnail,
-//           status: "done",
-//           url: `http://127.0.0.1:8000/uploads/${data.thumbnail}`,
-//         },
-//       ]);
-//     }
-//   }, [data]);
+    if (response?.data?.success) {
+      message.success("Berhasil menambahkan artikel");
+      history.goBack();
+    } else {
+      message.error(
+        `Gagal menambahkan artikel!: ${response?.response?.data?.message}`
+      );
+    }
+  };
 
-//   const thumbnailOnChangeHandler = (i) => {
-//     if (i.fileList.length === 0) setThumbnail([]);
-//     else {
-//       i.file.status = "done";
-//       const isJpgOrPng =
-//         i.file.type === "image/jpeg" || i.file.type === "image/png";
-//       if (!isJpgOrPng) {
-//         message.error("You can only upload JPG/PNG file!");
-//       }
-//       const isLt2M = i.file.size / 1024 / 1024 < 2;
-//       if (!isLt2M) {
-//         message.error("Image must smaller than 2MB!");
-//       }
-//       if (!isJpgOrPng || !isLt2M) {
-//         i.fileList.splice(0, 1);
-//       } else {
-//         setThumbnail([i.file.originFileObj]);
-//         !thumbnailChanged && setThumbnailChanged(true);
-//       }
-//     }
-//   };
+  const onFinishFailed = (errorInfo) => {
+    alert("Failed:", errorInfo);
+  };
 
-//   const onFinish = async () => {
-//     const form = new FormData();
+  if (loading)
+    return (
+      <CardForm title={`Detail Data Voucher/Kupon ${data?.name}`}>
+        <Spin />
+      </CardForm>
+    );
 
-//     form.append("title", title);
-//     form.append("description", description);
-//     form.append("article_category_id", article_category_id);
-//     form.append("status", status);
-//     thumbnailChanged && form.append("thumbnail", thumbnail[0]);
-//     form.append("_method", "put");
+  if (err) return <ErrorPage message={err} />;
 
-//     const response = await updateArticle(form, id);
+  return (
+    <CardForm title={`Detail Data Voucher/Kupon ${data?.name}`}>
+      <Form
+        name="basic"
+        labelCol={{
+          span: 4,
+        }}
+        wrapperCol={{
+          span: 14,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item label="Nama" name="name" key="name" initialValue={name}>
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
+        </Form.Item>
 
-//     if (response?.data?.success) {
-//       message.success("Berhasil mengubah artikel");
-//       history.goBack();
-//     } else {
-//       message.error(`Gagal memperbarui artikel!: ${response}`);
-//     }
-//   };
+        <Form.Item label="Tipe" name="type" key="type" initialValue={type}>
+          <Select onChange={(v) => setType(v)} value={type}>
+            <Select.Option value={1}>Aktif</Select.Option>
+            <Select.Option value={2}>Non-aktif</Select.Option>
+          </Select>
+        </Form.Item>
 
-//   const onFinishFailed = (errorInfo) => {
-//     alert("Failed:", errorInfo);
-//   };
+        <Form.Item
+          label="Nominal"
+          name="nominal"
+          key="nominal"
+          initialValue={nominal}
+        >
+          <InputNumber
+            value={nominal}
+            onChange={(value) => setNominal(value)}
+            style={{
+              width: "100%",
+            }}
+            addonBefore={
+              <Select
+                defaultValue="persentase"
+                style={{
+                  width: 60,
+                }}
+              >
+                <Select.Option value="persentase">%</Select.Option>
+                <Select.Option value="rupiah">Rp</Select.Option>
+              </Select>
+            }
+            formatter={(value) =>
+              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+          />
+        </Form.Item>
 
-//   return (
-//     <>
-//       <CardForm title={`Ubah Data Artikel ${data.title}`}>
-//         <Form
-//           name="basic"
-//           labelCol={{
-//             span: 4,
-//           }}
-//           autoComplete="off"
-//           size="small"
-//           onFinish={onFinish}
-//           onFinishFailed={onFinishFailed}
-//         >
-//           {loading ? (
-//             <Spin size="large" />
-//           ) : (
-//             <>
-//               <Form.Item label="Judul" name="title" initialValue={title}>
-//                 <Input
-//                   value={title}
-//                   onChange={(e) => setTitle(e.target.value)}
-//                   defaultValue={title}
-//                 />
-//               </Form.Item>
+        <Form.Item label="Kuota" name="quota" key="quota" initialValue={quota}>
+          <InputNumber
+            style={{
+              width: "100%",
+            }}
+            value={quota}
+            onChange={(value) => setQuota(value)}
+          />
+        </Form.Item>
 
-//               <Form.Item
-//                 label="Deskripsi"
-//                 name="description"
-//                 initialValue={description}
-//               >
-//                 <Input
-//                   value={description}
-//                   onChange={(e) => setDescription(e.target.value)}
-//                   defaultValue={description}
-//                 />
-//               </Form.Item>
+        <Form.Item
+          label="Mulai"
+          name="begin_date"
+          key="begin_date"
+          initialValue={moment(begin_date)}
+        >
+          <DatePicker
+            format="YYYY-MM-DD"
+            onChange={(value, stringValue) => setBeginDate(stringValue)}
+            value={begin_date}
+          />
+        </Form.Item>
 
-//               <Form.Item
-//                 label="Kategori"
-//                 name="article_category_id"
-//                 initialValue={article_category_id}
-//               >
-//                 {articleCategory.loading ? (
-//                   <Select loading></Select>
-//                 ) : (
-//                   <Select
-//                     defaultValue={article_category_id}
-//                     value={article_category_id}
-//                     onChange={(e) => setArticle_category_id(e)}
-//                   >
-//                     {articleCategory.data.map((d) => (
-//                       <Select.Option value={d.id}>{d.name}</Select.Option>
-//                     ))}
-//                   </Select>
-//                 )}
-//               </Form.Item>
+        <Form.Item
+          label="Kadaluwarsa"
+          name="end_date"
+          key="end_date"
+          initialValue={moment(end_date)}
+        >
+          <DatePicker
+            format="YYYY-MM-DD"
+            onChange={(value, stringValue) => setEndDate(stringValue)}
+            value={end_date}
+          />
+        </Form.Item>
 
-//               <Form.Item label="Status" name="status" initialValue={status}>
-//                 <Input
-//                   value={status}
-//                   onChange={(e) => setStatus(e.target.value)}
-//                   defaultValue={status}
-//                 />
-//               </Form.Item>
+        <Form.Item
+          label="Status"
+          name="status"
+          key="status"
+          initialValue={status}
+        >
+          <Select onChange={(v) => setStatus(v)}>
+            <Select.Option value={1}>Aktif</Select.Option>
+            <Select.Option value={2}>Non-aktif</Select.Option>
+          </Select>
+        </Form.Item>
 
-//               <Form.Item label="Thumbnail" key="thumbnail" name="thumbnail">
-//                 <Upload
-//                   accept=".jpg,.png,.jpeg,.svg"
-//                   customRequest={undefined}
-//                   className="avatar-uploader"
-//                   listType="picture"
-//                   maxCount={1}
-//                   onChange={thumbnailOnChangeHandler}
-//                   defaultFileList={thumbnail}
-//                   showUploadList={{
-//                     showRemoveIcon: true,
-//                     removeIcon: <Trash onClick={() => setThumbnail([])} />,
-//                   }}
-//                 >
-//                   {thumbnail.length < 1 && (
-//                     <Button icon={<UploadOutlined />}>
-//                       Upload file png atau jpg
-//                     </Button>
-//                   )}
-//                 </Upload>
-//               </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            offset: 4,
+            span: 4,
+          }}
+        >
+          <Space size="middle">
+            <Button type="primary" danger htmlType="submit">
+              Simpan
+            </Button>
+            <Button danger htmlType="button" onClick={() => history.goBack()}>
+              Kembali
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
+    </CardForm>
+  );
+};
 
-//               <Form.Item
-//                 wrapperCol={{
-//                   offset: 4,
-//                   span: 4,
-//                 }}
-//               >
-//                 <Space size="middle">
-//                   <Button type="primary" danger htmlType="submit">
-//                     Simpan
-//                   </Button>
-//                   <Button
-//                     danger
-//                     htmlType="button"
-//                     onClick={() => history.goBack()}
-//                   >
-//                     Batal
-//                   </Button>
-//                 </Space>
-//               </Form.Item>
-//             </>
-//           )}
-//         </Form>
-//       </CardForm>
-//     </>
-//   );
-// };
-
-// export default index;
+export default index;
