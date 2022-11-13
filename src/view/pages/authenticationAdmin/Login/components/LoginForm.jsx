@@ -36,7 +36,7 @@ function LoginForm(props) {
   const tryLogin = async () => {
     await axios({
       method: "POST",
-      url: "http://127.0.0.1:8000/api/login",
+      url: "https://api.tokoweb.com/api/login",
       data: { username: username, password: password },
     })
       .then((response) => {
