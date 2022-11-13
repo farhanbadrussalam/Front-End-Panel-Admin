@@ -2,12 +2,12 @@ import { Row, Col } from 'antd'
 
 import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
-import Column from './RiwayatAdminColumn'
+import Column from './RiwayatAdminWO'
 
-import { getAdminCommissions } from "../../../../api/komisi/getAdminCommissions"
+import { getWOCommissions } from "../../../../api/komisi/getWOCommissions"
 
 const MasterDisplay = () => {
-  let { data, deletePesanan } = getAdminCommissions()
+  let { data, deletePesanan } = getWOCommissions()
 
   data = data.map((d) => {
     return {

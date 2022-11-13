@@ -12,6 +12,16 @@ const commissionData = [
     layout: "VerticalLayout",
   },
 
+  {
+    path: "/admin/riwayat-komisi-wo/detail/:userid",
+    component: lazy(() =>
+      import(
+        "../../../view/pages/komisi/riwayat-wo/form/read"
+      )
+    ),
+    layout: "VerticalLayout",
+  },
+
   //Update
 
   //Get All
@@ -20,6 +30,16 @@ const commissionData = [
     component: lazy(() =>
       import(
         "../../../view/pages/komisi/riwayat-admin"
+      )
+    ),
+    layout: "VerticalLayout",
+  },
+
+  {
+    path: "/admin/riwayat-komisi-wo",
+    component: lazy(() =>
+      import(
+        "../../../view/pages/komisi/riwayat-wo"
       )
     ),
     layout: "VerticalLayout",

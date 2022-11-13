@@ -2,14 +2,14 @@ import { api } from "../../configs/apiConfig";
 
 import { useState, useEffect } from "react";
 
-export const getCommissions = (url = "commission-history") => {
+export const getWOCommissions = (url = "commission-history") => {
   const [data, setData] = useState([{}])
   const [error, setError] = useState(null)
   const [deleteToggle, setDeleteToggle] = useState(false);
 
   useEffect(() => {
     api
-      .get(`${url}/admin-history`)
+      .get(`${url}/wo-history`)
       .then((res) => setData(res.data.data))
       .catch((err) => setError(err))
   }, [deleteToggle])
