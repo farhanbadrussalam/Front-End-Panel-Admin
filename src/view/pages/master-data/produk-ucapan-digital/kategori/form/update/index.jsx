@@ -1,26 +1,25 @@
-import { Button, Form, Space, Input, InputNumber, Select, message } from 'antd';
-import { useHistory } from 'react-router-dom';
-import React from 'react';
-import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
-import { getOneProductCategory } from '../../../../../../../api/produk-wo/product-categories/getOneProductCategory';
-import { putProductCategory } from '../../../../../../../api/produk-wo/product-categories/putProductCategory';
+import { Button, Form, Space, Input, InputNumber, Select, message } from "antd";
+import { useHistory } from "react-router-dom";
+import React from "react";
+import CardForm from "../../../../../../components/custom-components/form-crud/CardForm";
+import { getOneProductCategory } from "../../../../../../../api/produk/product-categories/getOneProductCategory";
+import { putProductCategory } from "../../../../../../../api/produk/product-categories/putProductCategory";
 
 const index = (props) => {
-  const history = useHistory()
-  const title = `${props.location.state.permission} Data ${props.location.state.data}`
-  const id = props.location.state.id
+  const history = useHistory();
+  const title = `${props.location.state.permission} Data ${props.location.state.data}`;
+  const id = props.location.state.id;
 
-  const { data: category } = getOneProductCategory(id)
+  const { data: category } = getOneProductCategory(id);
 
   const onFinish = async (values) => {
-    const success = await putProductCategory(values, id)
+    const success = await putProductCategory(values, id);
 
     if (success == true) {
-      message.success("Berhasil mengubah produk")
-      history.push("/admin/kategori-produk-ucapan-digital")
-    }
-    else {
-      message.error("Gagal mengubah produk")
+      message.success("Berhasil mengubah produk");
+      history.push("/admin/kategori-produk-ucapan-digital");
+    } else {
+      message.error("Gagal mengubah produk");
     }
   };
 
@@ -38,37 +37,28 @@ const index = (props) => {
         onFinish={onFinish}
         fields={[
           {
-            name: 'name',
-            value: category?.name
+            name: "name",
+            value: category?.name,
           },
           {
-            name: 'description',
-            value: category?.description
+            name: "description",
+            value: category?.description,
           },
           {
-            name: 'status',
-            value: category?.status
+            name: "status",
+            value: category?.status,
           },
         ]}
       >
-        <Form.Item
-          label="Nama Produk"
-          name="name"
-        >
+        <Form.Item label="Nama Produk" name="name">
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Deskripsi Produk"
-          name="description"
-        >
+        <Form.Item label="Deskripsi Produk" name="description">
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Kategori Produk"
-          name="status"
-        >
+        <Form.Item label="Kategori Produk" name="status">
           <Select
             style={{
               width: 200,
@@ -85,20 +75,24 @@ const index = (props) => {
             span: 4,
           }}
         >
-          <Space size='middle'>
-            <Button type='primary' danger htmlType="submit">
+          <Space size="middle">
+            <Button type="primary" danger htmlType="submit">
               Simpan
             </Button>
-            <Button danger htmlType="button" onClick={() => history.push('/admin/kategori-produk-ucapan-digital')}>
+            <Button
+              danger
+              htmlType="button"
+              onClick={() =>
+                history.push("/admin/kategori-produk-ucapan-digital")
+              }
+            >
               Batal
             </Button>
           </Space>
         </Form.Item>
-
       </Form>
     </CardForm>
   );
 };
 
-
-export default index
+export default index;

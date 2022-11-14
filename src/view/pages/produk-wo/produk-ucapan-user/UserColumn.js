@@ -2,7 +2,7 @@ import { Space, Popover, Modal } from "antd";
 import { Link } from "react-router-dom";
 import { Edit, Trash, Eye, Danger } from "iconsax-react";
 
-import { deleteProduct } from "../../../../api/produk-wo/deleteProduct";
+import { deleteProduct } from "../../../../api/produk/deleteProduct";
 
 const { confirm } = Modal;
 const showModal = (id, name) => {

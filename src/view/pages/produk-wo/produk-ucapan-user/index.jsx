@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-import { getProducts } from "../../../../api/produk-wo/getProducts";
+import { getProducts } from "../../../../api/produk/getProducts";
 
 import { Row, Col } from "antd";
 
