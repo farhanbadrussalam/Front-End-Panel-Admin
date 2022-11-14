@@ -149,11 +149,7 @@ export const getDetail = (base_url, id) => {
       .get(`${base_url}/${id}`)
       .then((r) => setData(r.data.data))
       .catch((err) => setError(err.response.data.message))
-      .finally(() =>
-        setTimeout(() => {
-          setLoading(false);
-        }, 0)
-      );
+      .finally(() => setLoading(false));
   };
 
   return { data, err, loading, refetch };
