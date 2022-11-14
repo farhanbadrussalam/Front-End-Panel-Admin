@@ -145,11 +145,10 @@ const index = (props) => {
               </Form.Item>
 
               <Form.Item label="Status" name="status" initialValue={status}>
-                <Input
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                  defaultValue={status}
-                />
+                <Select value={status} onChange={(e) => setStatus(e)}>
+                  <Select.Option value={1}>Aktif</Select.Option>
+                  <Select.Option value={2}>Non-aktif</Select.Option>
+                </Select>
               </Form.Item>
 
               <Form.Item label="Thumbnail" key="thumbnail" name="thumbnail">

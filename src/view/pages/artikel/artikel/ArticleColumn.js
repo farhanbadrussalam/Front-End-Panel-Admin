@@ -34,6 +34,7 @@ const columns = [
     title: "Status",
     dataIndex: "status",
     key: "status",
+    render: (data) => (data === 1 ? "Aktif" : "Non-aktif"),
   },
 
   {
