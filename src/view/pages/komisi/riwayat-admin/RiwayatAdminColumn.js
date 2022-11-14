@@ -37,7 +37,7 @@ const columns = [
     dataIndex: 'date',
     key: 'date',
     render: (date) => <a>{new Date(date).toLocaleString('en-GB')}</a>,
-    sorter: (a, b) => {new Date(a.date).getTime() - new Date(b.date).getTime()},
+    sorter: (a, b) => {new Date(a.date) - new Date(b.date)},
   },
 
   {
