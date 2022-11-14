@@ -18,6 +18,7 @@ import {
 import { Trash } from "iconsax-react";
 
 import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
+import RichEditor from "../../../../../components/custom-components/rich-editor/RichEditor";
 
 const index = (props) => {
   const history = useHistory();
@@ -103,6 +104,9 @@ const index = (props) => {
           labelCol={{
             span: 4,
           }}
+          wrapperCol={{
+            span: 14,
+          }}
           autoComplete="off"
           size="small"
           onFinish={onFinish}
@@ -117,18 +121,6 @@ const index = (props) => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   defaultValue={title}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Deskripsi"
-                name="description"
-                initialValue={description}
-              >
-                <Input
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  defaultValue={description}
                 />
               </Form.Item>
 
@@ -180,6 +172,17 @@ const index = (props) => {
                     </Button>
                   )}
                 </Upload>
+              </Form.Item>
+
+              <Form.Item
+                label="Deskripsi"
+                name="description"
+                initialValue={description}
+              >
+                <RichEditor
+                  controlledValueDispatcher={setDescription}
+                  controlledValueState={description}
+                />
               </Form.Item>
 
               <Form.Item

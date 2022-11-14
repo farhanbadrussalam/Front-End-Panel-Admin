@@ -21,16 +21,8 @@ const index = (props) => {
         autoComplete="off"
         size="small"
       >
-        <Form.Item label="ID Artikel" name="id">
-          <p>{data.id}</p>
-        </Form.Item>
-
         <Form.Item label="Judul" name="title">
           <p>{data.title}</p>
-        </Form.Item>
-
-        <Form.Item label="Slug" name="slug">
-          <p>{data.slug}</p>
         </Form.Item>
 
         <Form.Item label="Deskripsi" name="description">
@@ -49,16 +41,8 @@ const index = (props) => {
           <p>{data.creator}</p>
         </Form.Item>
 
-        <Form.Item label="Dibuat Pada" name="created_at">
-          <p>{data.created_at}</p>
-        </Form.Item>
-
         <Form.Item label="Editor" name="editor">
           <p>{data.editor}</p>
-        </Form.Item>
-
-        <Form.Item label="Diubah Pada" name="edited_at">
-          <p>{data.updated_at}</p>
         </Form.Item>
 
         <Form.Item label="Image" name="thumbnail">
