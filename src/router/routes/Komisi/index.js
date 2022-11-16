@@ -63,6 +63,16 @@ const commissionData = [
     ),
     layout: "VerticalLayout",
   },
+
+  {
+    path: "/admin/saldo-komisi-wo",
+    component: lazy(() =>
+      import(
+        "../../../view/pages/komisi/saldo-komisi"
+      )
+    ),
+    layout: "VerticalLayout",
+  },
 ]
 
 export default commissionData
