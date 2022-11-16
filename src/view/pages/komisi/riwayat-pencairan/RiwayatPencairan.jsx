@@ -2,20 +2,19 @@ import { Row, Col } from 'antd'
 
 import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
-import Column from './RiwayatWOColumn'
+import Column from './RiwayatPencairanColumn'
 
-import { getWOCommissions } from "../../../../api/komisi/getWOCommissions"
+import { getDisbursed } from "../../../../api/disbursement/getDisbursed"
 
 const MasterDisplay = () => {
-  let { data, deletePesanan } = getWOCommissions()
+  let { data, deletePesanan } = getDisbursed()
 
   data = data.map((d) => {
     return {
       id: d.id,
-      date: d.created_at,
-      name: d.name,
-      type: d.type,
-      nominal: d.nominal_get,
+      request_date: d.request_date,
+      disbursement_date: d.disbursement_date,
+      name: d.disbursement_name,
       wo: d.commission ? d.commission.wedding_organizer.name : "",
       deletePesanan: deletePesanan
     }

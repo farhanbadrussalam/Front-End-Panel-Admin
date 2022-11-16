@@ -1,6 +1,5 @@
 import { Space, Popover, Modal, message } from "antd";
 import { Edit, Trash, Eye, Danger } from "iconsax-react";
-import moment from "moment";
 import { Link } from "react-router-dom";
 
 const { confirm } = Modal
