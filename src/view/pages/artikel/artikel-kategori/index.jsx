@@ -10,14 +10,16 @@ import { getArticleCategories } from "../../../../api/artikel/category";
 export default function index() {
   let { data, error, destroy } = getArticleCategories();
 
-  data = data.map((d) => {
-    return {
-      name: d.name,
-      description: d.description,
-      id: d.id,
-      destroy,
-    };
-  });
+  data = data
+    .filter((d) => d.id !== undefined)
+    .map((d) => {
+      return {
+        name: d.name,
+        description: d.description,
+        id: d.id,
+        destroy,
+      };
+    });
 
   return (
     <>
