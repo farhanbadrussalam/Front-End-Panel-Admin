@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const postCustomer = (values) => {
-  const response = axios.post('http://127.0.0.1:8000/api/wedding-organizer-customers/store', values, {
+  const response = axios.post('https://apiwo.tokoweb.live/api/wedding-organizer-customers/store', values, {
     headers: {
       'Authorization': localStorage.getItem("token")
     }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-export const getBrides = (url = 'http://127.0.0.1:8000/api/brides') => {
+export const getBrides = (url = 'https://apiwo.tokoweb.live/api/brides') => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 

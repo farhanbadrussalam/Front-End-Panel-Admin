@@ -6,7 +6,7 @@ export const getOneCustomer = (id) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/wedding-organizer-customers/' + id, {
+    axios.get('https://apiwo.tokoweb.live/api/wedding-organizer-customers/' + id, {
       headers: {
         'Authorization': localStorage.getItem("token")
       }
