@@ -1,11 +1,10 @@
-import { Space, Popover, Modal } from "antd";
 import { Link } from "react-router-dom";
+
+import { Space, Popover, Modal } from "antd";
 import { Edit, Trash, Eye, Danger } from "iconsax-react";
 
-import { deleteProduct } from "../../../../api/produk-wo/deleteProduct";
-
 const { confirm } = Modal;
-const showModal = (id, name) => {
+const showModal = (id, name, destroy) => {
   confirm({
     title: `Apa anda yakin ingin menghapus ${name}?`,
     icon: <Danger color="red" />,
@@ -13,8 +12,7 @@ const showModal = (id, name) => {
     cancelText: "Batal",
     okType: "primary",
     onOk() {
-      deleteProduct(id);
-      window.location.reload(true);
+      destroy(id);
     },
   });
 };
@@ -27,21 +25,15 @@ const columns = [
   },
 
   {
-    title: "Harga",
-    dataIndex: "price",
-    key: "price",
+    title: "Tipe",
+    dataIndex: "type",
+    key: "type",
   },
 
   {
-    title: "Deskripsi",
-    dataIndex: "description",
-    key: "description",
-  },
-
-  {
-    title: "Kategori Produk",
-    dataIndex: "product_category",
-    key: "product_category",
+    title: "Nominal",
+    dataIndex: "nominal",
+    key: "nominal",
   },
 
   {
@@ -54,19 +46,13 @@ const columns = [
     title: "Action",
     key: "action",
     width: 200,
-    fixed: "right",
     render: (payload) => (
       <Space size="large" className="icons-container">
         <Popover content={"Detail"}>
           <Link
             to={{
-              pathname: `/admin/produk-ucapan-user/detail/${payload.id}`,
-              state: {
-                permission: "Detail",
-                dataType: "Produk WO",
-                id: payload.id,
-                data: payload,
-              },
+              pathname: `/admin/kupon/${payload.id}`,
+              id: payload.id,
             }}
           >
             <Eye size={20} />
@@ -76,12 +62,7 @@ const columns = [
         <Popover content={"Edit"}>
           <Link
             to={{
-              pathname: `crud-user/edit/${payload.id}`,
-              state: {
-                permission: "Edit",
-                data: "User",
-                id: payload.id,
-              },
+              pathname: `/admin/kupon/update/${payload.id}`,
             }}
           >
             <Edit size={20} />
@@ -92,7 +73,7 @@ const columns = [
           <Link
             onClick={(e) => {
               e.preventDefault();
-              showModal(payload.id, payload.name);
+              showModal(payload.id, payload.name, payload.destroy);
             }}
           >
             <Trash color="red" size={20} />
