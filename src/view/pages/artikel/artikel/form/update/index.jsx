@@ -18,6 +18,7 @@ import {
 import { Trash } from "iconsax-react";
 
 import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
+import RichEditor from "../../../../../components/custom-components/rich-editor/RichEditor";
 
 const index = (props) => {
   const history = useHistory();
@@ -38,7 +39,7 @@ const index = (props) => {
       setTitle(data.title);
       setDescription(data.description);
       setStatus(data.status);
-      setArticle_category_id(data.article_category.id);
+      setArticle_category_id(data.article_category?.id);
       setThumbnail([
         {
           name: data.thumbnail,
@@ -103,6 +104,9 @@ const index = (props) => {
           labelCol={{
             span: 4,
           }}
+          wrapperCol={{
+            span: 14,
+          }}
           autoComplete="off"
           size="small"
           onFinish={onFinish}
@@ -117,18 +121,6 @@ const index = (props) => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   defaultValue={title}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Deskripsi"
-                name="description"
-                initialValue={description}
-              >
-                <Input
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  defaultValue={description}
                 />
               </Form.Item>
 
@@ -153,11 +145,10 @@ const index = (props) => {
               </Form.Item>
 
               <Form.Item label="Status" name="status" initialValue={status}>
-                <Input
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                  defaultValue={status}
-                />
+                <Select value={status} onChange={(e) => setStatus(e)}>
+                  <Select.Option value={1}>Aktif</Select.Option>
+                  <Select.Option value={2}>Non-aktif</Select.Option>
+                </Select>
               </Form.Item>
 
               <Form.Item label="Thumbnail" key="thumbnail" name="thumbnail">
@@ -180,6 +171,17 @@ const index = (props) => {
                     </Button>
                   )}
                 </Upload>
+              </Form.Item>
+
+              <Form.Item
+                label="Deskripsi"
+                name="description"
+                initialValue={description}
+              >
+                <RichEditor
+                  controlledValueDispatcher={setDescription}
+                  controlledValueState={description}
+                />
               </Form.Item>
 
               <Form.Item

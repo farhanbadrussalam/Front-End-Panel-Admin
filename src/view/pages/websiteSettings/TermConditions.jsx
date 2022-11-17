@@ -1,9 +1,7 @@
 import { useRichEditorData } from "../../../api/website-settings/richEditorApiTemplate";
 
-import ReactQuill from "react-quill";
 import { Typography, Spin, Button } from "antd";
-
-import "react-quill/dist/quill.snow.css";
+import RichEditor from "../../components/custom-components/rich-editor/RichEditor";
 
 export default function TermConditions() {
   const { data, loading, method } = useRichEditorData("terms-conditions");
@@ -16,10 +14,9 @@ export default function TermConditions() {
           <Spin />
         ) : (
           <>
-            <ReactQuill
-              theme="snow"
-              value={data.value}
-              onChange={(e) => data.setValue(e)}
+            <RichEditor
+              controlledValueDispatcher={data.setValue}
+              controlledValueState={data.value}
             />
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
