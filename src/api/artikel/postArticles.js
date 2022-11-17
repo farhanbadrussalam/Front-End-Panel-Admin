@@ -8,4 +8,4 @@ export const postArticle = (values) =>
       },
     })
     .then((res) => res)
-    .catch((err) => err);
+    .catch((err) => err.response.data.message);

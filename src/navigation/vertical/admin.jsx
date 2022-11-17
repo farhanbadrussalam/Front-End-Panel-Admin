@@ -103,6 +103,11 @@ const adminNav = [
         title: "Data Produk Ucapan Digital",
         navLink: "/admin/produk-ucapan-digital",
       },
+      {
+        id: "pesanan",
+        title: "Data Pesanan",
+        navLink: "/admin/pesanan",
+      },
     ],
   },
 
@@ -213,38 +218,7 @@ const adminNav = [
     id: "pengaturan-website",
     title: "Pengaturan Website",
     icon: <DocumentCode set="curved" className="remix-icon" size={18} />,
-    children: [
-      {
-        id: "pengaturan-kontak-admin",
-        title: "Kontak Admin",
-        navLink: "/admin/pengaturan-kontak-admin",
-      },
-      {
-        id: "pengaturan-sosmed-dealer",
-        title: "Pengaturan Sosial Media Partner",
-        navLink: "/admin/pengaturan-sosmed-dealer",
-      },
-      {
-        id: "pengaturan-faq",
-        title: "FAQ/Pertanyaan Umum",
-        navLink: "/admin/pengaturan-faq",
-      },
-      {
-        id: "pengaturan-syarat-ketentuan",
-        title: "Pengaturan Syarat dan Ketentuan",
-        navLink: "/admin/pengaturan-syarat-ketentuan",
-      },
-      {
-        id: "pengaturan-kebijakan-privasi",
-        title: "Pengaturan Kebijakan Privasi",
-        navLink: "/admin/pengaturan-kebijakan-privasi",
-      },
-      {
-        id: "pengaturan-payment-gateway",
-        title: "Pembayaran Payment Gateway",
-        navLink: "/admin/pengaturan-payment-gateway",
-      },
-    ],
+    navLink: "/admin/pengaturan-website",
   },
 ];
 

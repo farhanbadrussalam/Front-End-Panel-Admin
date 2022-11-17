@@ -36,6 +36,11 @@ const company = [
         title: "Data Produk Ucapan Digital",
         navLink: "/pages/produk",
       },
+      {
+        id: "pesanan",
+        title: "Data Pesanan",
+        navLink: "/pages/pesanan",
+      },
     ],
   },
   {
