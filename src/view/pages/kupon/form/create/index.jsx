@@ -80,23 +80,6 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Tipe"
-          key="type"
-          name="type"
-          rules={[
-            {
-              required: true,
-              message: "Mohon masukkan tipe voucher!",
-            },
-          ]}
-        >
-          <Select onChange={(value) => setType(value)} value={type}>
-            <Select.Option value={1}>Aktif</Select.Option>
-            <Select.Option value={2}>Tidak Aktif</Select.Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item
           label="Nominal"
           key="nominal"
           name="nominal"
@@ -119,13 +102,13 @@ const index = (props) => {
             }}
             addonBefore={
               <Select
-                defaultValue="persentase"
-                style={{
-                  width: 60,
-                }}
+                onChange={(value) => setType(value)}
+                value={type}
+                style={{ width: 60 }}
+                defaultValue={1}
               >
-                <Select.Option value="persentase">%</Select.Option>
-                <Select.Option value="rupiah">Rp</Select.Option>
+                <Select.Option value={1}>%</Select.Option>
+                <Select.Option value={2}>Rp</Select.Option>
               </Select>
             }
             formatter={(value) =>

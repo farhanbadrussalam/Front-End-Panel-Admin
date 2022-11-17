@@ -12,22 +12,22 @@ export default function index() {
 
   return (
     <>
-      <TableCard customTitle="Artikel">
+      <TableCard customTitle="Voucher/Kupon">
         <Row>
           <Col span={24}>
             <TableDisplay
               data={data?.map((d) => {
                 return {
                   name: d.name,
-                  type: d.type,
+                  type: d.type == 1 ? "persentase" : "nominal",
                   nominal: d.nominal,
-                  status: d.status,
+                  status: d.status == 1 ? "Aktif" : "Non-aktif",
                   id: d.id,
                   destroy: method.destroy,
                 };
               })}
               column={columns}
-              addButton={method.create}
+              addButton={true}
               createLink={`${window.location.pathname}/create`}
               colomWidth={600}
             />

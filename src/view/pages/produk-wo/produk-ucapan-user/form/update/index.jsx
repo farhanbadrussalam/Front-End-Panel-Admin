@@ -1,95 +1,83 @@
-import { Button, Form, Input, Space, message } from 'antd';
-import { useHistory } from 'react-router-dom';
-import React from 'react';
+import { useHistory, useParams } from "react-router-dom";
 
-import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { putUser } from '../../../../../../api/kelola-user/putUser';
-import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
+import { Form, Button, Spin } from "antd";
+import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
+import ErrorPage from "../../../../../components/custom-components/Feedback/ErrorPage";
 
-const index = (props) => {
-  const history = useHistory()
-  const title = `${props.location.state.permission} Data ${props.location.state.data}`
-  const id = props.location.state.id
+import { detailProdukWO } from "../../../../../../api/produk-wo";
 
-  const { data: user } = getOneUser(id)
+import "./style.css";
 
-  const onFinish = async (values) => {
-    values.status = 1
-    const success = await putUser(values, id)
+const index = () => {
+  const history = useHistory();
+  const { id } = useParams();
 
-    if (success.success) {
-      message.success('Berhasil mengubah data user')
-      history.goBack()
-    }
-    else message.error('Gagal mengubah data user')
-  };
+  const { data, err, loading } = detailProdukWO(id);
+
+  if (loading)
+    return (
+      <CardForm title={`Detail Data Voucher/Kupon ${data?.name}`}>
+        <Spin />
+      </CardForm>
+    );
+
+  if (err) return <ErrorPage message={err} />;
 
   return (
-    <CardForm title={title} >
+    <CardForm title={`Detail Data Produk Ucapan WO ${data?.name}`}>
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 5,
         }}
         wrapperCol={{
-          span: 14,
+          span: 13,
         }}
-        onFinish={onFinish}
         autoComplete="off"
+        disabled={true}
       >
-        <Form.Item
-          label="Nama"
-          name="name"
-        >
-          <Input placeholder={user && user.name} />
+        <Form.Item label="WO" name="wedding_organizer_name" key="wo_name">
+          <p>{data?.wedding_organizer?.name}</p>
         </Form.Item>
 
-        <Form.Item
-          label="Username"
-          name="username"
-        >
-          <Input placeholder={user && user.username} />
+        <Form.Item label="Produk" name="product_name" key="product_name">
+          <p>{data?.product?.name}</p>
         </Form.Item>
 
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              type: 'email',
-            },
-          ]}
-        >
-          <Input placeholder={user && user.email} />
+        <Form.Item label="Pengantin Pria" name="groom" key="groom">
+          <p>{data?.bride?.groom}</p>
         </Form.Item>
 
-        <Form.Item
-          label="Password"
-          name="password"
-        >
-          <Input.Password minLength={8} />
+        <Form.Item label="Pengantin Perempuan" name="bride" key="bride">
+          <p>{data?.bride?.bride}</p>
         </Form.Item>
 
-        <Form.Item
-          wrapperCol={{
-            offset: 4,
-            span: 4,
-          }}
-        >
-          <Space size='middle'>
-            <Button type='primary' danger htmlType="submit">
-              Simpan
-            </Button>
-            <Button danger htmlType="button" onClick={() => history.goBack()}>
-              Batal
-            </Button>
-          </Space>
+        <Form.Item label="Kuota" name="quota" key="quota">
+          <p>{data?.quota}</p>
         </Form.Item>
 
+        <Form.Item label="Tanggal Aktif" name="active_date" key="active_date">
+          <p>{data?.active_date}</p>
+        </Form.Item>
+
+        <Form.Item label="Status" name="status" key="status">
+          <p>{data?.status === 1 ? "Aktif" : "Non-aktif"}</p>
+        </Form.Item>
+
+        <Form.Item label="Kreator" name="creator" key="creator">
+          <p>{data?.creator}</p>
+        </Form.Item>
+
+        <Form.Item label="Editor" name="editor" key="editor">
+          <p>{data?.editor}</p>
+        </Form.Item>
       </Form>
+
+      <Button danger onClick={() => history.goBack()}>
+        Kembali
+      </Button>
     </CardForm>
   );
 };
 
-
-export default index
+export default index;

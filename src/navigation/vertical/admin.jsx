@@ -124,17 +124,17 @@ const adminNav = [
     children: [
       {
         id: "group-user",
-        title: "User Group / Kategori Komisi",
+        title: "Kategori Komisi",
         navLink: "/admin/group-user",
       },
       {
         id: "produk-ucapan-user",
-        title: "Kelola Produk Ucapan Digital WO",
+        title: "Produk Ucapan WO",
         navLink: "/admin/produk-ucapan-user",
       },
       {
         id: "afiliasi-ucapan",
-        title: "Generate link order / Afiliasi Ucapan Digtal",
+        title: "Link Afiliasi",
         navLink: "/admin/afiliasi-ucapan",
       },
     ],

@@ -5,49 +5,49 @@ import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { deleteProduct } from "../../../../api/produk/deleteProduct";
 
 const { confirm } = Modal;
-const showModal = (id, name) => {
+const showModal = (id, destroy) => {
   confirm({
-    title: `Apa anda yakin ingin menghapus ${name}?`,
+    title: `Apa anda yakin ingin menghapus ${id}?`,
     icon: <Danger color="red" />,
     okText: "Yakin",
     cancelText: "Batal",
     okType: "primary",
     onOk() {
-      deleteProduct(id);
-      window.location.reload(true);
+      destroy(id);
     },
   });
 };
 
 const columns = [
   {
-    title: "Nama",
-    dataIndex: "name",
-    key: "name",
+    title: "Nama Produk",
+    dataIndex: "product",
+    key: "product",
   },
 
   {
-    title: "Harga",
-    dataIndex: "price",
-    key: "price",
+    title: "Wedding Organizer",
+    dataIndex: "wo",
+    key: "wo",
   },
 
   {
-    title: "Deskripsi",
-    dataIndex: "description",
-    key: "description",
+    title: "Pengantin Pria",
+    dataIndex: "groom",
+    key: "groom",
   },
 
   {
-    title: "Kategori Produk",
-    dataIndex: "product_category",
-    key: "product_category",
+    title: "Pengantin Perempuan",
+    dataIndex: "bride",
+    key: "bride",
   },
 
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
+    render: (data) => (data === 1 ? "Aktif" : "Non-aktif"),
   },
 
   {
@@ -61,12 +61,6 @@ const columns = [
           <Link
             to={{
               pathname: `/admin/produk-ucapan-user/detail/${payload.id}`,
-              state: {
-                permission: "Detail",
-                dataType: "Produk WO",
-                id: payload.id,
-                data: payload,
-              },
             }}
           >
             <Eye size={20} />
@@ -76,7 +70,7 @@ const columns = [
         <Popover content={"Edit"}>
           <Link
             to={{
-              pathname: `crud-user/edit/${payload.id}`,
+              pathname: `/admin/produk-ucapan-user/edit/${payload.id}`,
               state: {
                 permission: "Edit",
                 data: "User",
@@ -92,7 +86,7 @@ const columns = [
           <Link
             onClick={(e) => {
               e.preventDefault();
-              showModal(payload.id, payload.name);
+              showModal(payload.id, payload.destroy);
             }}
           >
             <Trash color="red" size={20} />

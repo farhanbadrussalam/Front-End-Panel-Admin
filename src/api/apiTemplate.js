@@ -78,7 +78,9 @@ export const useData = (base_url) => {
     }
 
     return req
-      .catch((e) => setError({ ...error, [methodId]: e.response.data.message }))
+      .catch((e) =>
+        setError({ ...error, [methodId]: e?.response?.data?.message })
+      )
       .finally(() =>
         setTimeout(() => {
           setLoading((prev) => ({ ...prev, [methodId]: false }));
@@ -116,7 +118,6 @@ export const useData = (base_url) => {
 
   return {
     data,
-    detailData,
     error,
     loading,
     method,
@@ -138,7 +139,7 @@ export const getDetail = (base_url, id) => {
     api
       .get(`${base_url}/${id}`)
       .then((r) => setData(r.data.data))
-      .catch((err) => setError(err.response.data.message))
+      .catch((err) => setError(err?.response?.data?.message))
       .finally(() => setLoading(false));
   }, []);
 
@@ -148,7 +149,7 @@ export const getDetail = (base_url, id) => {
     api
       .get(`${base_url}/${id}`)
       .then((r) => setData(r.data.data))
-      .catch((err) => setError(err.response.data.message))
+      .catch((err) => setError(err?.response?.data?.message))
       .finally(() => setLoading(false));
   };
 

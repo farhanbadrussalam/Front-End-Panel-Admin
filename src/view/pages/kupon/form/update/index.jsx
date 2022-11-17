@@ -118,13 +118,12 @@ const index = () => {
             }}
             addonBefore={
               <Select
-                defaultValue="persentase"
-                style={{
-                  width: 60,
-                }}
+                onChange={(value) => setType(value)}
+                value={type}
+                defaultValue={type}
               >
-                <Select.Option value="persentase">%</Select.Option>
-                <Select.Option value="rupiah">Rp</Select.Option>
+                <Select.Option value={1}>%</Select.Option>
+                <Select.Option value={2}>Rp</Select.Option>
               </Select>
             }
             formatter={(value) =>

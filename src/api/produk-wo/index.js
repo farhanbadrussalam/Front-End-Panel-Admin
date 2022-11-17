@@ -10,3 +10,6 @@ export const createProdukWO = (value) =>
 
 export const updateProdukWO = (id, value) =>
   update("wedding-organizer-products", id, value);
+
+export const detailProdukWO = (id) =>
+  getDetail("wedding-organizer-products", id);
