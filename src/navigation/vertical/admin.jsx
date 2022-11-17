@@ -169,7 +169,7 @@ const adminNav = [
         navLink: "/admin/riwayat-komisi-wo",
       },
       {
-        id: "pencairaan-komisi",
+        id: "pencairan-komisi",
         title: "Pencairan Komisi",
         navLink: "/admin/pencairan-komisi",
       },

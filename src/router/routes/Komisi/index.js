@@ -31,7 +31,36 @@ const commissionData = [
     ),
     layout: "VerticalLayout",
   },
+
+  {
+    path: "/admin/riwayat-pencairan-komisi-wo/detail/:userid",
+    component: lazy(() =>
+      import(
+        "../../../view/pages/komisi/riwayat-pencairan/form/read"
+      )
+    ),
+    layout: "VerticalLayout",
+  },
+
+  {
+    path: "/admin/pencairan-komisi/detail/:userid",
+    component: lazy(() =>
+      import(
+        "../../../view/pages/komisi/pencairan/form/read"
+      )
+    ),
+    layout: "VerticalLayout",
+  },
   //Update
+  {
+    path: "/admin/pencairan-komisi/edit/:userid",
+    component: lazy(() =>
+      import(
+        "../../../view/pages/komisi/pencairan/form/update"
+      )
+    ),
+    layout: "VerticalLayout",
+  },
 
   //Get All
   {
@@ -69,6 +98,16 @@ const commissionData = [
     component: lazy(() =>
       import(
         "../../../view/pages/komisi/saldo-komisi"
+      )
+    ),
+    layout: "VerticalLayout",
+  },
+
+  {
+    path: "/admin/pencairan-komisi",
+    component: lazy(() =>
+      import(
+        "../../../view/pages/komisi/pencairan"
       )
     ),
     layout: "VerticalLayout",
