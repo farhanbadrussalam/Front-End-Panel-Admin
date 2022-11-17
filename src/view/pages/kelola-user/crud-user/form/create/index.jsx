@@ -108,9 +108,6 @@ const index = () => {
               width: 200,
             }}
           >
-            {/* {wos?.map((wo, i) => (
-              <Option key={i} value={wo?.id}>{wo?.name}</Option>
-            ))} */}
             <Option value={1}>Admin</Option>
             <Option value={2}>Customer</Option>
           </Select>

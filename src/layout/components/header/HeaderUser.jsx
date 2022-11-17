@@ -4,8 +4,11 @@ import { Dropdown, Col, Divider, Row } from "antd";
 import { UserOctagon, Flag, Calendar, Calculator } from "iconsax-react";
 
 import avatarImg from "../../../assets/images/memoji/user-avatar-4.png";
+import { usePermissionContext } from "../../../context/PermissionContext";
 
 export default function HeaderUser() {
+  const { logOut } = usePermissionContext()
+
   const menu = (
     <div className="hp-user-dropdown hp-border-radius hp-bg-black-0 hp-bg-dark-100 hp-border-color-dark-80 hp-py-24 hp-px-18 hp-mt-16">
       <span className="hp-d-block h5 hp-font-weight-500 hp-text-color-black-100 hp-text-color-dark-0 hp-mb-16">
@@ -87,7 +90,8 @@ export default function HeaderUser() {
         <Col span={24}>
           <Link
             onClick={(e) => {
-              localStorage.removeItem("token");
+              localStorage.clear()
+              logOut()
             }}
             to="/admin/login"
             className="hp-p1-body hp-font-weight-500 hp-hover-text-color-primary-2"

@@ -11,17 +11,15 @@ const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
   const id = props.location.state.id
-  // const access_menu_id = props.location.state.access_menu_id
 
   const { data: user } = getOneUser(id)
   const { data: roles } = getRoles()
   const { data: wos } = getWeddingOrganizers()
 
   const onFinish = async (values) => {
-    values.status = 1
     const success = await putUser(values, id)
 
-    if (success.success) {
+    if (success.data.success) {
       message.success('Berhasil mengubah data user')
       history.goBack()
     }
@@ -62,8 +60,8 @@ const index = (props) => {
             value: user?.wedding_organizer?.id
           },
           {
-            name: "type",
-            value: user?.type
+            name: "status",
+            value: user?.status
           },
         ]}
       >
@@ -100,7 +98,7 @@ const index = (props) => {
           <Input.Password minLength={8} />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           label="Tipe"
           name="type"
         >
@@ -112,7 +110,7 @@ const index = (props) => {
             <Option value={1}>Admin</Option>
             <Option value={2}>Customer</Option>
           </Select>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item
           label="Wedding Organizer"
@@ -141,6 +139,20 @@ const index = (props) => {
             {roles?.map((role, i) => (
               <Option key={i} value={role?.id}>{role?.name}</Option>
             ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Status"
+          name="status"
+        >
+          <Select
+            style={{
+              width: 200,
+            }}
+          >
+            <Option value={1}>Aktif</Option>
+            <Option value={2}>Non Aktif</Option>
           </Select>
         </Form.Item>
 

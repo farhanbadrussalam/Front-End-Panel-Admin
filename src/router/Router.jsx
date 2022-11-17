@@ -21,6 +21,7 @@ import FullLayout from "../layout/FullLayout";
 // Components
 import Home from "../view/home";
 import Error404 from "../view/pages/errors/404";
+import { usePermissionContext } from "../context/PermissionContext";
 
 export default function Router() {
   // Redux
@@ -28,6 +29,7 @@ export default function Router() {
   const dispatch = useDispatch();
 
   const auth = localStorage.getItem("token");
+  const { permission } = usePermissionContext()
 
   // Dark Mode
   useEffect(() => {
@@ -117,8 +119,7 @@ export default function Router() {
                   );
                 } else {
                   if (auth) {
-                    // todo: perbaiki routing
-                    if (true) {
+                    if (permission.includes(route.path) || route.path == "/admin/dashboard") {
                       return (
                         <Route
                           key={route.path}

@@ -6,8 +6,28 @@ import { useSelector } from "react-redux";
 import { Menu, Tag } from "antd";
 
 import navigation from "../../../../navigation/vertical";
+import { useState, useEffect } from "react";
+import { usePermissionContext } from "../../../../context/PermissionContext";
 
 const { SubMenu } = Menu;
+
+const navFiltering = (permission, navigation, setFilteredNaviation) => {
+  const filteredNav = []
+  for (let nav of navigation) {
+    if (nav.hasOwnProperty("header") || nav?.id == "dashboard")
+      filteredNav.push(nav)
+    else if (nav.hasOwnProperty("navLink") && permission.includes(nav.navLink))
+      filteredNav.push(nav)
+    else if (nav.hasOwnProperty("children")) {
+      let childrenNav = []
+      for (const child of nav.children) {
+        permission.includes(child.navLink) ? childrenNav.push(child) : undefined
+      }
+      childrenNav.length ? filteredNav.push({ ...nav, children: childrenNav }) : undefined
+    }
+  }
+  setFilteredNaviation(filteredNav)
+}
 
 export default function MenuItem(props) {
   const { onClose } = props;
@@ -27,12 +47,17 @@ export default function MenuItem(props) {
     "/" +
     splitLocation[splitLocation.length - 1];
 
-  /**
-   * TODO: membuat filter render navlink
-   */
-  // navigation = navigation.filter((item) => item.id === 4);
+  const { permission } = usePermissionContext()
+  const [filteredNavigation, setFilteredNaviation] = useState([])
 
-  const menuItem = navigation.map((item, index) => {
+  useEffect(() => {
+    if (permission.length) {
+      navFiltering(permission, navigation, setFilteredNaviation)
+    }
+  }, [permission])
+
+
+  const menuItem = filteredNavigation?.map((item, index) => {
     if (item.header) {
       return <Menu.ItemGroup key={index} title={item.header}></Menu.ItemGroup>;
     }
@@ -50,7 +75,7 @@ export default function MenuItem(props) {
                   key={itemChildren.id}
                   className={
                     splitLocationUrl ===
-                    childrenNavLink[childrenNavLink.length - 2] +
+                      childrenNavLink[childrenNavLink.length - 2] +
                       "/" +
                       childrenNavLink[childrenNavLink.length - 1]
                       ? "ant-menu-item-selected"
@@ -73,7 +98,7 @@ export default function MenuItem(props) {
                         key={childItem.id}
                         className={
                           splitLocationUrl ===
-                          childrenItemLink[childrenItemLink.length - 2] +
+                            childrenItemLink[childrenItemLink.length - 2] +
                             "/" +
                             childrenItemLink[childrenItemLink.length - 1]
                             ? "ant-menu-item-selected"
@@ -104,7 +129,7 @@ export default function MenuItem(props) {
             splitLocation[splitLocation.length - 2] +
               "/" +
               splitLocation[splitLocation.length - 1] ===
-            itemNavLink[itemNavLink.length - 2] +
+              itemNavLink[itemNavLink.length - 2] +
               "/" +
               itemNavLink[itemNavLink.length - 1]
               ? "ant-menu-item-selected"
@@ -143,7 +168,7 @@ export default function MenuItem(props) {
         splitLocation[splitLocation.length - 2],
       ]}
       theme={customise.theme == "light" ? "light" : "dark"}
-      // className="hp-bg-black-20 hp-bg-dark-90"
+    // className="hp-bg-black-20 hp-bg-dark-90"
     >
       {menuItem}
     </Menu>
