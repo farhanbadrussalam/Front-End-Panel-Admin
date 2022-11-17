@@ -1,25 +1,11 @@
 import { lazy } from "react";
 
 const kelolaProdukWO = [
-  // get detail data
+  // update data
   {
-    path: "/admin/group-user/:userid",
+    path: "/admin/produk-ucapan-user/edit/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/group-user/komisi")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
-    path: "/admin/produk-ucapan-user/detail/:userid",
-    component: lazy(() =>
-      import("../../../view/pages/produk-wo/produk-ucapan-user/form/read")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
-    path: "/admin/afiliasi-ucapan/:userid",
-    component: lazy(() =>
-      import("../../../view/pages/produk-wo/afiliasi-ucapan/afiliasi")
+      import("../../../view/pages/produk-wo/produk-ucapan-user/form/update")
     ),
     layout: "VerticalLayout",
   },
@@ -33,20 +19,25 @@ const kelolaProdukWO = [
     layout: "VerticalLayout",
   },
 
-  // update data
+  // get detail data
   {
-    path: "/admin/produk-ucapan-user/edit/:userid",
+    path: "/admin/group-user/:userid",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/produk-ucapan-user")
+      import("../../../view/pages/produk-wo/group-user/komisi")
     ),
     layout: "VerticalLayout",
   },
-
-  // delete data
   {
-    path: "/admin/produk-ucapan-user/delete/:userid",
+    path: "/admin/produk-ucapan-user/detail/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/produk-ucapan-user")
+      import("../../../view/pages/produk-wo/produk-ucapan-user/form/read")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/afiliasi-ucapan/:userid",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/afiliasi-ucapan/afiliasi")
     ),
     layout: "VerticalLayout",
   },

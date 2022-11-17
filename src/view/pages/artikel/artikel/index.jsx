@@ -14,8 +14,9 @@ export default function index() {
     .filter((d) => d.id !== undefined)
     .map((d) => {
       return {
+        thumbnail: `http://127.0.0.1:8000/uploads/${d.thumbnail}`,
         name: d.title,
-        status: d.status,
+        status: d.status == 1 ? "Aktif" : "Non Aktif",
         article_category: d.article_category ? d.article_category.name : "",
         id: d.id,
         destroy,

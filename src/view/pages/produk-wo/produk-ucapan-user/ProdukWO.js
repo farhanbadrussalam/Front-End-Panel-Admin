@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
-
 import { Space, Popover, Modal } from "antd";
+import { Link } from "react-router-dom";
 import { Edit, Trash, Eye, Danger } from "iconsax-react";
 
+import { deleteProduct } from "../../../../api/produk/deleteProduct";
+
 const { confirm } = Modal;
-const showModal = (id, name, destroy) => {
+const showModal = (id, destroy) => {
   confirm({
-    title: `Apa anda yakin ingin menghapus ${name}?`,
+    title: `Apa anda yakin ingin menghapus ${id}?`,
     icon: <Danger color="red" />,
     okText: "Yakin",
     cancelText: "Batal",
@@ -19,15 +20,27 @@ const showModal = (id, name, destroy) => {
 
 const columns = [
   {
-    title: "Nama",
-    dataIndex: "name",
-    key: "name",
+    title: "Nama Produk",
+    dataIndex: "product",
+    key: "product",
   },
 
   {
-    title: "Category",
-    dataIndex: "article_category",
-    key: "article_category",
+    title: "Wedding Organizer",
+    dataIndex: "wo",
+    key: "wo",
+  },
+
+  {
+    title: "Pengantin Pria",
+    dataIndex: "groom",
+    key: "groom",
+  },
+
+  {
+    title: "Pengantin Perempuan",
+    dataIndex: "bride",
+    key: "bride",
   },
 
   {
@@ -35,19 +48,6 @@ const columns = [
     dataIndex: "status",
     key: "status",
     render: (data) => (data === 1 ? "Aktif" : "Non-aktif"),
-  },
-
-  {
-    title: "Image",
-    dataIndex: "thumbnail",
-    key: "thumbnail",
-    render: (data) => (
-      <img
-        src={data}
-        alt="thumbnail"
-        style={{ width: 100, height: 100, objectFit: "contain" }}
-      />
-    ),
   },
 
   {
@@ -60,7 +60,7 @@ const columns = [
         <Popover content={"Detail"}>
           <Link
             to={{
-              pathname: `/admin/artikel/${payload.id}`,
+              pathname: `/admin/produk-ucapan-user/detail/${payload.id}`,
             }}
           >
             <Eye size={20} />
@@ -70,7 +70,12 @@ const columns = [
         <Popover content={"Edit"}>
           <Link
             to={{
-              pathname: `/admin/artikel/update/${payload.id}`,
+              pathname: `/admin/produk-ucapan-user/edit/${payload.id}`,
+              state: {
+                permission: "Edit",
+                data: "User",
+                id: payload.id,
+              },
             }}
           >
             <Edit size={20} />
@@ -81,7 +86,7 @@ const columns = [
           <Link
             onClick={(e) => {
               e.preventDefault();
-              showModal(payload.id, payload.name, payload.destroy);
+              showModal(payload.id, payload.destroy);
             }}
           >
             <Trash color="red" size={20} />
