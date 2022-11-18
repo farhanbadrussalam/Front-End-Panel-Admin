@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber, Space, message } from 'antd';
+import { Button, Form, Input, InputNumber, Space, message, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
@@ -13,9 +13,8 @@ const index = (props) => {
   const { data: customer } = getOneCustomer(id)
 
   const onFinish = async (values) => {
-    values.wedding_organizer_id = customer.wedding_organizer.id
     const success = await putCostumer(values, id)
-    if (success.data.success) {
+    if (success) {
       message.success('Berhasil mengubah data customer')
       history.goBack()
     }
@@ -39,23 +38,23 @@ const index = (props) => {
         fields={[
           {
             name: 'name',
-            value: customer && customer.name
+            value: customer?.name
           },
           {
             name: 'email',
-            value: customer && customer.email
+            value: customer?.email
           },
           {
             name: 'phone',
-            value: customer && customer.phone
+            value: customer?.phone
           },
           {
             name: 'address',
-            value: customer && customer.address
+            value: customer?.address
           },
           {
             name: 'status',
-            value: customer && customer.status
+            value: customer?.status
           },
         ]}
       >
@@ -96,7 +95,10 @@ const index = (props) => {
           label="Status"
           name="status"
         >
-          <InputNumber />
+          <Select style={{ width: "200px" }}>
+            <Select.Option value={1}>Aktif</Select.Option>
+            <Select.Option value={2}>Non Aktif</Select.Option>
+          </Select>
         </Form.Item>
 
         <Form.Item

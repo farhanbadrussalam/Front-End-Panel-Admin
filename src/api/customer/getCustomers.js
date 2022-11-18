@@ -1,29 +1,27 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { api } from '../../configs/apiConfig'
 
-export const getCustomers = (url = 'http://127.0.0.1:8000/api/wedding-organizer-customers') => {
+export const getCustomers = (url = 'customers') => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+  const [deleteToggle, setDeleteToggle] = useState(null)
 
   useEffect(() => {
-    axios.get(url, {
-      headers: {
-        'Authorization': localStorage.getItem("token")
-      }
-    })
+    api.get(url)
       .then(res => setData(res.data.data))
       .catch(err => setError(err))
-  }, [url])
+  }, [deleteToggle])
 
-  // const refetch = () => {
-  //   axios.get(url, {
-  //     headers: {
-  //       'Authorization': 'Bearer 5|0HCSR3sQeuygpAXv5tfdoZH6ls5tkyPH9XEydT8F'
-  //     }
-  //   })
-  //     .then(res => setData(res.data.data.data))
-  //     .catch(err => setError(err))
-  // }
+  const deleteCustomer = async (id) => {
+    const deleted = await api.delete(url + '/destroy/' + id)
+      .then(res => {
+        setDeleteToggle(!deleteToggle)
+        return res.data.success
+      })
+      .catch(err => setError(err))
 
-  return { data, error }
+    return deleted
+  }
+
+  return { data, error, deleteCustomer }
 }

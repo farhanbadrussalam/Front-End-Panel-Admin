@@ -6,17 +6,16 @@ import TableCard from '../../../components/custom-components/TableCard'
 import Column from './CustomerColumn'
 
 const MasterDisplay = () => {
-  const { data } = getCustomers()
+  let { data, deleteCustomer } = getCustomers()
+  data = data?.map((value) => ({ ...value, deleteCustomer: deleteCustomer }))
 
   return (
     <TableCard >
-
       <Row>
         <Col span={24}>
           <TableDisplay data={data} column={Column} addButton={true} />
         </Col>
       </Row>
-
     </TableCard>
   )
 }
