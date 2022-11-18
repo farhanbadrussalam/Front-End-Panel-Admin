@@ -24,18 +24,6 @@ const columns = [
     key: "name",
   },
 
-  // {
-  //   title: "Slug",
-  //   dataIndex: "slug",
-  //   key: "slug",
-  // },
-
-  // {
-  //   title: "Deskripsi",
-  //   dataIndex: "description",
-  //   key: "description",
-  // },
-
   {
     title: "Category",
     dataIndex: "article_category",
@@ -46,6 +34,20 @@ const columns = [
     title: "Status",
     dataIndex: "status",
     key: "status",
+    render: (data) => (data === 1 ? "Aktif" : "Non-aktif"),
+  },
+
+  {
+    title: "Image",
+    dataIndex: "thumbnail",
+    key: "thumbnail",
+    render: (data) => (
+      <img
+        src={data}
+        alt="thumbnail"
+        style={{ width: 100, height: 100, objectFit: "contain" }}
+      />
+    ),
   },
 
   {

@@ -1,10 +1,12 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Space, message, Select, Upload } from "antd";
 import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
-import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
 import { postArticle } from "../../../../../../api/artikel";
 import { getArticleCategories } from "../../../../../../api/artikel/category";
+
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Space, message, Select, Upload } from "antd";
+import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
+import RichEditor from "../../../../../components/custom-components/rich-editor/RichEditor";
 
 const index = () => {
   const history = useHistory();
@@ -91,24 +93,6 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
-          label="Deskripsi"
-          key="description"
-          name="description"
-          rules={[
-            {
-              required: true,
-              message: "Mohon masukkan deskripsi!",
-            },
-          ]}
-        >
-          <Input.TextArea
-            rows={5}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </Form.Item>
-
-        <Form.Item
           label="Kategori"
           key="article_category_id"
           name="article_category_id"
@@ -159,6 +143,17 @@ const index = () => {
               </Button>
             )}
           </Upload>
+        </Form.Item>
+
+        <Form.Item
+          label="Deskripsi"
+          name="description"
+          initialValue={description}
+        >
+          <RichEditor
+            controlledValueDispatcher={setDescription}
+            controlledValueState={description}
+          />
         </Form.Item>
 
         <Form.Item

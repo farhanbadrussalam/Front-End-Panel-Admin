@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-import { getProductCategories } from "../../../../../../api/produk-wo/product-categories/getProductCategories";
+import { getProductCategories } from "../../../../../../api/produk/product-categories/getProductCategories";
 // import { postProduct } from "../../../../../../api/produk-wo/createWOProduct";
 
 import { Button, Form, Input, Space, message, Select, InputNumber } from "antd";

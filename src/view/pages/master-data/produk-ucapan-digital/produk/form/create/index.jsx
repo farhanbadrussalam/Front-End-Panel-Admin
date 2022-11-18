@@ -1,23 +1,22 @@
-import { Button, Form, Input, InputNumber, Space, message, Select } from 'antd';
-import { useHistory } from 'react-router-dom';
-import React from 'react';
-import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
-import { postProduct } from '../../../../../../../api/produk-wo/postProduct';
-import { getProductCategories2 } from '../../../../../../../api/produk-wo/product-categories/getProductCategories2';
+import { Button, Form, Input, InputNumber, Space, message, Select } from "antd";
+import { useHistory } from "react-router-dom";
+import React from "react";
+import CardForm from "../../../../../../components/custom-components/form-crud/CardForm";
+import { postProduct } from "../../../../../../../api/produk/postProduct";
+import { getProductCategories2 } from "../../../../../../../api/produk/product-categories/getProductCategories2";
 
 const index = () => {
-  const history = useHistory()
-  const { data: categories } = getProductCategories2()
+  const history = useHistory();
+  const { data: categories } = getProductCategories2();
 
   const onFinish = async (values) => {
-    const success = await postProduct(values)
+    const success = await postProduct(values);
 
     if (success) {
-      message.success("Berhasil menambahkan produk")
-      history.push("/admin/produk-ucapan-digital")
-    }
-    else {
-      message.error("Gagal menambahkan produk")
+      message.success("Berhasil menambahkan produk");
+      history.push("/admin/produk-ucapan-digital");
+    } else {
+      message.error("Gagal menambahkan produk");
     }
   };
 
@@ -40,7 +39,7 @@ const index = () => {
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan nama produk',
+              message: "Mohon masukkan nama produk",
             },
           ]}
         >
@@ -53,7 +52,7 @@ const index = () => {
           rules={[
             {
               required: true,
-              message: 'Mohon pilih kategori produk',
+              message: "Mohon pilih kategori produk",
             },
           ]}
         >
@@ -63,7 +62,9 @@ const index = () => {
             }}
           >
             {categories?.map((category) => (
-              <Select.Option value={category?.id}>{category?.name}</Select.Option>
+              <Select.Option value={category?.id}>
+                {category?.name}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>
@@ -74,7 +75,7 @@ const index = () => {
           rules={[
             {
               required: true,
-              message: 'Mohon tentukan harga produk',
+              message: "Mohon tentukan harga produk",
             },
           ]}
         >
@@ -87,7 +88,7 @@ const index = () => {
           rules={[
             {
               required: true,
-              message: 'Mohon tentukan harga produk',
+              message: "Mohon tentukan harga produk",
             },
           ]}
         >
@@ -100,20 +101,22 @@ const index = () => {
             span: 4,
           }}
         >
-          <Space size='middle'>
-            <Button type='primary' danger htmlType="submit">
+          <Space size="middle">
+            <Button type="primary" danger htmlType="submit">
               Simpan
             </Button>
-            <Button danger htmlType="button" onClick={() => history.push('/admin/produk-ucapan-digital')}>
+            <Button
+              danger
+              htmlType="button"
+              onClick={() => history.push("/admin/produk-ucapan-digital")}
+            >
               Batal
             </Button>
           </Space>
         </Form.Item>
-
       </Form>
     </CardForm>
   );
 };
 
-
-export default index
+export default index;

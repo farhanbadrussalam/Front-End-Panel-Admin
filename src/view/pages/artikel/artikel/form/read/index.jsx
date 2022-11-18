@@ -11,8 +11,6 @@ const index = (props) => {
   const { id } = useParams();
   const { data, error } = getArticleDetail(id);
 
-  console.log(data);
-
   return (
     <CardForm title={`Detail Data Artikel ${data.title}`}>
       <Form
@@ -23,16 +21,8 @@ const index = (props) => {
         autoComplete="off"
         size="small"
       >
-        <Form.Item label="ID Artikel" name="id">
-          <p>{data.id}</p>
-        </Form.Item>
-
         <Form.Item label="Judul" name="title">
           <p>{data.title}</p>
-        </Form.Item>
-
-        <Form.Item label="Slug" name="slug">
-          <p>{data.slug}</p>
         </Form.Item>
 
         <Form.Item label="Deskripsi" name="description">
@@ -51,16 +41,16 @@ const index = (props) => {
           <p>{data.creator}</p>
         </Form.Item>
 
-        <Form.Item label="Dibuat Pada" name="created_at">
-          <p>{data.created_at}</p>
-        </Form.Item>
-
         <Form.Item label="Editor" name="editor">
           <p>{data.editor}</p>
         </Form.Item>
 
-        <Form.Item label="Diubah Pada" name="edited_at">
-          <p>{data.updated_at}</p>
+        <Form.Item label="Image" name="thumbnail">
+          <img
+            src={`http://127.0.0.1:8000/uploads/${data.thumbnail}`}
+            alt="thumbnail"
+            style={{ width: 250, height: 200, objectFit: "contain" }}
+          />
         </Form.Item>
 
         <Form.Item

@@ -1,15 +1,15 @@
-import { Button, Form, Space } from 'antd';
-import { useHistory } from 'react-router-dom';
-import React from 'react';
-import CardForm from '../../../../../../components/custom-components/form-crud/CardForm';
-import { getOneProduct } from '../../../../../../../api/produk-wo/getOneProduct';
+import { Button, Form, Space } from "antd";
+import { useHistory } from "react-router-dom";
+import React from "react";
+import CardForm from "../../../../../../components/custom-components/form-crud/CardForm";
+import { getOneProduct } from "../../../../../../../api/produk/getOneProduct";
 
 const index = (props) => {
-  const history = useHistory()
-  const title = `${props.location.state.permission} Data ${props.location.state.data}`
-  const id = props.location.state.id
+  const history = useHistory();
+  const title = `${props.location.state.permission} Data ${props.location.state.data}`;
+  const id = props.location.state.id;
 
-  const { data: product } = getOneProduct(id)
+  const { data: product } = getOneProduct(id);
 
   return (
     <CardForm title={title}>
@@ -23,31 +23,19 @@ const index = (props) => {
         }}
         autoComplete="off"
       >
-        <Form.Item
-          label="Nama Produk"
-          name="name"
-        >
+        <Form.Item label="Nama Produk" name="name">
           <p>{product?.name}</p>
         </Form.Item>
 
-        <Form.Item
-          label="Kategori Produk"
-          name="product_category_id"
-        >
+        <Form.Item label="Kategori Produk" name="product_category_id">
           <p>{product?.product_category?.name}</p>
         </Form.Item>
 
-        <Form.Item
-          label="Harga Produk"
-          name="price"
-        >
+        <Form.Item label="Harga Produk" name="price">
           <p>{product?.price}</p>
         </Form.Item>
 
-        <Form.Item
-          label="Deskripsi Produk"
-          name="description"
-        >
+        <Form.Item label="Deskripsi Produk" name="description">
           <p>{product?.description}</p>
         </Form.Item>
 
@@ -57,8 +45,12 @@ const index = (props) => {
             span: 4,
           }}
         >
-          <Space size='middle'>
-            <Button danger htmlType="button" onClick={() => history.push('/admin/produk-ucapan-digital')}>
+          <Space size="middle">
+            <Button
+              danger
+              htmlType="button"
+              onClick={() => history.push("/admin/produk-ucapan-digital")}
+            >
               Batal
             </Button>
           </Space>
@@ -68,5 +60,4 @@ const index = (props) => {
   );
 };
 
-
-export default index
+export default index;
