@@ -5,6 +5,7 @@ import masterData from "./MasterData";
 import kelolaProdukWO from "./KelolaProdukWO";
 import KelolaArtikel from "./KelolaArtikel";
 import WebsiteSettings from "./WebsiteSettings";
+import commissionData from "./Komisi";
 import KelolaKupon from "./KelolaKupon";
 
 const PagesRoutes = [
@@ -37,6 +38,9 @@ const PagesRoutes = [
 
   // pages Pengaturan Website
   ...WebsiteSettings,
+
+  // pages komisi
+  ...commissionData,
 
   // pages Kupon
   ...KelolaKupon,
