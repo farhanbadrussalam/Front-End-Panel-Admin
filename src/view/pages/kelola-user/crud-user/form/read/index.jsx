@@ -1,22 +1,25 @@
 import { Button, Form, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { getOneUser } from '../../../../../../api/kelola-user/getOneUser';
+import { getOneRole } from '../../../../../../api/role/getOneRole';
 
 const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
   const id = props.location.state.id
+  const access_menu_id = props.location.state.access_menu_id
 
   const { data: user } = getOneUser(id)
+  const { data: role } = getOneRole(access_menu_id)
 
   return (
     <CardForm title={title}>
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 6,
         }}
         autoComplete="off"
         size='small'
@@ -50,6 +53,31 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
+          label="Customer"
+          name="customer"
+        >
+          <p>{user?.customer?.name}</p>
+        </Form.Item>
+
+        <Form.Item
+          label="Wedding Organizer"
+          name="wedding_organizer"
+        >
+          <p>{user?.wedding_organizer?.name}</p>
+        </Form.Item>
+
+        {role ? (
+          <Form.Item
+            label="Role"
+            name="customer"
+          >
+            <p>{role?.name}</p>
+          </Form.Item>
+        ) :
+          undefined
+        }
+
+        <Form.Item
           label="Creator"
           name="creator"
         >
@@ -57,15 +85,8 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Editor"
-          name="Editor"
-        >
-          <p>{user && user.creator}</p>
-        </Form.Item>
-
-        <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 6,
             span: 4,
           }}
         >

@@ -1,32 +1,44 @@
-import { Button, Form, Input, Space, Row, Col, message, Checkbox } from 'antd';
+import { Button, Form, Input, Space, message, Row, Col, Checkbox } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { Menus } from '../../data/Menu'
+import { postRole } from '../../../../../../api/role/postRole';
+import { getPermissions } from '../../../../../../api/permission/getPermissions';
 
-const index = (props) => {
+const index = () => {
   const history = useHistory()
-  const id = props.location.state.id
-  // const { data: role } = getOnePermission(id)
+  const { data: permissions } = getPermissions()
 
   const onFinish = async (values) => {
-    console.log(values);
-    //todo: mengambil nilai checkbox
-    // if (success.data.success) {
-    //   message.success('Berhasil menambahkan role')
-    //   history.goBack()
-    // }
-    // else {
-    //   message.error('Gagal menambahkan role')
-    // }
+    const form = new FormData()
+    form.append('name', values.name)
+
+    let i = 0
+    for (const value in values) {
+      if (values[value] != undefined && value != "name" && value != "system_name") {
+        for (let id in values[value]) {
+          form.append(`access_menu_items[${i}][sub_menu_id]`, values[value][id])
+          i++;
+        }
+      }
+    }
+
+    const success = await postRole(form)
+    if (success?.data?.success) {
+      message.success('Berhasil menambahkan role')
+      history.goBack()
+    }
+    else {
+      message.error('Gagal menambahkan role')
+    }
   };
 
-  const onFinishFailed = () => {
-    message.error('Gagal mengubah role');
+  const onFinishFailed = (errorInfo) => {
+    alert('Failed:', errorInfo);
   };
 
   return (
-    <CardForm title="Ubah Jenis Role">
+    <CardForm title="Tambah Jenis Role">
       <Form
         name="basic"
         labelCol={{
@@ -41,20 +53,6 @@ const index = (props) => {
         layout='vertical'
         size='small'
         style={{ display: 'block' }}
-        fields={[
-          {
-            name: ['name'],
-            value: role && role?.name
-          },
-          {
-            name: ['status'],
-            value: role && role?.status
-          },
-          {
-            name: ['role'],
-            value: ["Ubah permission", "Buat permission"]
-          },
-        ]}
       >
 
         <Space direction='vertical' size='small' style={{ display: 'flex' }}>
@@ -64,6 +62,12 @@ const index = (props) => {
                 label="Nama"
                 name="name"
                 labelAlign='left'
+                rules={[
+                  {
+                    required: true,
+                    message: 'Mohon masukkan nama!',
+                  },
+                ]}
               >
                 <Input />
               </Form.Item>
@@ -74,6 +78,11 @@ const index = (props) => {
                 label="Nama di sistem"
                 name="system_name"
                 labelAlign='left'
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
               >
                 <Input />
               </Form.Item>
@@ -81,21 +90,20 @@ const index = (props) => {
           </Row>
 
           {/* Checkbox */}
-          {Menus?.map((menu) => (
+          {permissions?.map((permission) => (
             <Row>
               <Col span={24}>
                 <Form.Item
-                  label={menu.title}
-                  name={menu.name}
+                  label={permission?.name}
+                  name={permission?.name}
                   labelAlign='left'
-                  valuePropName="checked"
                 >
-                  <Checkbox.Group defaultValue={["Lihat user", "Ubah user"]} style={{ lineHeight: '32px', width: '100%' }}>
+                  <Checkbox.Group defaultChecked={true} style={{ lineHeight: '32px', width: '100%' }}>
                     <Row>
-                      {menu?.value?.map((value, i) => (
+                      {permission?.sub_menus?.map((values, i) => (
                         <Col span={6}>
-                          <Checkbox key={i} value={value} style={{ lineHeight: '32px' }}>
-                            {value}
+                          <Checkbox key={i} value={values?.id} defaultChecked={true} style={{ lineHeight: '32px' }}>
+                            {values?.name}
                           </Checkbox>
                         </Col>
                       ))}

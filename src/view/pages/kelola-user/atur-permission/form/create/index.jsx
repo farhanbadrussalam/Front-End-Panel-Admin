@@ -2,8 +2,7 @@ import { Button, Form, Input, Space, message, Row, Col, Checkbox } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { PermissionMenu } from '../../component/PermissionMenu';
-import { Menus } from '../../component/Menu'
+import { Menus } from '../../data/Menu'
 
 const index = () => {
   const history = useHistory()
@@ -80,10 +79,20 @@ const index = () => {
               <Col span={24}>
                 <Form.Item
                   label={menu.title}
-                  name="user"
+                  name={menu.name}
                   labelAlign='left'
                 >
-                  <PermissionMenu menus={menu.value} />
+                  <Checkbox.Group defaultChecked={true} style={{ lineHeight: '32px', width: '100%' }}>
+                    <Row>
+                      {menu?.value?.map((value, i) => (
+                        <Col span={6}>
+                          <Checkbox key={i} value={value} defaultChecked={true} style={{ lineHeight: '32px' }}>
+                            {value}
+                          </Checkbox>
+                        </Col>
+                      ))}
+                    </Row >
+                  </Checkbox.Group>
                 </Form.Item>
               </Col>
             </Row>

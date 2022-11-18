@@ -8,15 +8,17 @@ import store from './redux/store'
 
 import "./assets/icons/remixicon.css";
 import "./assets/less/yoda-theme.less";
-
 import App from "./App";
+import { PermissionContextProvider } from "./context/PermissionContext";
 
 ReactDOM.render(
   <Suspense fallback="loading">
     <Provider store={store}>
-      <BrowserRouter >
-        <App />
-      </BrowserRouter>
+      <PermissionContextProvider>
+        <BrowserRouter >
+          <App />
+        </BrowserRouter>
+      </PermissionContextProvider>
     </Provider>
   </Suspense>,
   document.getElementById("root")

@@ -6,7 +6,12 @@ import TableCard from '../../../components/custom-components/TableCard'
 import Column from './UserColumn'
 
 const index = () => {
-  const { data } = getUsers()
+  let { data, deleteUser } = getUsers()
+
+  data = data?.map((values) => (
+    { ...values, deleteUser: deleteUser }
+  ))
+
   return (
     <TableCard >
       <Row>
