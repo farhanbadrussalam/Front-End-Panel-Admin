@@ -1,12 +1,9 @@
-import axios from 'axios'
+import { api } from '../../configs/apiConfig'
 
 export const putCostumer = async (values, id) => {
-  const response = await axios.put('http://127.0.0.1:8000/api/wedding-organizer-customers/update/' + id, values, {
-    headers: {
-      'Authorization': localStorage.getItem("token")
-    }
-  })
-    .then(res => res)
+  const response = await api
+    .put("customers/update/" + id, values)
+    .then(res => res.data.success)
     .catch(err => err)
 
   return response
