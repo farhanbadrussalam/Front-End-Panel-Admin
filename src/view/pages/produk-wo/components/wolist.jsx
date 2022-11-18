@@ -8,7 +8,7 @@ export default function WoList({ baseLink }) {
   // useEffect(async () => {
   //   await axios({
   //     method: "GET",
-  //     url: "http://127.0.0.1:8000/api/wedding-organizers",
+  //     url: "https://apiwo.tokoweb.live/api/wedding-organizers",
   //     headers: {
   //       Authorization: localStorage.getItem("token"),
   //     },

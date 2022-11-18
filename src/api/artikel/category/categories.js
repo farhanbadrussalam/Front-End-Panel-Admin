@@ -3,7 +3,7 @@ import { api } from "../../../configs/apiConfig";
 import { useState, useEffect } from "react";
 
 export const getArticleCategories = (
-  url = "http://127.0.0.1:8000/api/article-categories"
+  url = "https://apiwo.tokoweb.live/api/article-categories"
 ) => {
   const [data, setData] = useState([{}]);
   const [error, setError] = useState(null);

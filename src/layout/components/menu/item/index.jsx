@@ -57,7 +57,7 @@ export default function MenuItem(props) {
   }, [permission])
 
 
-  const menuItem = filteredNavigation?.map((item, index) => {
+  const menuItem = navigation?.map((item, index) => {
     if (item.header) {
       return <Menu.ItemGroup key={index} title={item.header}></Menu.ItemGroup>;
     }

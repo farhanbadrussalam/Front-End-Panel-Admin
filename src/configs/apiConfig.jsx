@@ -2,6 +2,8 @@ import axios from "axios";
 
 const { NODE_ENV, REACT_APP_API_PROD, REACT_APP_API_DEV } = process.env;
 
+console.log(NODE_ENV)
+
 const token = localStorage.getItem("token");
 
 const config = {

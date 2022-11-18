@@ -4,7 +4,7 @@ import { api } from "../../configs/apiConfig";
 
 export const deleteProduct = async (
   id,
-  url = "http://127.0.0.1:8000/api/products/destroy"
+  url = "https://apiwo.tokoweb.live/api/products/destroy"
 ) => {
   let response;
 
