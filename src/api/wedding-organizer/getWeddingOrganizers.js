@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const getWeddingOrganizers = (url = "http://127.0.0.1:8000/api/wedding-organizers") => {
+export const getWeddingOrganizers = (
+  url = "http://127.0.0.1:8000/api/wedding-organizers"
+) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(url, {
         headers: {
@@ -13,8 +17,9 @@ export const getWeddingOrganizers = (url = "http://127.0.0.1:8000/api/wedding-or
         },
       })
       .then((res) => setData(res.data.data))
-      .catch((err) => setError(err));
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
   }, [url]);
 
-  return { data, error };
+  return { data, error, loading };
 };

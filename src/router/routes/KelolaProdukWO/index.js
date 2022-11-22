@@ -9,12 +9,26 @@ const kelolaProdukWO = [
     ),
     layout: "VerticalLayout",
   },
+  {
+    path: "/admin/afiliasi-ucapan/edit/:id",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/afiliasi-ucapan/form/update")
+    ),
+    layout: "VerticalLayout",
+  },
 
   // create data
   {
-    path: "/admin/produk-ucapan-user/create/:userid",
+    path: "/admin/produk-ucapan-user/create",
     component: lazy(() =>
       import("../../../view/pages/produk-wo/produk-ucapan-user/form/create")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/afiliasi-ucapan/create",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/afiliasi-ucapan/form/create")
     ),
     layout: "VerticalLayout",
   },
@@ -35,9 +49,9 @@ const kelolaProdukWO = [
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/afiliasi-ucapan/:userid",
+    path: "/admin/afiliasi-ucapan/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/afiliasi-ucapan/afiliasi")
+      import("../../../view/pages/produk-wo/afiliasi-ucapan/form/read/index")
     ),
     layout: "VerticalLayout",
   },
