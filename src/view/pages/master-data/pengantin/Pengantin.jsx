@@ -6,7 +6,8 @@ import Column from './PengantinColumn'
 import { getBrides } from '../../../../api/pengantin/getBrides'
 
 const MasterDisplay = () => {
-  const { data } = getBrides()
+  let { data, deleteBride } = getBrides()
+  data = data?.map((value) => ({ ...value, deleteBride: deleteBride }))
 
   return (
     <TableCard>

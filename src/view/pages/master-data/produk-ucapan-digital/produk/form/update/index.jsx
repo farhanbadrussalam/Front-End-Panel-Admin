@@ -37,6 +37,8 @@ const index = (props) => {
         }}
         autoComplete="off"
         onFinish={onFinish}
+        labelAlign="left"
+        colon={false}
         fields={[
           {
             name: "name",
@@ -79,7 +81,10 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item label="Harga Produk" name="price">
-          <InputNumber />
+          <InputNumber style={{ width: "200px" }}
+            formatter={(value) => `Rp ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            parser={(value) => value.replace(/\Rp\s?|(,*)/g, '')}
+          />
         </Form.Item>
 
         <Form.Item label="Deskripsi Produk" name="description">

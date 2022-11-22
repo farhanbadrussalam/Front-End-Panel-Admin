@@ -22,6 +22,8 @@ const index = (props) => {
           span: 14,
         }}
         autoComplete="off"
+        colon={false}
+        labelAlign="left"
       >
 
         <Form.Item
@@ -68,7 +70,7 @@ const index = (props) => {
           label="Status WO"
           name="status"
         >
-          <p>{wo?.status}</p>
+          <p>{wo?.status == 1 ? "Aktif" : "Non Aktif"}</p>
         </Form.Item>
 
         <Form.Item

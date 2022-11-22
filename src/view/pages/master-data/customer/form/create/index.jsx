@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space, message } from 'antd';
+import { Button, Form, Input, Space, message, Row, Col } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
@@ -15,7 +15,6 @@ const index = () => {
       message.error("Password dan Konfirmasi password berbeda")
       return
     }
-
     const success = await postCustomer(values)
     if (success) {
       message.success('Berhasil menambahkan customer')
@@ -28,6 +27,7 @@ const index = () => {
 
   const onFinishFailed = (errorInfo) => {
     message.error("Mohon isi semua form yang ada")
+    console.log(errorInfo);
   };
 
   const passwordConfirm = (e) => {
@@ -51,6 +51,8 @@ const index = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        colon={false}
+        labelAlign="left"
       >
         <Form.Item
           label="Nama"
@@ -84,9 +86,13 @@ const index = () => {
           rules={[
             {
               required: true,
-              type: 'email',
               message: 'Mohon masukkan email',
             },
+            {
+              type: "email",
+              message: 'Gunakan format email yang sesuai',
+
+            }
           ]}
         >
           <Input />

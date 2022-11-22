@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber, Space, message } from 'antd';
+import { Button, Form, Input, Select, Space, message } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
@@ -36,6 +36,8 @@ const index = (props) => {
         }}
         onFinish={onFinish}
         autoComplete="off"
+        colon={false}
+        labelAlign="left"
         fields={[
           {
             name: 'name',
@@ -107,7 +109,10 @@ const index = (props) => {
           label="Status WO"
           name="status"
         >
-          <InputNumber />
+          <Select style={{ width: "200px" }}>
+            <Option value={1}>Aktif</Option>
+            <Option value={2}>Non Aktif</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item

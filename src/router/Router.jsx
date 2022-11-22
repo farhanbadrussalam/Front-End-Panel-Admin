@@ -119,7 +119,8 @@ export default function Router() {
                   );
                 } else {
                   if (auth) {
-                    if (permission.includes(route.path) || route.path == "/admin/dashboard") {
+                    // if (permission.includes(route.path) || route.path == "/admin/dashboard") {
+                    if (true) {
                       return (
                         <Route
                           key={route.path}

@@ -14,12 +14,21 @@ const TableCard = ({ back, customTitle, children }) => {
       className="custom-component-table-card"
     >
       <Row>
-        {back ? (
+        {back == true ? (
           <Col>
             <Back
               size="25"
               color="#000000"
               onClick={history.goBack}
+              className="custom-component-back-button"
+            />
+          </Col>
+        ) : typeof back == "string" ? (
+          <Col>
+            <Back
+              size="25"
+              color="#000000"
+              onClick={() => history.push(back)}
               className="custom-component-back-button"
             />
           </Col>

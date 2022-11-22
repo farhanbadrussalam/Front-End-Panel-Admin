@@ -22,6 +22,8 @@ const index = (props) => {
           span: 14,
         }}
         autoComplete="off"
+        labelAlign="left"
+        colon={false}
       >
         <Form.Item label="Nama Kategori" name="name">
           <p>{category?.name}</p>
@@ -45,7 +47,7 @@ const index = (props) => {
             <Button
               danger
               htmlType="button"
-              onClick={() => history.push("/admin/produk-ucapan-digital")}
+              onClick={() => history.push("/admin/kategori-produk-ucapan-digital")}
             >
               Batal
             </Button>

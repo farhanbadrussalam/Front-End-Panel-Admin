@@ -30,6 +30,8 @@ const index = () => {
         }}
         onFinish={onFinish}
         autoComplete="off"
+        labelAlign="left"
+        colon={false}
       >
         <Form.Item
           label="Nama Kategori"

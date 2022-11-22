@@ -37,11 +37,11 @@ const columns = [
     key: 'price',
   },
 
-  // {
-  //   title: 'Deskripsi',
-  //   dataIndex: 'description',
-  //   key: 'description',
-  // },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+  },
 
   {
     title: 'Kategori Produk',

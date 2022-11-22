@@ -6,6 +6,7 @@ import CardForm from '../../../../../components/custom-components/form-crud/Card
 import { getWeddingOrganizers } from '../../../../../../api/wedding-organizer/getWeddingOrganizers';
 import { getRoles } from '../../../../../../api/role/getRoles';
 
+
 const index = () => {
   const history = useHistory()
   const { data: wos } = getWeddingOrganizers()
@@ -39,6 +40,8 @@ const index = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        colon={false}
+        labelAlign='left'
       >
         <Form.Item
           label="Nama"
@@ -50,7 +53,9 @@ const index = () => {
             },
           ]}
         >
+
           <Input />
+
         </Form.Item>
 
         <Form.Item
@@ -63,7 +68,9 @@ const index = () => {
             },
           ]}
         >
+
           <Input />
+
         </Form.Item>
 
         <Form.Item
@@ -77,7 +84,9 @@ const index = () => {
             },
           ]}
         >
+
           <Input />
+
         </Form.Item>
 
         <Form.Item
@@ -90,7 +99,9 @@ const index = () => {
             },
           ]}
         >
+
           <Input.Password minLength={8} />
+
         </Form.Item>
 
         <Form.Item
@@ -103,6 +114,7 @@ const index = () => {
             },
           ]}
         >
+
           <Select
             style={{
               width: 200,
@@ -111,12 +123,14 @@ const index = () => {
             <Option value={1}>Admin</Option>
             <Option value={2}>Customer</Option>
           </Select>
+
         </Form.Item>
 
         <Form.Item
           label="Role"
           name="access_menu_id"
         >
+
           <Select
             style={{
               width: 200,
@@ -126,6 +140,7 @@ const index = () => {
               <Option key={i} value={role?.id}>{role?.name}</Option>
             ))}
           </Select>
+
         </Form.Item>
 
         <Form.Item
