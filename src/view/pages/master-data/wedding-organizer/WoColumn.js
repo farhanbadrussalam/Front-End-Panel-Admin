@@ -1,10 +1,9 @@
 import { Space, Popover, Modal, message } from "antd";
 import { Edit, Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
-import { deleteWeddingOrganizer } from "../../../../api/wedding-organizer/deleteWeddingOrganizer";
 
 const { confirm } = Modal;
-const showModal = (id, name) => {
+const showModal = (id, name, deleteWo) => {
   confirm({
     title: `Apa anda yakin ingin menghapus ${name}?`,
     icon: <Danger color="red" />,
@@ -13,11 +12,9 @@ const showModal = (id, name) => {
     okType: 'primary',
 
     async onOk() {
-      const response = await deleteWeddingOrganizer(id)
-      const success = response.data.success
+      const success = await deleteWo(id)
       if (success) {
         message.success("Berhasil menghapus WO")
-        window.location.reload(false)
       }
       else {
         message.error("Gagal menghapus WO")
@@ -103,7 +100,7 @@ const columns = [
         </Popover>
 
         <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name)} />
+          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteWo)} />
         </Popover>
       </Space>
     ),

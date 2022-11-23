@@ -21,6 +21,8 @@ const index = (props) => {
           span: 14,
         }}
         autoComplete="off"
+        labelAlign='left'
+        colon={false}
       >
         <Form.Item
           label="Pengantin Pria"

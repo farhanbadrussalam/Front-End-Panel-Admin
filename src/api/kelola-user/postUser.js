@@ -1,11 +1,7 @@
-import axios from 'axios'
+import { api } from '../../configs/apiConfig'
 
-export const postUser = (values) => {
-  const response = axios.post('http://127.0.0.1:8000/api/users/store', values, {
-    headers: {
-      'Authorization': localStorage.getItem("token")
-    }
-  })
+export const postUser = async (values) => {
+  const response = await api.post('users/store', values)
     .then(res => res)
     .catch(err => err)
 

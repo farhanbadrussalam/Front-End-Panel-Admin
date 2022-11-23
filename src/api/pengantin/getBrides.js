@@ -1,19 +1,27 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { api } from "../../configs/apiConfig";
 
-export const getBrides = (url = 'http://127.0.0.1:8000/api/brides') => {
+export const getBrides = (url = 'brides') => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+  const [deleteToggle, setDeleteToggle] = useState(false);
 
   useEffect(() => {
-    axios.get(url, {
-      headers: {
-        'Authorization': localStorage.getItem("token"),
-      }
-    })
+    api.get(url)
       .then(res => setData(res.data.data))
       .catch(err => setError(err))
-  }, [url])
+  }, [deleteToggle])
 
-  return { data, error }
+  const deleteBride = async (id) => {
+    const isDeleted = await api.delete(`${url}/destroy/${id}`)
+      .then(res => {
+        setDeleteToggle(!deleteToggle)
+        return res.data.success
+      })
+      .catch(err => setError(err))
+
+    return isDeleted
+  }
+
+  return { data, error, deleteBride }
 }

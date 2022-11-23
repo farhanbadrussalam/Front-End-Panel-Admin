@@ -32,6 +32,8 @@ const index = () => {
         }}
         onFinish={onFinish}
         autoComplete="off"
+        labelAlign="left"
+        colon={false}
       >
         <Form.Item
           label="Nama Produk"
@@ -79,7 +81,10 @@ const index = () => {
             },
           ]}
         >
-          <InputNumber />
+          <InputNumber style={{ width: "200px" }}
+            formatter={(value) => `Rp ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            parser={(value) => value.replace(/\Rp\s?|(,*)/g, '')}
+          />
         </Form.Item>
 
         <Form.Item

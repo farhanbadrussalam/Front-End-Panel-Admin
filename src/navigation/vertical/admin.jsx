@@ -55,18 +55,13 @@ const adminNav = [
     children: [
       {
         id: "crud-user",
-        title: "Tambah, Update & Hapus",
+        title: "Kelola Data User",
         navLink: "/admin/crud-user",
       },
       {
         id: "atur-role",
-        title: "Atur Role user (Admin / Staff / WO / Pelanggan)",
+        title: "Kelola Role User",
         navLink: "/admin/atur-role",
-      },
-      {
-        id: "policy-user",
-        title: "Role & Permission User",
-        navLink: "/admin/policy-user",
       },
     ],
   },

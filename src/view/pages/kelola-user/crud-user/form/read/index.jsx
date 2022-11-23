@@ -23,6 +23,8 @@ const index = (props) => {
         }}
         autoComplete="off"
         size='small'
+        labelAlign='left'
+        colon={false}
       >
         <Form.Item
           label="Nama"
@@ -49,7 +51,7 @@ const index = (props) => {
           label="Status"
           name="status"
         >
-          <p>{user && user.status}</p>
+          <p>{user?.status == 1 ? "Aktif" : "Non Aktif"}</p>
         </Form.Item>
 
         <Form.Item
@@ -59,12 +61,14 @@ const index = (props) => {
           <p>{user?.customer?.name}</p>
         </Form.Item>
 
-        <Form.Item
-          label="Wedding Organizer"
-          name="wedding_organizer"
-        >
-          <p>{user?.wedding_organizer?.name}</p>
-        </Form.Item>
+        {user?.wedding_organizer ? (
+          <Form.Item
+            label="Wedding Organizer"
+            name="wedding_organizer"
+          >
+            <p>{user?.wedding_organizer?.name}</p>
+          </Form.Item>
+        ) : undefined}
 
         {role ? (
           <Form.Item

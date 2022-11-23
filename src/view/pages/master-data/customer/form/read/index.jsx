@@ -2,7 +2,7 @@ import { Button, Form, Space } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
-import { getOneCustomer } from '../../../../../../api/customer/getOneCustomer';
+import { getOneCustomer } from '../../../../../../api/customer/getOneCustomer'
 
 const index = (props) => {
   const history = useHistory()
@@ -20,6 +20,8 @@ const index = (props) => {
         }}
         autoComplete="off"
         size='small'
+        colon={false}
+        labelAlign="left"
       >
         <Form.Item
           label="Nama"

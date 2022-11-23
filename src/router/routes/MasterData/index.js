@@ -31,7 +31,7 @@ const masterData = [
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/kategori-produk-ucapan-digital/detail",
+    path: "/admin/kategori-produk-ucapan-digital/detail/:userid",
     component: lazy(() =>
       import("../../../view/pages/master-data/produk-ucapan-digital/kategori/form/read")
     ),

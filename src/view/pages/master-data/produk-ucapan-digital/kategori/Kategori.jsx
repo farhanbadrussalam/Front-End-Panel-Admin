@@ -16,7 +16,7 @@ const ProdukUcapanDigital = () => {
   });
 
   return (
-    <TableCard back>
+    <TableCard back="/admin/produk-ucapan-digital">
       <Row>
         <Col span={24}>
           <TableDisplay data={data} column={Column} addButton />

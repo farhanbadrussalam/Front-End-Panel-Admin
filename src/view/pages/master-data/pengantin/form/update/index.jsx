@@ -47,6 +47,8 @@ const index = (props) => {
         }}
         onFinish={onFinish}
         autoComplete="off"
+        labelAlign='left'
+        colon={false}
         fields={[
           {
             name: ['groom'],
