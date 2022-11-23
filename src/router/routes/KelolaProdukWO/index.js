@@ -16,6 +16,13 @@ const kelolaProdukWO = [
     ),
     layout: "VerticalLayout",
   },
+  {
+    path: "/admin/group-user/edit/:id",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/group-user/form/update")
+    ),
+    layout: "VerticalLayout",
+  },
 
   // create data
   {
@@ -32,12 +39,19 @@ const kelolaProdukWO = [
     ),
     layout: "VerticalLayout",
   },
+  {
+    path: "/admin/group-user/create",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/group-user/form/create")
+    ),
+    layout: "VerticalLayout",
+  },
 
   // get detail data
   {
-    path: "/admin/group-user/:userid",
+    path: "/admin/group-user/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/group-user/komisi")
+      import("../../../view/pages/produk-wo/group-user/form/read")
     ),
     layout: "VerticalLayout",
   },
