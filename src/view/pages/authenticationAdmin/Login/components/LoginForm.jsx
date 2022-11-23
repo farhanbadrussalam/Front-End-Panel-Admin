@@ -14,12 +14,14 @@ import { GiPadlock } from "react-icons/gi";
 import { Button, Checkbox, Form, Input } from "antd";
 
 import "./Login.css";
+import { usePermissionContext } from "../../../../../context/PermissionContext";
 
 function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAuth, setIsAuth] = useState(false);
   const history = useHistory();
+  const { fetchApi } = usePermissionContext()
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -36,16 +38,17 @@ function LoginForm(props) {
   const tryLogin = async () => {
     await axios({
       method: "POST",
-      url: "http://127.0.0.1:8000/api/login",
+      url: "http://localhost:8000/api/login",
       data: { username: username, password: password },
     })
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data.data.access_menu_id);
         console.log(response.data.data.access_token);
         localStorage.setItem(
           "token",
           `${response.data.data.token_type} ${response.data.data.access_token}`
         );
+        localStorage.setItem("id", response.data.data.data.id)
 
         props.login({
           adminName: response.data.data.name,
@@ -54,6 +57,7 @@ function LoginForm(props) {
         });
 
         setIsAuth(true);
+        fetchApi()
       })
       .catch((err) => {
         alert("Gagal Login!");

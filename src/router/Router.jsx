@@ -21,6 +21,7 @@ import FullLayout from "../layout/FullLayout";
 // Components
 import Home from "../view/home";
 import Error404 from "../view/pages/errors/404";
+import { usePermissionContext } from "../context/PermissionContext";
 
 export default function Router() {
   // Redux
@@ -28,6 +29,7 @@ export default function Router() {
   const dispatch = useDispatch();
 
   const auth = localStorage.getItem("token");
+  const { permission } = usePermissionContext()
 
   // Dark Mode
   useEffect(() => {
@@ -117,34 +119,52 @@ export default function Router() {
                   );
                 } else {
                   if (auth) {
-                    return (
-                      <Route
-                        key={route.path}
-                        path={route.path}
-                        exact={route.exact === true}
-                        render={(props) => {
-                          return (
-                            <Suspense fallback={null}>
-                              {route.layout === "FullLayout" ? (
-                                <route.component {...props} />
-                              ) : (
-                                <motion.div
-                                  initial={{ opacity: 0, y: 50 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{
-                                    type: "spring",
-                                    duration: 0.5,
-                                    delay: 0.5,
-                                  }}
-                                >
+                    if (permission.includes(route.path) || route.path == "/admin/dashboard") {
+                      return (
+                        <Route
+                          key={route.path}
+                          path={route.path}
+                          exact={route.exact === true}
+                          render={(props) => {
+                            return (
+                              <Suspense fallback={null}>
+                                {route.layout === "FullLayout" ? (
                                   <route.component {...props} />
-                                </motion.div>
-                              )}
-                            </Suspense>
-                          );
-                        }}
-                      />
-                    );
+                                ) : (
+                                  <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                      type: "spring",
+                                      duration: 0.5,
+                                      delay: 0.5,
+                                    }}
+                                  >
+                                    <route.component {...props} />
+                                  </motion.div>
+                                )}
+                              </Suspense>
+                            );
+                          }}
+                        />
+                      );
+                    }
+                    else {
+                      return (
+                        <Route
+                          key={route.path}
+                          path={route.path}
+                          exact={route.exact === true}
+                          render={() => (
+                            <Redirect
+                              to={{
+                                pathname: "/admin/dashboard",
+                              }}
+                            />
+                          )}
+                        />
+                      );
+                    }
                   } else {
                     return (
                       <Route

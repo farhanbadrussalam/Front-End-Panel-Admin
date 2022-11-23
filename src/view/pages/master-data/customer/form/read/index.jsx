@@ -16,7 +16,7 @@ const index = (props) => {
       <Form
         name="basic"
         labelCol={{
-          span: 6,
+          span: 4,
         }}
         autoComplete="off"
         size='small'
@@ -25,47 +25,40 @@ const index = (props) => {
           label="Nama"
           name="nama"
         >
-          <p>{customer && customer.name}</p>
+          <p>{customer?.name}</p>
         </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
         >
-          <p>{customer && customer.email}</p>
+          <p>{customer?.email}</p>
         </Form.Item>
 
         <Form.Item
           label="Phone"
           name="phone"
         >
-          <p>{customer && customer.phone}</p>
+          <p>{customer?.phone}</p>
         </Form.Item>
 
         <Form.Item
           label="Address"
           name="address"
         >
-          <p>{customer && customer.address}</p>
+          <p>{customer?.address}</p>
         </Form.Item>
 
         <Form.Item
           label="Status"
           name="status"
         >
-          <p>{customer && customer.status}</p>
-        </Form.Item>
-        <Form.Item
-
-          label="Wedding Organizer"
-          name="wedding-organizer"
-        >
-          <p>{customer && customer.wedding_organizer.name}</p>
+          <p>{customer?.status == 1 ? "Aktif" : customer?.status == 2 ? "Non Aktif" : undefined}</p>
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 6,
+            offset: 4,
             span: 4,
           }}
         >

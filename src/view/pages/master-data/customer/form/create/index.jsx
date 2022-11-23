@@ -3,15 +3,21 @@ import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { postCustomer } from '../../../../../../api/customer/postCustomer';
+import { useState } from 'react';
 
 const index = () => {
   const history = useHistory()
+  const [password, setPassword] = useState(null)
+  const [inputStatus, setInputStatus] = useState("")
 
   const onFinish = async (values) => {
-    values.wedding_organizer_id = 1
+    if (inputStatus == "error") {
+      message.error("Password dan Konfirmasi password berbeda")
+      return
+    }
 
     const success = await postCustomer(values)
-    if (success.data.success) {
+    if (success) {
       message.success('Berhasil menambahkan customer')
       history.goBack()
     }
@@ -21,15 +27,23 @@ const index = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    alert('Failed:', errorInfo);
+    message.error("Mohon isi semua form yang ada")
   };
+
+  const passwordConfirm = (e) => {
+    if (password == e) {
+      setInputStatus("")
+    }
+    else
+      setInputStatus("error")
+  }
 
   return (
     <CardForm title="Tambah data customer">
       <Form
         name="basic"
         labelCol={{
-          span: 4,
+          span: 5,
         }}
         wrapperCol={{
           span: 14,
@@ -45,6 +59,19 @@ const index = () => {
             {
               required: true,
               message: 'Mohon masukkan nama',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan username',
             },
           ]}
         >
@@ -92,8 +119,34 @@ const index = () => {
         </Form.Item>
 
         <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan password',
+            },
+          ]}
+        >
+          <Input.Password minLength={8} onChange={(e) => setPassword(e.target.value)} status={inputStatus} />
+        </Form.Item>
+
+        <Form.Item
+          label="Konfirmasi Password"
+          name="password_confirmation"
+          rules={[
+            {
+              required: true,
+              message: 'Mohon masukkan konfirmasi password',
+            },
+          ]}
+        >
+          <Input.Password minLength={8} onChange={(e) => passwordConfirm(e.target.value)} status={inputStatus} />
+        </Form.Item>
+
+        <Form.Item
           wrapperCol={{
-            offset: 4,
+            offset: 5,
             span: 4,
           }}
         >

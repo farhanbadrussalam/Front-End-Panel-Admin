@@ -5,6 +5,7 @@ import { getArticleDetail } from "../../../../../../api/artikel";
 import { Button, Form, Space } from "antd";
 
 import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
+import RichTextReader from "../../../../../components/custom-components/rich-editor/RichTextReader";
 
 const index = (props) => {
   const history = useHistory();
@@ -12,53 +13,68 @@ const index = (props) => {
   const { data, error } = getArticleDetail(id);
 
   return (
-    <CardForm title={`Detail Data Artikel ${data.title}`}>
+    <CardForm title={`Detail Data Artikel ${data?.title}`}>
       <Form
         name="basic"
         labelCol={{
           span: 4,
         }}
+        wrapperCol={{ span: 14 }}
         autoComplete="off"
         size="small"
+        labelAlign="left"
+        colon={false}
       >
-        <Form.Item label="ID Artikel" name="id">
-          <p>{data.id}</p>
-        </Form.Item>
-
         <Form.Item label="Judul" name="title">
-          <p>{data.title}</p>
-        </Form.Item>
-
-        <Form.Item label="Slug" name="slug">
-          <p>{data.slug}</p>
+          <p>
+            <b>:</b> &nbsp; {data?.title}
+          </p>
         </Form.Item>
 
         <Form.Item label="Deskripsi" name="description">
-          <p>{data.description}</p>
+          <div style={{ display: "flex", marginBottom: 2 }}>
+            <b>:</b> {"\xa0\xa0\xa0"}{" "}
+            <RichTextReader
+              value={data?.description}
+              style={{ height: "100%", width: "100%" }}
+            />
+          </div>
         </Form.Item>
 
         <Form.Item label="Kategori" name="article_category">
-          {data.article_category ? <p>{data.article_category.name}</p> : ""}
+          <p>
+            <b>:</b> &nbsp;
+            {data?.article_category ? data?.article_category?.name : "not-set"}
+          </p>
         </Form.Item>
 
         <Form.Item label="Status" name="status">
-          <p>{data.status}</p>
+          <p>
+            <b>:</b> &nbsp; {data?.status}
+          </p>
         </Form.Item>
 
         <Form.Item label="Pembuat" name="creator">
-          <p>{data.creator}</p>
-        </Form.Item>
-
-        <Form.Item label="Dibuat Pada" name="created_at">
-          <p>{data.created_at}</p>
+          <p>
+            <b>:</b> &nbsp; {data?.creator}
+          </p>
         </Form.Item>
 
         <Form.Item label="Editor" name="editor">
-          <p>{data.editor}</p>
+          <p>
+            <b>:</b> &nbsp; {data?.editor}
+          </p>
         </Form.Item>
 
-        <Form.Item label="Diubah Pada" name="edited_at">
-          <p>{data.updated_at}</p>
+        <Form.Item label="Image" name="thumbnail">
+          <div style={{ display: "flex" }}>
+            <b>:</b> {"\xa0\xa0\xa0"}{" "}
+            <img
+              src={`http://127.0.0.1:8000/uploads/${data?.thumbnail}`}
+              alt="thumbnail"
+              style={{ width: 250, height: 200, objectFit: "contain" }}
+            />
+          </div>
         </Form.Item>
 
         <Form.Item

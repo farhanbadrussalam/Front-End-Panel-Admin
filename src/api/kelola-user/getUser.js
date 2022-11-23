@@ -1,35 +1,33 @@
-import axios from "axios";
+import { api } from "../../configs/apiConfig";
 import { useEffect, useState } from "react";
 
-export const getUsers = (url = "http://127.0.0.1:8000/api/users") => {
+export const getUsers = (url = "users") => {
   const [data, setData] = useState(null);
   const [type, setType] = useState(null);
   const [error, setError] = useState(null);
+  const [deleteToggle, setDeleteToggle] = useState(false)
 
   useEffect(() => {
-    axios
-      .get(url, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
+    api
+      .get(url)
+      .then(res => {
         setData(res.data.data.users)
         setType(res.data.data.types)
       })
-      .catch((err) => setError(err));
-  }, [url]);
+      .catch(err => setError(err))
+  }, [deleteToggle])
 
-  const refetch = () => {
-    axios
-      .get(url, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
+  const deleteUser = async (id) => {
+    const deleted = api
+      .delete(url + '/destroy/' + id)
+      .then(res => {
+        setDeleteToggle(!deleteToggle)
+        return res
       })
-      .then((res) => setData(res.data.data.data))
-      .catch((err) => setError(err));
-  };
+      .catch(err => setError(err))
 
-  return { data, type, error, refetch };
+    return deleted
+  }
+
+  return { data, type, error, deleteUser };
 };
