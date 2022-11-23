@@ -59,6 +59,8 @@ const index = () => {
         }}
         onFinish={onFinish}
         autoComplete="off"
+        colon={false}
+        labelAlign="left"
       >
         <Form.Item
           label="Pengantin Pria"

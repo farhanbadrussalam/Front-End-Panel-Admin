@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber, Space, message, Select } from 'antd';
+import { Button, Form, Input, Space, message, Select, Row, Col } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
@@ -35,6 +35,8 @@ const index = (props) => {
         }}
         onFinish={onFinish}
         autoComplete="off"
+        colon={false}
+        labelAlign="left"
         fields={[
           {
             name: 'name',
@@ -62,7 +64,7 @@ const index = (props) => {
           label="Nama"
           name="name"
         >
-          <Input />
+          <Input className='input-form' />
         </Form.Item>
 
         <Form.Item

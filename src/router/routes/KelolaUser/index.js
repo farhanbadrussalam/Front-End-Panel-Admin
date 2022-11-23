@@ -26,13 +26,6 @@ const kelolaUser = [
     layout: "VerticalLayout",
   },
   {
-    path: "/admin/policy-user/create",
-    component: lazy(() =>
-      import("../../../view/pages/kelola-user/atur-permission/form/create")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
     path: "/admin/atur-role/create",
     component: lazy(() =>
       import("../../../view/pages/kelola-user/atur-role/form/create")
@@ -55,13 +48,6 @@ const kelolaUser = [
     ),
     layout: "VerticalLayout",
   },
-  {
-    path: "/admin/policy-user/edit/:roleid",
-    component: lazy(() =>
-      import("../../../view/pages/kelola-user/atur-permission/form/update")
-    ),
-    layout: "VerticalLayout",
-  },
 
   // get all data
   {
@@ -73,13 +59,6 @@ const kelolaUser = [
     path: "/admin/atur-role",
     component: lazy(() =>
       import("../../../view/pages/kelola-user/atur-role")
-    ),
-    layout: "VerticalLayout",
-  },
-  {
-    path: "/admin/policy-user",
-    component: lazy(() =>
-      import("../../../view/pages/kelola-user/atur-permission")
     ),
     layout: "VerticalLayout",
   },

@@ -6,7 +6,8 @@ import Column from './WoColumn'
 import { getWeddingOrganizers } from '../../../../api/wedding-organizer/getWeddingOrganizers'
 
 const WeddingOrganizer = () => {
-  const { data } = getWeddingOrganizers()
+  let { data, deleteWO } = getWeddingOrganizers()
+  data = data?.map((value) => ({ ...value, deleteWo: deleteWO }))
 
   return (
     <TableCard >

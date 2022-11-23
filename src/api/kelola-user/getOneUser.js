@@ -1,16 +1,12 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { api } from '../../configs/apiConfig'
 
 export const getOneUser = (id) => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/users/' + id, {
-      headers: {
-        'Authorization': localStorage.getItem("token")
-      }
-    })
+    api.get('users/' + id)
       .then(res => setData(res.data.data))
       .catch(err => setError(err))
   }, [])
