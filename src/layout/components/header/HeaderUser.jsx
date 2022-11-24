@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
 import { Dropdown, Col, Divider, Row } from "antd";
-import { UserOctagon, Flag, Calendar, Calculator } from "iconsax-react";
+import { UserOctagon, UserSquare, User, Logout } from "iconsax-react";
 
 import avatarImg from "../../../assets/images/memoji/user-avatar-4.png";
 import { usePermissionContext } from "../../../context/PermissionContext";
 
 export default function HeaderUser() {
-  const { logOut } = usePermissionContext()
+  const { logOut } = usePermissionContext();
 
   const menu = (
     <div className="hp-user-dropdown hp-border-radius hp-bg-black-0 hp-bg-dark-100 hp-border-color-dark-80 hp-py-24 hp-px-18 hp-mt-16">
@@ -15,7 +15,7 @@ export default function HeaderUser() {
         Profile Settings
       </span>
 
-      <Link
+      {/* <Link
         to="#"
         className="hp-p1-body hp-font-weight-500 hp-hover-text-color-primary-2"
       >
@@ -75,9 +75,37 @@ export default function HeaderUser() {
         </Col>
       </Row>
 
-      <Divider className="hp-my-18" />
+      <Divider className="hp-my-18" /> */}
 
-      <Row gutter={[0, 24]}>
+      <Row>
+        <Col span={24}>
+          <Link
+            to="#"
+            className="hp-d-flex-center hp-p1-body hp-font-weight-500 hp-my-4 hp-py-8 hp-px-10 hp-d-block hp-transition hp-hover-bg-primary-4 hp-hover-bg-dark-80 hp-border-radius"
+            style={{ marginLeft: -10, marginRight: -10 }}
+          >
+            <User size="20" color="green" />
+            <span className="hp-ml-8">Akun</span>
+          </Link>
+        </Col>
+
+        <Col span={24}>
+          <Link
+            onClick={(e) => {
+              localStorage.clear();
+              logOut();
+            }}
+            to="/admin/login"
+            className="hp-d-flex-center hp-p1-body hp-font-weight-500 hp-my-4 hp-py-8 hp-px-10 hp-d-block hp-transition hp-hover-bg-primary-4 hp-hover-bg-dark-80 hp-border-radius"
+            style={{ marginTop: -7, marginLeft: -10, marginRight: -10 }}
+          >
+            <Logout size="20" color="red" />
+            <span className="hp-ml-8">Logout</span>
+          </Link>
+        </Col>
+      </Row>
+
+      {/* <Row gutter={[0, 24]}>
         <Col span={24}>
           <Link
             to="#"
@@ -90,8 +118,8 @@ export default function HeaderUser() {
         <Col span={24}>
           <Link
             onClick={(e) => {
-              localStorage.clear()
-              logOut()
+              localStorage.clear();
+              logOut();
             }}
             to="/admin/login"
             className="hp-p1-body hp-font-weight-500 hp-hover-text-color-primary-2"
@@ -99,7 +127,7 @@ export default function HeaderUser() {
             Log out
           </Link>
         </Col>
-      </Row>
+      </Row> */}
     </div>
   );
 
