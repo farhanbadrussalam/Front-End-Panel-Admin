@@ -15,6 +15,7 @@ const masterData = [
       import("../../../view/pages/master-data/pengantin/form/read")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
   {
     path: "/admin/customer/detail/:userid",
@@ -43,6 +44,7 @@ const masterData = [
       import("../../../view/pages/master-data/pesanan/form/read")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   // create data
@@ -59,6 +61,7 @@ const masterData = [
       import("../../../view/pages/master-data/pengantin/form/create")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
   {
     path: "/admin/customer/create",
@@ -98,6 +101,7 @@ const masterData = [
       import("../../../view/pages/master-data/pengantin/form/update")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
   {
     path: "/admin/customer/edit/:userid",
@@ -129,6 +133,7 @@ const masterData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   // get all data
@@ -143,6 +148,7 @@ const masterData = [
     path: "/admin/pengantin",
     component: lazy(() => import("../../../view/pages/master-data/pengantin")),
     layout: "VerticalLayout",
+    type: 2
   },
   {
     path: "/admin/customer",
@@ -169,6 +175,7 @@ const masterData = [
       import("../../../view/pages/master-data/pesanan")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 ];
 

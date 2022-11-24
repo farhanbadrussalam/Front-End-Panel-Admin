@@ -10,6 +10,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   {
@@ -20,6 +21,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   {
@@ -30,6 +32,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   {
@@ -40,6 +43,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   {
@@ -50,6 +54,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
   //Update
   {
@@ -71,6 +76,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   {
@@ -81,6 +87,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   {
@@ -91,6 +98,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   {
@@ -101,6 +109,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   {
@@ -111,6 +120,7 @@ const commissionData = [
       )
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 ]
 

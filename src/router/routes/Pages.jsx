@@ -8,6 +8,7 @@ import WebsiteSettings from "./WebsiteSettings";
 import commissionData from "./Komisi";
 import KelolaKupon from "./KelolaKupon";
 
+//! Type 2 = Wo
 const PagesRoutes = [
   // AUTH
   {
@@ -15,6 +16,7 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/authenticationAdmin/Login")),
     layout: "FullLayout",
     noNeedAuth: true,
+    type: 2
   },
 
   // Pages home/dashboard admin
@@ -22,6 +24,7 @@ const PagesRoutes = [
     path: "/admin/dashboard",
     component: lazy(() => import("../../view/pages/dashboard")),
     layout: "VerticalLayout",
+    type: 2
   },
 
   // Pages Kelola User
@@ -51,6 +54,7 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/blank")),
     layout: "VerticalLayout",
     noNeedAuth: true,
+    type: 2
   },
 
   // Page Error
@@ -59,6 +63,7 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/errors/404")),
     layout: "FullLayout",
     noNeedAuth: true,
+    type: 2
   },
 ];
 

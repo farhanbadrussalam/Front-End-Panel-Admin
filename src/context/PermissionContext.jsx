@@ -7,6 +7,7 @@ const PermissionContext = createContext()
 
 export const PermissionContextProvider = ({ children }) => {
   const [permission, setPermission] = useState([])
+  const [type, setType] = useState(null)
 
   const accessableMenus = (roles, menus) => {
     const permissionsId = roles.data.data.access_menu_items.map((id) => id.sub_menu_id)
@@ -26,6 +27,7 @@ export const PermissionContextProvider = ({ children }) => {
   const fetchApi = () => {
     api.get('users/' + localStorage.getItem("id"))
       .then((res) => {
+        setType(res.data.data.type)
 
         const getRoles = api
           .get("access-menus/" + res.data.data.access_menu_id,
@@ -57,7 +59,7 @@ export const PermissionContextProvider = ({ children }) => {
   }
 
   return (
-    <PermissionContext.Provider value={{ permission, setPermission, fetchApi, logOut }}>
+    <PermissionContext.Provider value={{ permission, setPermission, fetchApi, logOut, type }}>
       {children}
     </PermissionContext.Provider>
   );

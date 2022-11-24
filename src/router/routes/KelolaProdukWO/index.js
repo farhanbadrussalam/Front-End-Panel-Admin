@@ -8,6 +8,7 @@ const kelolaProdukWO = [
       import("../../../view/pages/produk-wo/produk-ucapan-user/form/update")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   // create data
@@ -17,6 +18,7 @@ const kelolaProdukWO = [
       import("../../../view/pages/produk-wo/produk-ucapan-user/form/create")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   // get detail data
@@ -26,6 +28,7 @@ const kelolaProdukWO = [
       import("../../../view/pages/produk-wo/group-user/komisi")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
   {
     path: "/admin/produk-ucapan-user/detail/:id",
@@ -33,6 +36,7 @@ const kelolaProdukWO = [
       import("../../../view/pages/produk-wo/produk-ucapan-user/form/read")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
   {
     path: "/admin/afiliasi-ucapan/:userid",
@@ -40,6 +44,7 @@ const kelolaProdukWO = [
       import("../../../view/pages/produk-wo/afiliasi-ucapan/afiliasi")
     ),
     layout: "VerticalLayout",
+    type: 2
   },
 
   // get all data

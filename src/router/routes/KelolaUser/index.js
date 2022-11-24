@@ -9,13 +9,6 @@ const kelolaUser = [
     ),
     layout: "VerticalLayout",
   },
-  // {
-  //   path: "/admin/atur-role/detail/:userid",
-  //   component: lazy(() =>
-  //     import("../../../view/pages/kelola-user/crud-user/form/read")
-  //   ),
-  //   layout: "VerticalLayout",
-  // },
 
   // create data
   {
