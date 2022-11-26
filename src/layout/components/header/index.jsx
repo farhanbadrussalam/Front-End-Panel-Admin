@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { Layout, Button, Row, Col, Card } from "antd";
 import { RiCloseLine, RiMenuFill } from "react-icons/ri";
-import { SearchNormal1, Sun1 } from "iconsax-react";
+import { SearchNormal1, Sun1, Moon } from "iconsax-react";
 import { motion } from "framer-motion/dist/framer-motion";
 
 import HeaderSearch from "./HeaderSearch";
@@ -113,6 +113,9 @@ export default function MenuHeader(props) {
   // Children
   const headerChildren = () => {
     const [greeting, setGreeting] = useState("Selamat Pagi, Admin!");
+    const [greetingIcon, setGreetingIcon] = useState(
+      <Sun1 className="sun-icon" />
+    );
 
     useEffect(() => {
       const time = new Date().getHours();
@@ -125,6 +128,12 @@ export default function MenuHeader(props) {
         setGreeting("Selamat Siang, Admin!");
       } else if (time > 3 && time < 10) {
         setGreeting("Selamat Pagi, Admin!");
+      }
+
+      if (time >= 18 || time < 5) {
+        setGreetingIcon(<Moon />);
+      } else {
+        setGreetingIcon(<Sun1 />);
       }
     }, []);
 
@@ -153,7 +162,7 @@ export default function MenuHeader(props) {
                 }
               />
               <div className="header-greet">
-                <Sun1 className="sun-icon" />
+                {greetingIcon}
                 <p>{greeting}</p>
               </div>
 

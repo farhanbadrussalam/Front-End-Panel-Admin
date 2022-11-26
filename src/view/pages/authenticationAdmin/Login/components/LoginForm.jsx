@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
+import { api } from "../../../../../configs/apiConfig";
 import {
   ADMIN_NAME,
   ADMIN_USERNAME,
@@ -11,7 +12,7 @@ import {
 import { FiUser } from "react-icons/fi";
 import { GiPadlock } from "react-icons/gi";
 
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 
 import "./Login.css";
 import { usePermissionContext } from "../../../../../context/PermissionContext";
@@ -20,48 +21,48 @@ function LoginForm(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAuth, setIsAuth] = useState(false);
+
   const history = useHistory();
-  const { fetchApi } = usePermissionContext()
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const { fetchApi } = usePermissionContext();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) history.push("/");
+    if (localStorage.getItem("token")) window.location.href = "/";
   }, [isAuth]);
 
   const tryLogin = async () => {
-    await axios({
-      method: "POST",
-      url: "http://localhost:8000/api/login",
-      data: { username: username, password: password },
-    })
-      .then((response) => {
-        console.log(response.data.data.data.access_menu_id);
-        console.log(response.data.data.access_token);
-        localStorage.setItem(
-          "token",
-          `${response.data.data.token_type} ${response.data.data.access_token}`
-        );
-        localStorage.setItem("id", response.data.data.data.id)
-
-        props.login({
-          adminName: response.data.data.name,
-          adminUsername: response.data.data.username,
-          adminMail: response.data.data.email,
-        });
-
-        setIsAuth(true);
-        fetchApi()
+    if (username && password) {
+      await axios({
+        method: "POST",
+        url: "http://localhost:8000/api/login",
+        data: { username: username, password: password },
       })
-      .catch((err) => {
-        alert("Gagal Login!");
-      });
+        .then((response) => {
+          console.log(response.data.data.data.access_menu_id);
+          console.log(response.data.data.access_token);
+          localStorage.setItem(
+            "token",
+            `${response.data.data.token_type} ${response.data.data.access_token}`
+          );
+          localStorage.setItem("id", response.data.data.data.id);
+
+          props.login({
+            adminName: response.data.data.name,
+            adminUsername: response.data.data.username,
+            adminMail: response.data.data.email,
+          });
+
+          setIsAuth(true);
+          fetchApi();
+
+          message.info("Selamat Datang!");
+        })
+        .catch((err) => {
+          message.error(
+            "Gagal Login! Silakan periksa username dan password Anda!"
+          );
+        });
+    }
   };
 
   return (
@@ -78,8 +79,6 @@ function LoginForm(props) {
         initialValues={{
           remember: true,
         }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
@@ -119,9 +118,8 @@ function LoginForm(props) {
         </Form.Item>
 
         <div className="custom-redirect-container">
-          <Checkbox>Remember me</Checkbox>
-          <a href="/admin/register" className="custom-redirect-login">
-            belum punya akun?
+          <a href="/" className="custom-redirect-login">
+            Lupa password?
           </a>
         </div>
 
@@ -131,7 +129,7 @@ function LoginForm(props) {
             span: 16,
           }}
         >
-          <Button type="primary" onClick={tryLogin}>
+          <Button type="primary" onClick={tryLogin} danger htmlType="submit">
             Login
           </Button>
         </Form.Item>
