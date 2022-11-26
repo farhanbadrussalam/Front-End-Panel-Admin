@@ -1,40 +1,65 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-import { getProductCategories } from "../../../../../../api/produk/product-categories/getProductCategories";
-// import { postProduct } from "../../../../../../api/produk-wo/createWOProduct";
+import { createProdukWO } from "../../../../../../api/produk-wo";
+import { getWeddingOrganizers } from "../../../../../../api/wedding-organizer/getWeddingOrganizers";
+import { getBrides } from "../../../../../../api/pengantin/getBrides";
 
-import { Button, Form, Input, Space, message, Select, InputNumber } from "antd";
+import {
+  Button,
+  Form,
+  Space,
+  message,
+  Select,
+  InputNumber,
+  DatePicker,
+} from "antd";
 import CardForm from "../../../../../components/custom-components/form-crud/CardForm";
+import { getProducts } from "../../../../../../api/produk/getProducts";
+import ErrorPage from "../../../../../components/custom-components/Feedback/ErrorPage";
 
 const index = () => {
   const history = useHistory();
-  const { userid } = useParams();
 
-  // controlled form
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [category, setCategory] = useState(1);
-  const [description, setDescription] = useState();
+  const [wo, setWO] = useState();
+  const [bride, setBride] = useState();
+  const [product, setProduct] = useState();
+  const [quota, setQuota] = useState();
+  const [activeDate, setActiveDate] = useState();
 
-  const [categories, setCategories] = useState([]);
+  const {
+    data: wo_data,
+    error: wo_err,
+    loading: wo_loading,
+  } = getWeddingOrganizers();
 
-  useEffect(() => {
-    console.log(typeof price);
-  }, [price]);
+  const {
+    data: brides_data,
+    error: brides_error,
+    loading: brides_loading,
+  } = getBrides();
 
-  const onFinish = async (values) => {
-    const success = await postProduct({
-      name: name,
-      price: price,
-      product_category_id: category,
-      description: description,
+  const {
+    data: product_data,
+    error: product_error,
+    loading: product_loading,
+  } = getProducts();
+
+  const onFinish = async () => {
+    const success = await createProdukWO({
+      wedding_organizer_id: wo,
+      bride_id: bride,
+      product_id: product,
+      quota,
+      active_date: activeDate,
     });
-    if (success.data.success) {
-      message.success("Berhasil menambahkan user");
+
+    console.log(success);
+    if (success?.data?.success) {
+      message.success("Berhasil menambahkan produk wo");
       history.goBack();
     } else {
-      message.error("Gagal menambahkan user");
+      message.error("Gagal menambahkan produk wo");
     }
   };
 
@@ -42,18 +67,8 @@ const index = () => {
     alert("Failed:", errorInfo);
   };
 
-  const post = async () => {
-    await postProduct({
-      name: name,
-      product_category_id: category,
-      price: price,
-      description: description,
-    });
-  };
-
-  useState(async () => {
-    await getProductCategories().then((data) => setCategories(data));
-  });
+  if (wo_err || brides_error || product_error)
+    return <ErrorPage message="Gagal Mengambil Data" />;
 
   return (
     <CardForm title="Tambah Data User">
@@ -70,77 +85,133 @@ const index = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Nama"
-          name="name"
+          label="WO"
+          name="wo"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan nama!",
+              message: "Mohon masukkan Wedding Organizer!",
             },
           ]}
         >
-          <Input value={name} onChange={(e) => setName(e.target.value)} />
+          {wo_loading ? (
+            <Select loading showSearch placeholder="Pilih WO" />
+          ) : (
+            <Select
+              showSearch
+              placeholder="Pilih WO"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                (option?.label?.toUpperCase() ?? "").includes(
+                  input.toUpperCase()
+                )
+              }
+              options={wo_data?.map((value) => ({
+                value: value.id,
+                label: value.name,
+              }))}
+              onChange={(value) => setWO(value)}
+              value={wo}
+            />
+          )}
         </Form.Item>
 
         <Form.Item
-          label="Price"
-          name="price"
+          label="Pengantin"
+          name="bride"
           rules={[
             {
-              type: "number",
-              message: "Mohon masukkan dengan format angka!",
+              required: true,
+              message: "Mohon masukkan pengantin!",
             },
+          ]}
+        >
+          {brides_loading ? (
+            <Select loading showSearch placeholder="Pilih Pengantin" />
+          ) : (
+            <Select
+              showSearch
+              placeholder="Pilih Pengantin"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                (option?.label?.toUpperCase() ?? "").includes(
+                  input.toUpperCase()
+                )
+              }
+              options={brides_data?.map((value) => ({
+                value: value.id,
+                label: `${value.groom} & ${value.bride}`,
+              }))}
+              onChange={(value) => setBride(value)}
+              value={bride}
+            />
+          )}
+        </Form.Item>
+
+        <Form.Item
+          label="Produk"
+          name="product"
+          rules={[
             {
               required: true,
-              message: "Mohon masukkan harga!",
+              message: "Mohon masukkan produk!",
+            },
+          ]}
+        >
+          {product_loading ? (
+            <Select loading showSearch placeholder="Pilih Produk" />
+          ) : (
+            <Select
+              showSearch
+              placeholder="Pilih Produk"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                (option?.label?.toUpperCase() ?? "").includes(
+                  input.toUpperCase()
+                )
+              }
+              options={product_data?.map((value) => ({
+                value: value.id,
+                label: value.name,
+              }))}
+              onChange={(value) => setProduct(value)}
+              value={product}
+            />
+          )}
+        </Form.Item>
+
+        <Form.Item
+          label="Kuota"
+          name="quota"
+          rules={[
+            {
+              required: true,
+              message: "Mohon masukkan kuota!",
             },
           ]}
         >
           <InputNumber
-            min={0}
-            max={1000000000000}
-            prefix="Rp. "
             style={{ width: "100%" }}
-            value={price}
-            onChange={(value) => setPrice(value)}
+            value={quota}
+            onChange={(value) => setQuota(value)}
           />
         </Form.Item>
 
         <Form.Item
-          label="Category"
-          name="category"
+          label="Tanggal Aktivasi"
+          name="activate_date"
           rules={[
             {
               required: true,
-              message: "Mohon masukkan kategori!",
-            },
-          ]}
-          initialValue={category}
-        >
-          <Select
-            defaultValue={category}
-            value={category}
-            style={{ width: 200 }}
-            onChange={(value) => setCategory(value)}
-          >
-            {categories.map((category) => {
-              return <Option value={category.id}>{category.name}</Option>;
-            })}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="Description"
-          name="description"
-          rules={[
-            {
-              required: true,
+              message: "Mohon masukkan Tanggal Aktivasi!",
             },
           ]}
         >
-          <Input
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+          <DatePicker
+            format="YYYY-MM-DD"
+            style={{ width: "100%" }}
+            value={activeDate}
+            onChange={(value, stringValue) => setActiveDate(stringValue)}
           />
         </Form.Item>
 
@@ -154,13 +225,7 @@ const index = () => {
             <Button type="primary" danger htmlType="submit">
               Simpan
             </Button>
-            <Button
-              danger
-              htmlType="button"
-              onClick={() =>
-                history.replace(`/admin/produk-ucapan-user/${userid}`)
-              }
-            >
+            <Button danger htmlType="button" onClick={() => history.goBack()}>
               Batal
             </Button>
           </Space>

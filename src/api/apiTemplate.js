@@ -78,9 +78,7 @@ export const useData = (base_url) => {
     }
 
     return req
-      .catch((e) =>
-        setError({ ...error, [methodId]: e?.response?.data?.message })
-      )
+      .catch((e) => setError({ ...error, [methodId]: e?.response }))
       .finally(() =>
         setTimeout(() => {
           setLoading((prev) => ({ ...prev, [methodId]: false }));

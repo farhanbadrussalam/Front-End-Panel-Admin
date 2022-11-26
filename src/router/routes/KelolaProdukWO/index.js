@@ -10,22 +10,50 @@ const kelolaProdukWO = [
     layout: "VerticalLayout",
     type: 2
   },
+  {
+    path: "/admin/afiliasi-ucapan/edit/:id",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/afiliasi-ucapan/form/update")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/group-user/edit/:id",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/group-user/form/update")
+    ),
+    layout: "VerticalLayout",
+  },
 
   // create data
   {
-    path: "/admin/produk-ucapan-user/create/:userid",
+    path: "/admin/produk-ucapan-user/create",
     component: lazy(() =>
       import("../../../view/pages/produk-wo/produk-ucapan-user/form/create")
     ),
     layout: "VerticalLayout",
     type: 2
   },
+  {
+    path: "/admin/afiliasi-ucapan/create",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/afiliasi-ucapan/form/create")
+    ),
+    layout: "VerticalLayout",
+  },
+  {
+    path: "/admin/group-user/create",
+    component: lazy(() =>
+      import("../../../view/pages/produk-wo/group-user/form/create")
+    ),
+    layout: "VerticalLayout",
+  },
 
   // get detail data
   {
-    path: "/admin/group-user/:userid",
+    path: "/admin/group-user/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/group-user/komisi")
+      import("../../../view/pages/produk-wo/group-user/form/read")
     ),
     layout: "VerticalLayout",
     type: 2
@@ -39,9 +67,9 @@ const kelolaProdukWO = [
     type: 2
   },
   {
-    path: "/admin/afiliasi-ucapan/:userid",
+    path: "/admin/afiliasi-ucapan/:id",
     component: lazy(() =>
-      import("../../../view/pages/produk-wo/afiliasi-ucapan/afiliasi")
+      import("../../../view/pages/produk-wo/afiliasi-ucapan/form/read/index")
     ),
     layout: "VerticalLayout",
     type: 2

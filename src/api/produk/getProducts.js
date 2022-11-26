@@ -5,32 +5,40 @@ import { api } from "../../configs/apiConfig";
 export const getProducts = (url = "products") => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [deleteToggle, setDeleteToggle] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [deleteToggle, setDeleteToggle] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     api
       .get(url)
       .then((res) => setData(res.data.data))
-      .catch((err) => setError(err));
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
   }, [deleteToggle]);
 
   const refetch = () => {
+    setLoading(true);
     api
       .get(url)
       .then((res) => setData(res.data.data))
-      .catch((err) => setError(err));
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
   };
 
   const deleteProduct = (id) => {
-    const deleted = api.delete(url + '/destroy/' + id)
-      .then(res => {
-        setDeleteToggle(!deleteToggle)
-        return res.data.success
+    setLoading(true);
+    const deleted = api
+      .delete(url + "/destroy/" + id)
+      .then((res) => {
+        setDeleteToggle(!deleteToggle);
+        return res.data.success;
       })
-      .catch(err => setError(err))
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
 
-    return deleted
-  }
+    return deleted;
+  };
 
-  return { data, error, refetch, deleteProduct };
+  return { data, error, refetch, deleteProduct, loading };
 };

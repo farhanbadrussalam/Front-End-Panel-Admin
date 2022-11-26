@@ -26,7 +26,7 @@ export default function index() {
                 product: d.product_name,
                 groom: d.groom,
                 bride: d.bride,
-                status: status,
+                status: d.status,
                 id: d.id,
                 destroy: method.destroy,
               }))}
