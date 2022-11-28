@@ -41,6 +41,19 @@ const index = (props) => {
           <p>{product?.description}</p>
         </Form.Item>
 
+        {product?.attachment ? (
+          <Form.Item label="Video Demo" name="attachment">
+            <div style={{ display: "flex" }}>
+              <video
+                src={`http://127.0.0.1:8000/uploads/${product?.attachment}`}
+                type="video/mp4"
+                style={{ width: 450, height: 250, objectFit: "contain", objectPosition: "center top" }}
+                controls
+              />
+            </div>
+          </Form.Item>
+        ) : undefined}
+
         <Form.Item
           wrapperCol={{
             offset: 6,
