@@ -34,7 +34,7 @@ function LoginForm(props) {
     if (username && password) {
       await axios({
         method: "POST",
-        url: "http://localhost:8000/api/login",
+        url: "https://apiwo.tokoweb.live/api/login",
         data: { username: username, password: password },
       })
         .then((response) => {
