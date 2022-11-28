@@ -2,7 +2,7 @@ import { api } from "../../configs/apiConfig";
 import { useEffect, useState } from "react";
 
 export const getWeddingOrganizers = (url = "wedding-organizers") => {
-  const [data, setData] = useState([null]);
+  const [data, setData] = useState([{}]);
   const [error, setError] = useState(null);
   const [deleteToggle, setDeleteToggle] = useState(false);
 

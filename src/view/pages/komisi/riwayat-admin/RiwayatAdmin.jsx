@@ -199,7 +199,7 @@ const MasterDisplay = () => {
       ),
     },
   ];
-
+  
   return (
     <TableCard >
 
@@ -209,7 +209,7 @@ const MasterDisplay = () => {
         </Col>
       </Row>
 
-    </TableCard>
+    </TableCard> 
   )
 }
 
