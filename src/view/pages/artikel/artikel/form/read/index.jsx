@@ -1,6 +1,7 @@
 import { useHistory, useParams } from "react-router-dom";
 
 import { getArticleDetail } from "../../../../../../api/artikel";
+import { asset } from "../../../../../../configs/apiConfig";
 
 import { Button, Form, Space } from "antd";
 
@@ -70,7 +71,7 @@ const index = (props) => {
           <div style={{ display: "flex" }}>
             <b>:</b> {"\xa0\xa0\xa0"}{" "}
             <img
-              src={`http://127.0.0.1:8000/uploads/${data?.thumbnail}`}
+              src={asset(data?.thumbnail)}
               alt="thumbnail"
               style={{ width: 250, height: 200, objectFit: "contain" }}
             />

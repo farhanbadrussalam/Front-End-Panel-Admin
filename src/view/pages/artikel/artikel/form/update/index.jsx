@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getArticleDetail, updateArticle } from "../../../../../../api/artikel";
 import { getArticleCategories } from "../../../../../../api/artikel/category";
+import { asset } from "../../../../../../configs/apiConfig";
 
 import {
   Button,
@@ -44,7 +45,7 @@ const index = (props) => {
         {
           name: data.thumbnail,
           status: "done",
-          url: `http://127.0.0.1:8000/uploads/${data.thumbnail}`,
+          url: asset(data?.thumbnail),
         },
       ]);
     }
