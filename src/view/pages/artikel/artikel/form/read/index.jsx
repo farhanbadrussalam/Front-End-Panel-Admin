@@ -27,14 +27,11 @@ const index = (props) => {
         colon={false}
       >
         <Form.Item label="Judul" name="title">
-          <p>
-            <b>:</b> &nbsp; {data?.title}
-          </p>
+          <p>{data?.title}</p>
         </Form.Item>
 
         <Form.Item label="Deskripsi" name="description">
           <div style={{ display: "flex", marginBottom: 2 }}>
-            <b>:</b> {"\xa0\xa0\xa0"}{" "}
             <RichTextReader
               value={data?.description}
               style={{ height: "100%", width: "100%" }}
@@ -44,27 +41,20 @@ const index = (props) => {
 
         <Form.Item label="Kategori" name="article_category">
           <p>
-            <b>:</b> &nbsp;
             {data?.article_category ? data?.article_category?.name : "not-set"}
           </p>
         </Form.Item>
 
         <Form.Item label="Status" name="status">
-          <p>
-            <b>:</b> &nbsp; {data?.status}
-          </p>
+          <p>{data?.status}</p>
         </Form.Item>
 
         <Form.Item label="Pembuat" name="creator">
-          <p>
-            <b>:</b> &nbsp; {data?.creator}
-          </p>
+          <p>{data?.creator}</p>
         </Form.Item>
 
         <Form.Item label="Editor" name="editor">
-          <p>
-            <b>:</b> &nbsp; {data?.editor}
-          </p>
+          <p>{data?.editor}</p>
         </Form.Item>
 
         <Form.Item label="Image" name="thumbnail">

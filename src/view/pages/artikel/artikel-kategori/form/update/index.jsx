@@ -58,6 +58,8 @@ const index = (props) => {
           size="small"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
+          labelAlign="left"
+          colon={false}
         >
           {loading ? (
             <Spin size="large" />
