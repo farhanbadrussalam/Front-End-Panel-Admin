@@ -83,6 +83,8 @@ const index = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        labelAlign="left"
+        colon={false}
       >
         <Form.Item
           label="WO"

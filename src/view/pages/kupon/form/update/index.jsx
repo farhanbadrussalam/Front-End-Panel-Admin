@@ -92,6 +92,8 @@ const index = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        labelAlign="left"
+        colon={false}
       >
         <Form.Item label="Nama" name="name" key="name" initialValue={name}>
           <Input value={name} onChange={(e) => setName(e.target.value)} />

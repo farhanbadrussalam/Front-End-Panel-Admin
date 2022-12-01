@@ -41,18 +41,13 @@ const index = () => {
         colon={false}
       >
         <Form.Item label="Nama" name="name" key="name">
-          <p>
-            <b>:</b> &nbsp; {commision_detail_data?.name}
-          </p>
+          <p>{commision_detail_data?.name}</p>
         </Form.Item>
         <Form.Item label="WO" name="wedding_organizer" key="wedding_organizer">
-          <p>
-            <b>:</b> &nbsp; {commision_detail_data?.wedding_organizer?.name}
-          </p>
+          <p>{commision_detail_data?.wedding_organizer?.name}</p>
         </Form.Item>
         <Form.Item label="Nominal" name="nominal" key="nominal">
           <p>
-            <b>:</b> &nbsp;{" "}
             {commision_detail_data?.type == 1
               ? `${`${commision_detail_data?.nominal}`.replace(
                   /\B(?=(\d{3})+(?!\d))/g,
@@ -65,20 +60,13 @@ const index = () => {
           </p>
         </Form.Item>
         <Form.Item label="Status" name="status" key="status">
-          <p>
-            <b>:</b> &nbsp;{" "}
-            {commision_detail_data?.status === 1 ? "Aktif" : "Non-aktif"}
-          </p>
+          <p>{commision_detail_data?.status === 1 ? "Aktif" : "Non-aktif"}</p>
         </Form.Item>
         <Form.Item label="Kreator" name="creator" key="creator">
-          <p>
-            <b>:</b> &nbsp; {commision_detail_data?.creator}
-          </p>
+          <p>{commision_detail_data?.creator}</p>
         </Form.Item>
         <Form.Item label="Editor" name="editor" key="editor">
-          <p>
-            <b>:</b> &nbsp; {commision_detail_data?.editor}
-          </p>
+          <p>{commision_detail_data?.editor}</p>
         </Form.Item>
 
         <Form.Item

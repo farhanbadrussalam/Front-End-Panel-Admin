@@ -64,6 +64,8 @@ const index = (props) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        labelAlign="left"
+        colon={false}
       >
         <Form.Item
           label="Nama"

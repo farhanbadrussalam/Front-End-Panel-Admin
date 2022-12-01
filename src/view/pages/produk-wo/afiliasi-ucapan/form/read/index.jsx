@@ -38,36 +38,24 @@ const index = () => {
         colon={false}
       >
         <Form.Item label="Nama" name="name" key="name">
-          <p>
-            <b>:</b> &nbsp; {data?.name}
-          </p>
+          <p>{data?.name}</p>
         </Form.Item>
         <Form.Item label="Deskripsi" name="description" key="description">
-          <p>
-            <b>:</b> &nbsp; {data?.description}
-          </p>
+          <p>{data?.description}</p>
         </Form.Item>
         <Form.Item label="Link" name="link" key="link">
-          <p>
-            <b>:</b> &nbsp; {data?.link}
-          </p>
+          <p>{data?.link}</p>
         </Form.Item>
         <Form.Item label="Status" name="status" key="status">
-          <p>
-            <b>:</b> &nbsp; {data?.status === 1 ? "Aktif" : "Non-aktif"}
-          </p>
+          <p>{data?.status === 1 ? "Aktif" : "Non-aktif"}</p>
         </Form.Item>
 
         <Form.Item label="Kreator" name="creator" key="creator">
-          <p>
-            <b>:</b> &nbsp; {data?.creator}
-          </p>
+          <p>{data?.creator}</p>
         </Form.Item>
 
         <Form.Item label="Editor" name="editor" key="editor">
-          <p>
-            <b>:</b> &nbsp; {data?.editor}
-          </p>
+          <p>{data?.editor}</p>
         </Form.Item>
       </Form>
 

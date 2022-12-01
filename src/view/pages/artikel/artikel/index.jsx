@@ -6,6 +6,7 @@ import TableDisplay from "../../../components/custom-components/TableDisplay";
 import columns from "./ArticleColumn";
 
 import { getArticles } from "../../../../api/artikel";
+import { asset } from "../../../../configs/apiConfig";
 
 export default function index() {
   let { data, error, destroy } = getArticles();
