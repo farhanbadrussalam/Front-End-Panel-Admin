@@ -119,9 +119,9 @@ export default function Router() {
                   );
                 } else {
                   if (auth) {
-                    // if (permission.includes(route.path) || route.path == "/admin/dashboard") {
-                    if (true) {
-                      if (type == 2 && route.type == type || type == 1) {
+                    if (permission.includes(route.path) || route.path == "/admin/dashboard") {
+                      // if (true) {
+                      if (type == 2 && route.type == type || type == 1 || route.path == "/admin/dashboard") {
                         return (
                           <Route
                             key={route.path}
