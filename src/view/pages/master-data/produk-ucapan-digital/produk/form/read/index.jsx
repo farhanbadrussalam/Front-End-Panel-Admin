@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import React from "react";
 import CardForm from "../../../../../../components/custom-components/form-crud/CardForm";
 import { getOneProduct } from "../../../../../../../api/produk/getOneProduct";
+import { asset } from "../../../../../../../configs/apiConfig";
 
 const index = (props) => {
   const history = useHistory();
@@ -45,7 +46,7 @@ const index = (props) => {
           <Form.Item label="Video Demo" name="attachment">
             <div style={{ display: "flex" }}>
               <video
-                src={`http://127.0.0.1:8000/uploads/${product?.attachment}`}
+                src={asset(product?.attachment)}
                 type="video/mp4"
                 style={{ width: 450, height: 250, objectFit: "contain", objectPosition: "center top" }}
                 controls
