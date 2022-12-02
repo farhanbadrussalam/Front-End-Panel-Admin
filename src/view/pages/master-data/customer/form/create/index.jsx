@@ -90,8 +90,7 @@ const index = () => {
             },
             {
               type: "email",
-              message: 'Gunakan format email yang sesuai',
-
+              message: 'Gunakan format email dengan benar',
             }
           ]}
         >

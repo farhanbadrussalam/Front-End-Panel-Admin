@@ -77,8 +77,9 @@ const index = (props) => {
           name="email"
           rules={[
             {
-              type: 'email',
-            },
+              type: "email",
+              message: "Masukkan format email dengan benar!"
+            }
           ]}
         >
           <Input />
