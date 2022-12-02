@@ -21,6 +21,8 @@ const index = (props) => {
           }}
           autoComplete="off"
           size="small"
+          labelAlign="left"
+          colon={false}
         >
           <Form.Item label="ID Artikel" name="id">
             <p>{data.id}</p>
