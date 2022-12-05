@@ -8,10 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { theme } from "../redux/customise/customiseActions";
 
 // Router
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Redirect,
+  useLocation,
+} from "react-router-dom";
 
 // Routes
 import { Routes } from "./routes";
+import { WoRoutes } from "./wo-routes";
 
 // Layouts
 import VerticalLayout from "../layout/VerticalLayout";
@@ -22,6 +29,7 @@ import FullLayout from "../layout/FullLayout";
 import Home from "../view/home";
 import Error404 from "../view/pages/errors/404";
 import { usePermissionContext } from "../context/PermissionContext";
+import { Spin } from "antd";
 
 export default function Router() {
   // Redux
@@ -29,7 +37,8 @@ export default function Router() {
   const dispatch = useDispatch();
 
   const auth = localStorage.getItem("token");
-  const { permission, type } = usePermissionContext()
+  const { permission, type, permissionLoading } = usePermissionContext();
+  const location = useLocation();
 
   // Dark Mode
   useEffect(() => {
@@ -59,6 +68,11 @@ export default function Router() {
     if (Routes) {
       // Checks if Route layout or Default layout matches current layout
       Routes.filter(
+        (route) =>
+          route.layout === layout &&
+          (LayoutRoutes.push(route), LayoutPaths.push(route.path))
+      );
+      WoRoutes.filter(
         (route) =>
           route.layout === layout &&
           (LayoutRoutes.push(route), LayoutPaths.push(route.path))
@@ -119,9 +133,11 @@ export default function Router() {
                   );
                 } else {
                   if (auth) {
-                    if (permission.includes(route.path) || route.path == "/admin/dashboard") {
-                      // if (true) {
-                      if (type == 2 && route.type == type || type == 1) {
+                    if (
+                      permission.includes(route.path) ||
+                      route.path == "/admin/dashboard"
+                    ) {
+                      if (route.type == type) {
                         return (
                           <Route
                             key={route.path}
@@ -152,22 +168,6 @@ export default function Router() {
                         );
                       }
                     }
-                    else {
-                      return (
-                        <Route
-                          key={route.path}
-                          path={route.path}
-                          exact={route.exact === true}
-                          render={() => (
-                            <Redirect
-                              to={{
-                                pathname: "/admin/dashboard",
-                              }}
-                            />
-                          )}
-                        />
-                      );
-                    }
                   } else {
                     return (
                       <Route
@@ -190,35 +190,46 @@ export default function Router() {
     });
   };
 
-  return (
+  return permissionLoading ? (
+    <LoadingPage />
+  ) : (
     <BrowserRouter>
       <Switch>
         {ResolveRoutes()}
         {/* Home Page */}
-
-        {auth ? (
-          <Redirect
-            to={{
-              pathname: "/admin/dashboard",
-            }}
-          />
+        location.pathname === "/admin/login" ? (
+        <Redirect
+          to={{
+            pathname: "/admin/dashboard",
+          }}
+        />
         ) : (
-          <Route
-            render={() => (
-              <Redirect
-                to={{
-                  pathname: "/admin/login",
-                }}
-              />
-            )}
-          />
-        )}
-
-        {/* NotFound */}
+        <Redirect
+          to={{
+            pathname: "/admin/pengaturan-website",
+          }}
+        />
+        )
         <Route path="*">
           <Error404 />
         </Route>
       </Switch>
     </BrowserRouter>
+  );
+}
+
+function LoadingPage() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <Spin size="large" />
+    </div>
   );
 }
