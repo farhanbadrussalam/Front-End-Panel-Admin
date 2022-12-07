@@ -4,6 +4,7 @@ import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { postCustomer } from '../../../../../../api/customer/postCustomer';
 import { useState } from 'react';
+import NumericInput from '../../../../../components/custom-components/InputNumberOnly';
 
 const index = () => {
   const history = useHistory()
@@ -108,7 +109,7 @@ const index = () => {
             },
           ]}
         >
-          <Input />
+          <NumericInput />
         </Form.Item>
 
         <Form.Item

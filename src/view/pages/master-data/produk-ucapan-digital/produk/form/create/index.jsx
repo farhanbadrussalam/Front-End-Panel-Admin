@@ -4,6 +4,7 @@ import React from "react";
 import CardForm from "../../../../../../components/custom-components/form-crud/CardForm";
 import { postProduct } from "../../../../../../../api/produk/postProduct";
 import { getProductCategories2 } from "../../../../../../../api/produk/product-categories/getProductCategories2";
+import InputPrice from "../../../../../../components/custom-components/InputPrice";
 
 const index = () => {
   const history = useHistory();
@@ -81,10 +82,7 @@ const index = () => {
             },
           ]}
         >
-          <InputNumber style={{ width: "200px" }}
-            formatter={(value) => `Rp ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={(value) => value.replace(/\Rp\s?|(,*)/g, '')}
-          />
+          <InputPrice />
         </Form.Item>
 
         <Form.Item

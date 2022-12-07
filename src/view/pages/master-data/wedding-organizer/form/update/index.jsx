@@ -1,9 +1,10 @@
-import { Button, Form, Input, Select, Space, message } from 'antd';
+import { Button, Form, Input, Select, Space, message, InputNumber } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { putWeddingOrganizer } from '../../../../../../api/wedding-organizer/putWeddingOrganizer';
 import { getOneWeddingOrganizer } from '../../../../../../api/wedding-organizer/getOneWeddingOrganizer';
+import NumericInput from '../../../../../components/custom-components/InputNumberOnly';
 
 const index = (props) => {
   const history = useHistory()
@@ -15,7 +16,7 @@ const index = (props) => {
   const onFinish = async (values) => {
     const success = await putWeddingOrganizer(values, id)
 
-    if (success.data.success) {
+    if (success?.data?.success) {
       message.success('Berhasil mengubah data WO')
       history.goBack()
     }
@@ -95,7 +96,7 @@ const index = (props) => {
           label="Nomor telp WO"
           name="phone"
         >
-          <Input />
+          <NumericInput />
         </Form.Item>
 
         <Form.Item
