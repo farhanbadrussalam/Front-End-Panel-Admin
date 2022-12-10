@@ -226,7 +226,9 @@ const MasterDisplay = () => {
 
         <Row>
           <Col span={24}>
-            <TableDisplay data={data} column={columns} filteredState={filterData} />
+            <div ref={pdfComponent}>
+              <TableDisplay data={data} column={columns} filteredState={filterData} />
+            </div>
           </Col>
         </Row>
 
