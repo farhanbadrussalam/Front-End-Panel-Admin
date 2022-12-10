@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Row, Col, Space, Popover, Modal, DatePicker, message, Button } from 'antd'
+import { Row, Col, Space, Popover, Modal, DatePicker, message, Button, Table } from 'antd'
 import { Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
 import { SearchOutlined } from '@ant-design/icons';
@@ -9,6 +9,7 @@ import TableCard from '../../../components/custom-components/TableCard'
 
 import { getAdminCommissions } from "../../../../api/komisi/getAdminCommissions"
 import { useRef, useState } from 'react'
+import { CSVLink } from 'react-csv';
 
 const MasterDisplay = () => {
   let { data, deletePesanan } = getAdminCommissions()
@@ -103,6 +104,17 @@ const MasterDisplay = () => {
 
     render: text => moment(text).format("DD/MM/YYYY")
   });
+
+  const csvData = data.map((d) => {
+    return {
+      id: d.id,
+      date: d.created_at,
+      name: d.name,
+      type: d.type,
+      nominal: d.nominal_get,
+      wo: d.commission ? d.commission.wedding_organizer.name : "",
+    }
+  })
 
   data = data.map((d) => {
     return {
@@ -201,15 +213,33 @@ const MasterDisplay = () => {
   ];
 
   return (
-    <TableCard >
+    <>
+      <TableCard 
+        customTitle={"Riwayat Komisi Admin"}>
 
-      <Row>
-        <Col span={24}>
-          <TableDisplay data={data} column={columns} />
-        </Col>
-      </Row>
+        <Row>
+          <Col span={24}>
+            <TableDisplay data={data} column={columns} />
+          </Col>
+        </Row>
 
-    </TableCard>
+      </TableCard>
+
+      <Button
+        size="medium"
+        style={{
+          width: 180,
+        }}
+      >
+        <CSVLink filename={"AdminHistory.csv"}
+        data={csvData}
+        >
+          Download CSV
+        </CSVLink>
+      </Button>
+
+      
+    </>
   )
 }
 
