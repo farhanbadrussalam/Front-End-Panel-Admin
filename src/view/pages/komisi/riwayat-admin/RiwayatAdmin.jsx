@@ -10,6 +10,7 @@ import TableCard from '../../../components/custom-components/TableCard'
 import { getAdminCommissions } from "../../../../api/komisi/getAdminCommissions"
 import { useRef, useState } from 'react'
 import { CSVLink } from 'react-csv';
+import { useReactToPrint } from 'react-to-print';
 
 const MasterDisplay = () => {
   let { data, deletePesanan } = getAdminCommissions()
@@ -18,6 +19,11 @@ const MasterDisplay = () => {
   const [searchedColumn, setSearchedColumn] = useState()
 
   const searchInput = useRef(null);
+  const pdfComponent = useRef()
+
+  const handlePrintToPDF = useReactToPrint({
+    content: () => pdfComponent.current
+  })
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -219,7 +225,9 @@ const MasterDisplay = () => {
 
         <Row>
           <Col span={24}>
-            <TableDisplay data={data} column={columns} />
+            <div ref={pdfComponent}>
+              <TableDisplay data={data} column={columns} />
+            </div>
           </Col>
         </Row>
 
@@ -238,7 +246,15 @@ const MasterDisplay = () => {
         </CSVLink>
       </Button>
 
-      
+      <Button
+        onClick={handlePrintToPDF}
+        size="medium"
+        style={{
+          width: 180,
+        }}
+      >
+        Download PDF
+      </Button>
     </>
   )
 }
