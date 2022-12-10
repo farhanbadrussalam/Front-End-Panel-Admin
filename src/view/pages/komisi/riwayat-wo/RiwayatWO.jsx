@@ -9,14 +9,26 @@ import TableCard from '../../../components/custom-components/TableCard'
 
 import { getWOCommissions } from "../../../../api/komisi/getWOCommissions"
 import { useRef, useState } from 'react'
+import { CSVLink } from 'react-csv';
+import { useReactToPrint } from 'react-to-print';
 
 const MasterDisplay = () => {
   let { data, deletePesanan } = getWOCommissions()
 
   const [searchText, setSearchText] = useState()
   const [searchedColumn, setSearchedColumn] = useState()
+  const [currentData, setCurrentData] = useState()
 
   const searchInput = useRef(null);
+  const pdfComponent = useRef()
+
+  const filterData = (currentData) => {
+    setCurrentData(currentData)
+  }
+
+  const handlePrintToPDF = useReactToPrint({
+    content: () => pdfComponent.current
+  })
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -103,6 +115,20 @@ const MasterDisplay = () => {
 
     render: text => moment(text).format("DD/MM/YYYY")
   });
+
+  const mapDataToCsv = (data) => {
+    const csvData = data.map((d) => {
+      return {
+        id: d.id,
+        date: d.date,
+        type: d.type == 1 ? "Percent" : "Nominal",
+        name: d.name,
+        nominal: d.nominal,
+        wo: d.wo,
+      }
+    })
+    return csvData
+  }
 
   data = data.map((d) => {
     return {
@@ -199,15 +225,42 @@ const MasterDisplay = () => {
   },];
 
   return (
-    <TableCard >
+    <>
+      <TableCard >
 
-      <Row>
-        <Col span={24}>
-          <TableDisplay data={data} column={columns} />
-        </Col>
-      </Row>
+        <Row>
+          <Col span={24}>
+            <div ref={pdfComponent}>
+              <TableDisplay data={data} column={columns} filteredState={filterData} />
+            </div>
+          </Col>
+        </Row>
 
-    </TableCard>
+        <Button
+          size="medium"
+          style={{
+            width: 180,
+          }}
+        >
+          <CSVLink filename={"WOHistory.csv"}
+          data={currentData != null ? mapDataToCsv(currentData) : mapDataToCsv(data)}
+          >
+            Download CSV
+          </CSVLink>
+        </Button>
+
+        <Button
+          onClick={handlePrintToPDF}
+          size="medium"
+          style={{
+            width: 180,
+          }}
+        >
+          Download PDF
+        </Button>
+
+      </TableCard>
+    </>
   )
 }
 
