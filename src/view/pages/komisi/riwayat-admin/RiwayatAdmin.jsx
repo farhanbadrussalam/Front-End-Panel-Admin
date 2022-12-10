@@ -17,9 +17,14 @@ const MasterDisplay = () => {
 
   const [searchText, setSearchText] = useState()
   const [searchedColumn, setSearchedColumn] = useState()
+  const [currentData, setCurrentData] = useState(data)
 
   const searchInput = useRef(null);
   const pdfComponent = useRef()
+
+  const filterData = (currentData) => {
+    setCurrentData(currentData)
+  }
 
   const handlePrintToPDF = useReactToPrint({
     content: () => pdfComponent.current
@@ -111,16 +116,19 @@ const MasterDisplay = () => {
     render: text => moment(text).format("DD/MM/YYYY")
   });
 
-  const csvData = data.map((d) => {
-    return {
-      id: d.id,
-      date: d.created_at,
-      name: d.name,
-      type: d.type,
-      nominal: d.nominal_get,
-      wo: d.commission ? d.commission.wedding_organizer.name : "",
-    }
-  })
+  const mapDataToCsv = (data) => {
+    const csvData = data.map((d) => {
+      return {
+        id: d.id,
+        date: d.date,
+        type: d.type == 1 ? "Percent" : "Nominal",
+        name: d.name,
+        nominal: d.nominal,
+        wo: d.wo,
+      }
+    })
+    return csvData
+  }
 
   data = data.map((d) => {
     return {
@@ -168,7 +176,7 @@ const MasterDisplay = () => {
       dataIndex: 'date',
       key: 'date',
       render: (date) => <a>{new Date(date).toLocaleString('en-GB')}</a>,
-      sorter: (a, b) => {new Date(a.date) - new Date(b.date)},
+      sorter: (a, b) => new Date(a.date) - new Date(b.date),
       ...getColumnSearchProps('date')
     },
 
@@ -226,7 +234,7 @@ const MasterDisplay = () => {
         <Row>
           <Col span={24}>
             <div ref={pdfComponent}>
-              <TableDisplay data={data} column={columns} />
+              <TableDisplay data={data} column={columns} filteredState={filterData} />
             </div>
           </Col>
         </Row>
@@ -240,7 +248,7 @@ const MasterDisplay = () => {
         }}
       >
         <CSVLink filename={"AdminHistory.csv"}
-        data={csvData}
+        data={mapDataToCsv(currentData)}
         >
           Download CSV
         </CSVLink>
