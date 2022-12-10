@@ -17,7 +17,7 @@ const MasterDisplay = () => {
 
   const [searchText, setSearchText] = useState()
   const [searchedColumn, setSearchedColumn] = useState()
-  const [currentData, setCurrentData] = useState(data)
+  const [currentData, setCurrentData] = useState()
 
   const searchInput = useRef(null);
   const pdfComponent = useRef()
@@ -248,7 +248,7 @@ const MasterDisplay = () => {
         }}
       >
         <CSVLink filename={"AdminHistory.csv"}
-        data={mapDataToCsv(currentData)}
+        data={currentData != null ? mapDataToCsv(currentData) : mapDataToCsv(data)}
         >
           Download CSV
         </CSVLink>

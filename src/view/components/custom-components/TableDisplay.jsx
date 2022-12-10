@@ -28,7 +28,6 @@ const TableDisplay = ({
   filteredState,
 }) => {
   const [tableData, setTableData] = useState([]);
-  const [filteredData, setFilteredData] = useState();
 
   useEffect(() => {
     setTableData(data);
