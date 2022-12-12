@@ -9,9 +9,11 @@ import TableCard from '../../../components/custom-components/TableCard'
 
 import { getWOCommissions } from "../../../../api/komisi/getWOCommissions"
 import { useRef, useState } from 'react'
+import { usePermissionContext } from '../../../../context/PermissionContext';
 
 const MasterDisplay = () => {
   let { data, deletePesanan } = getWOCommissions()
+  const { permission } = usePermissionContext()
 
   const [searchText, setSearchText] = useState()
   const [searchedColumn, setSearchedColumn] = useState()
@@ -37,11 +39,11 @@ const MasterDisplay = () => {
         }}
         onKeyDown={(e) => e.stopPropagation()}
       >
-        <DatePicker.RangePicker 
-          style={{ marginBottom: 8, display: 'block' }} 
-          value={selectedKeys[0]} 
-          onChange={e => setSelectedKeys(e ? [e] : [])} 
-          onPressEnter={() => { confirm(); setSearchText(selectedKeys[0]), setSearchedColumn(dataIndex); }} 
+        <DatePicker.RangePicker
+          style={{ marginBottom: 8, display: 'block' }}
+          value={selectedKeys[0]}
+          onChange={e => setSelectedKeys(e ? [e] : [])}
+          onPressEnter={() => { confirm(); setSearchText(selectedKeys[0]), setSearchedColumn(dataIndex); }}
         />
 
         <Space>
@@ -92,7 +94,7 @@ const MasterDisplay = () => {
       />
     ),
 
-    onFilter: (value, record) => 
+    onFilter: (value, record) =>
       record[dataIndex] ? moment(record[dataIndex]).isBetween(value[0], value[1], 'day', '[]') : "",
 
     onFilterDropdownOpenChange: (visible) => {
@@ -112,7 +114,8 @@ const MasterDisplay = () => {
       type: d.type,
       nominal: d.nominal_get,
       wo: d.commission ? d.commission.wedding_organizer.name : "",
-      deletePesanan: deletePesanan
+      deletePesanan: deletePesanan,
+      permission
     }
   })
 
@@ -144,7 +147,7 @@ const MasterDisplay = () => {
       render: (text) => <a>{text}</a>,
       sorter: (a, b) => a.name.length - b.name.length,
     },
-    
+
     {
       title: 'Date',
       dataIndex: 'date',
@@ -158,7 +161,7 @@ const MasterDisplay = () => {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
-      render: (type) => <a>{type == 1 ? "Percent": "Direct"}</a>,
+      render: (type) => <a>{type == 1 ? "Percent" : "Direct"}</a>,
     },
 
     {
@@ -178,25 +181,31 @@ const MasterDisplay = () => {
       key: 'action',
       render: (payload) => (
         <Space size="large" className="icons-container" >
-          <Popover content={"Detail"}>
-            <Link to={{
-              pathname: `riwayat-komisi-admin/detail/${payload.id}`,
-              state: {
-                permission: 'Detail',
-                data: 'Pesanan',
-                id: payload.id
-              },
-            }} >
-              <Eye size={20} />
-            </Link>
-          </Popover>
 
-          <Popover content={"Delete"}>
-            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.wo, payload.deletePesanan)} />
-          </Popover>
+          {payload.permission.includes("/admin/riwayat-komisi-wo/detail/:userid") ? (
+            <Popover content={"Detail"}>
+              <Link to={{
+                pathname: `/admin/riwayat-komisi-wo/detail/${payload.id}`,
+                state: {
+                  permission: 'Detail',
+                  data: 'Pesanan',
+                  id: payload.id
+                },
+              }} >
+                <Eye size={20} />
+              </Link>
+            </Popover>
+          ) : undefined}
+
+          {payload.permission.includes("delete riwayat komisi wo") ? (
+            <Popover content={"Delete"}>
+              <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.wo, payload.deletePesanan)} />
+            </Popover>
+          ) : undefined}
+
         </Space>
       ),
-  },];
+    },];
 
   return (
     <TableCard >
