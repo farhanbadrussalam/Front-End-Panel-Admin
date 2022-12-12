@@ -27,6 +27,7 @@ const index = () => {
       wedding_organizer_id: wo,
       name,
       description,
+      link,
     });
 
     if (success?.data?.success) {
