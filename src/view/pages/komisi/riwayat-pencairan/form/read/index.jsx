@@ -9,7 +9,7 @@ const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
   const id = props.location.state.id
-  const { data, error } = getOneDisbursement(id)
+  const { data } = getOneDisbursement(id)
 
   return (
     <CardForm title={title}>
@@ -149,7 +149,7 @@ const index = (props) => {
         >
           <Space size='middle'>
             <Button danger htmlType="button" onClick={() => history.goBack()}>
-              Kembali
+              Batal
             </Button>
           </Space>
         </Form.Item>

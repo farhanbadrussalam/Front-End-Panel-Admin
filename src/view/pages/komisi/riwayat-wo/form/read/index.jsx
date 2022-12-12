@@ -9,7 +9,7 @@ const index = (props) => {
   const history = useHistory()
   const title = `${props.location.state.permission} Data ${props.location.state.data}`
   const id = props.location.state.id
-  const { data, error } = getOneCommission(id)
+  const { data } = getOneCommission(id)
 
   return (
     <CardForm title={title}>
@@ -99,7 +99,7 @@ const index = (props) => {
             },
           ]}
         >
-          <p>{data && data.sales_order_item?.product.name}</p>
+          <p>{data && data.sales_order_item?.product?.name}</p>
         </Form.Item>
 
         <Form.Item
