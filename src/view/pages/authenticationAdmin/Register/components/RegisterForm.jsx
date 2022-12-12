@@ -39,7 +39,7 @@ function RegisterForm(props) {
     console.log(name, email, username, password);
     await axios({
       method: "POST",
-      url: "http://127.0.0.1:8000/api/register",
+      url: "https://apiwo.tokoweb.live/api/register",
       data: {
         name: name,
         email: email,
