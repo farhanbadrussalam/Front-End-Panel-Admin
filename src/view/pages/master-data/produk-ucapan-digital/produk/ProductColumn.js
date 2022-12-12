@@ -35,6 +35,7 @@ const columns = [
     title: 'Harga',
     dataIndex: 'price',
     key: 'price',
+    render: price => <p>{parseInt(price).toLocaleString("en-US")}</p>
   },
 
   {

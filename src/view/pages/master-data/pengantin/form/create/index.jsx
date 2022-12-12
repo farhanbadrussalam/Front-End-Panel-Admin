@@ -5,6 +5,7 @@ import CardForm from '../../../../../components/custom-components/form-crud/Card
 import { postBride } from '../../../../../../api/pengantin/postBride';
 import { getWeddingOrganizers } from '../../../../../../api/wedding-organizer/getWeddingOrganizers';
 import { Warning2 } from 'iconsax-react';
+import NumericInput from '../../../../../components/custom-components/InputNumberOnly';
 
 const index = () => {
   const history = useHistory()
@@ -98,7 +99,7 @@ const index = () => {
             },
           ]}
         >
-          <Input />
+          <NumericInput />
         </Form.Item>
 
         <Form.Item
