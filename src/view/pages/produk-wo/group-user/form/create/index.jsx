@@ -22,6 +22,8 @@ const index = () => {
     loading: wo_loading,
   } = getWeddingOrganizers();
 
+  console.log(wo_data);
+
   const onFinish = async () => {
     const success = await createCommision({
       wedding_organizer_id: wo,
@@ -72,6 +74,12 @@ const index = () => {
         >
           {wo_loading ? (
             <Select loading showSearch placeholder="Pilih WO" />
+          ) : wo_data[0] === null || wo_data.length === 0 ? (
+            <Select
+              disabled
+              showSearch
+              placeholder="Tambah WO terlebih dahulu!"
+            />
           ) : (
             <Select
               showSearch

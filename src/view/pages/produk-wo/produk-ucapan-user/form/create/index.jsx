@@ -98,6 +98,12 @@ const index = () => {
         >
           {wo_loading ? (
             <Select loading showSearch placeholder="Pilih WO" />
+          ) : wo_data[0] === null || wo_data.length === 0 ? (
+            <Select
+              showSearch
+              placeholder="Tambah WO terlebih dahulu!"
+              disabled
+            />
           ) : (
             <Select
               showSearch
@@ -108,10 +114,14 @@ const index = () => {
                   input.toUpperCase()
                 )
               }
-              options={wo_data?.map((value) => ({
-                value: value.id,
-                label: value.name,
-              }))}
+              options={
+                wo_data[0] != null
+                  ? wo_data.map((v) => ({
+                      value: v.id,
+                      label: v.name,
+                    }))
+                  : []
+              }
               onChange={(value) => setWO(value)}
               value={wo}
             />

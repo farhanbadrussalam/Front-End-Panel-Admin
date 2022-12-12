@@ -73,7 +73,13 @@ const index = () => {
         >
           {wo_loading ? (
             <Select loading showSearch placeholder="Pilih WO" />
-          ) : wo_data[0] != null ? (
+          ) : wo_data[0] === null || wo_data.length === 0 ? (
+            <Select
+              showSearch
+              placeholder="Tambah WO terlebih dahulu!"
+              disabled
+            />
+          ) : (
             <Select
               showSearch
               placeholder="Pilih WO"
@@ -94,8 +100,6 @@ const index = () => {
               onChange={(value) => setWO(value)}
               value={wo}
             />
-          ) : (
-            <Select showSearch placeholder="WO tidak ditemukan!" disabled />
           )}
         </Form.Item>
 
