@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Row, Col, Space, Popover, Modal, DatePicker, message, Button } from 'antd'
+import { Row, Col, Space, Popover, Modal, DatePicker, message, Button, Table } from 'antd'
 import { Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
 import { SearchOutlined } from '@ant-design/icons';
@@ -9,6 +9,8 @@ import TableCard from '../../../components/custom-components/TableCard'
 
 import { getAdminCommissions } from "../../../../api/komisi/getAdminCommissions"
 import { useRef, useState } from 'react'
+import { CSVLink } from 'react-csv';
+import { useReactToPrint } from 'react-to-print';
 import { usePermissionContext } from '../../../../context/PermissionContext';
 
 const MasterDisplay = () => {
@@ -16,8 +18,18 @@ const MasterDisplay = () => {
 
   const [searchText, setSearchText] = useState()
   const [searchedColumn, setSearchedColumn] = useState()
+  const [currentData, setCurrentData] = useState()
 
   const searchInput = useRef(null);
+  const pdfComponent = useRef()
+
+  const filterData = (currentData) => {
+    setCurrentData(currentData)
+  }
+
+  const handlePrintToPDF = useReactToPrint({
+    content: () => pdfComponent.current
+  })
   const { permission } = usePermissionContext()
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -106,6 +118,20 @@ const MasterDisplay = () => {
     render: text => moment(text).format("DD/MM/YYYY")
   });
 
+  const mapDataToCsv = (data) => {
+    const csvData = data.map((d) => {
+      return {
+        id: d.id,
+        date: d.date,
+        type: d.type == 1 ? "Percent" : "Nominal",
+        name: d.name,
+        nominal: d.nominal,
+        wo: d.wo,
+      }
+    })
+    return csvData
+  }
+
   data = data.map((d) => {
     return {
       id: d.id,
@@ -153,7 +179,7 @@ const MasterDisplay = () => {
       dataIndex: 'date',
       key: 'date',
       render: (date) => <a>{new Date(date).toLocaleString('en-GB')}</a>,
-      sorter: (a, b) => { new Date(a.date) - new Date(b.date) },
+      sorter: (a, b) => new Date(a.date) - new Date(b.date),
       ...getColumnSearchProps('date')
     },
 
@@ -208,15 +234,43 @@ const MasterDisplay = () => {
   ];
 
   return (
-    <TableCard >
+    <>
+      <TableCard 
+        customTitle={"Riwayat Komisi Admin"}>
 
-      <Row>
-        <Col span={24}>
-          <TableDisplay data={data} column={columns} />
-        </Col>
-      </Row>
+        <Row>
+          <Col span={24}>
+            <div ref={pdfComponent}>
+              <TableDisplay data={data} column={columns} filteredState={filterData} />
+            </div>
+          </Col>
+        </Row>
 
-    </TableCard>
+      </TableCard>
+
+      <Button
+        size="medium"
+        style={{
+          width: 180,
+        }}
+      >
+        <CSVLink filename={"AdminHistory.csv"}
+        data={currentData != null ? mapDataToCsv(currentData) : mapDataToCsv(data)}
+        >
+          Download CSV
+        </CSVLink>
+      </Button>
+
+      <Button
+        onClick={handlePrintToPDF}
+        size="medium"
+        style={{
+          width: 180,
+        }}
+      >
+        Download PDF
+      </Button>
+    </>
   )
 }
 

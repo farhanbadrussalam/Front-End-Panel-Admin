@@ -24,6 +24,7 @@ const TableDisplay = ({
   expandable,
   createLink = `${window.location.pathname}/create`,
   colomWidth = 400,
+  filteredState,
 }) => {
   const [tableData, setTableData] = useState([]);
 
@@ -97,6 +98,9 @@ const TableDisplay = ({
         }
         pagination={{
           size: "small",
+        }}
+        onChange={(pagination, filters, sorter, extra) => {
+          filteredState ? filteredState(extra.currentDataSource) : undefined
         }}
       />
     </>
