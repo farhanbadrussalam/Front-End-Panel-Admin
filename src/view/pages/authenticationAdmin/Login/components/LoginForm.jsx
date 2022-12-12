@@ -32,11 +32,8 @@ function LoginForm(props) {
 
   const tryLogin = async () => {
     if (username && password) {
-      await axios({
-        method: "POST",
-        url: "http://localhost:8000/api/login",
-        data: { username: username, password: password },
-      })
+      api
+        .post("login", { username: username, password: password })
         .then((response) => {
           console.log(response.data.data.data.access_menu_id);
           console.log(response.data.data.access_token);
@@ -87,12 +84,13 @@ function LoginForm(props) {
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Mohon masukkan username!",
             },
           ]}
         >
           <Input
             prefix={<FiUser />}
+            placeholder="Masukkan Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -104,13 +102,13 @@ function LoginForm(props) {
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: "Mohon masukkan password!",
             },
           ]}
         >
           <Input.Password
             prefix={<GiPadlock />}
-            placeholder="input placeholder"
+            placeholder="Masukkan Password"
             className="ant-col"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

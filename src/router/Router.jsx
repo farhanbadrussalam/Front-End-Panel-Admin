@@ -133,9 +133,14 @@ export default function Router() {
                   );
                 } else {
                   if (auth) {
-                    if (permission.includes(route.path) || route.path == "/admin/dashboard") {
-                      // if (true) {
-                      if (type == 2 && route.type == type || type == 1 || route.path == "/admin/dashboard") {
+                    if (
+                      permission.includes(route.path) ||
+                      route.path == "/dashboard"
+                    ) {
+                      if (
+                        (type == 1 && route.type == type) ||
+                        (type == 3 && route.type == type)
+                      ) {
                         return (
                           <Route
                             key={route.path}
@@ -166,18 +171,6 @@ export default function Router() {
                         );
                       }
                     }
-                  } else {
-                    return (
-                      <Route
-                        render={() => (
-                          <Redirect
-                            to={{
-                              pathname: "/admin/login",
-                            }}
-                          />
-                        )}
-                      />
-                    );
                   }
                 }
               })}
@@ -188,6 +181,8 @@ export default function Router() {
     });
   };
 
+  console.log(type);
+
   return permissionLoading ? (
     <LoadingPage />
   ) : (
@@ -195,19 +190,19 @@ export default function Router() {
       <Switch>
         {ResolveRoutes()}
         {/* Home Page */}
-        location.pathname === "/admin/login" ? (
-        <Redirect
-          to={{
-            pathname: "/admin/dashboard",
-          }}
-        />
+        {auth ? (
+          <Redirect
+            to={{
+              pathname: "/dashboard",
+            }}
+          />
         ) : (
-        <Redirect
-          to={{
-            pathname: "/admin/pengaturan-website",
-          }}
-        />
-        )
+          <Redirect
+            to={{
+              pathname: "/admin/login",
+            }}
+          />
+        )}
         <Route path="*">
           <Error404 />
         </Route>
@@ -215,6 +210,8 @@ export default function Router() {
     </BrowserRouter>
   );
 }
+
+import Logo from "../assets/images/logo/BEST_WISHES.png";
 
 function LoadingPage() {
   return (
@@ -227,6 +224,15 @@ function LoadingPage() {
         height: "100vh",
       }}
     >
+      <div
+        style={{
+          width: 200,
+          height: 125,
+          objectFit: "contain",
+        }}
+      >
+        <img src={Logo} alt="logo" />
+      </div>
       <Spin size="large" />
     </div>
   );

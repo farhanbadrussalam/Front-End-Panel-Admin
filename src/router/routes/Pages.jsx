@@ -16,15 +16,15 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/authenticationAdmin/Login")),
     layout: "FullLayout",
     noNeedAuth: true,
-    // type: 2
+    type: 1,
   },
 
   // Pages home/dashboard admin
   {
-    path: "/admin/dashboard",
+    path: "/dashboard",
     component: lazy(() => import("../../view/pages/dashboard")),
     layout: "VerticalLayout",
-    // type: 2
+    type: 1,
   },
 
   // Pages Kelola User
@@ -54,7 +54,7 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/blank")),
     layout: "VerticalLayout",
     noNeedAuth: true,
-    type: 2,
+    type: 1,
   },
 
   // Page Error
@@ -63,7 +63,7 @@ const PagesRoutes = [
     component: lazy(() => import("../../view/pages/errors/404")),
     layout: "FullLayout",
     noNeedAuth: true,
-    type: 2,
+    type: 1,
   },
 ];
 
