@@ -5,6 +5,7 @@ import CardForm from '../../../../../components/custom-components/form-crud/Card
 import { putBride } from '../../../../../../api/pengantin/putBride';
 import { getOneBride } from '../../../../../../api/pengantin/getOneBride';
 import moment from 'moment';
+import NumericInput from '../../../../../components/custom-components/InputNumberOnly';
 
 const index = (props) => {
   const history = useHistory()
@@ -102,7 +103,7 @@ const index = (props) => {
           label="No Telp"
           name="phone"
         >
-          <Input />
+          <NumericInput />
         </Form.Item>
 
         <Form.Item

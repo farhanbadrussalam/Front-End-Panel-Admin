@@ -155,7 +155,7 @@ const adminNav = [
       },
       {
         id: "riwayat-komisi-admin",
-        title: "Riwayat Komisi Admin/Aplicator",
+        title: " Riwayat Komisi Admin",
         navLink: "/admin/riwayat-komisi-admin",
       },
       {
@@ -165,12 +165,12 @@ const adminNav = [
       },
       {
         id: "pencairan-komisi",
-        title: "Pencairan Komisi",
+        title: "Pencairan Komisi WO",
         navLink: "/admin/pencairan-komisi",
       },
       {
         id: "riwayat-pencairan-komisi-wo",
-        title: "Riwayat Pencairan Komisi WO",
+        title: "Riwayat Pencairan WO",
         navLink: "/admin/riwayat-pencairan-komisi-wo",
       },
     ],

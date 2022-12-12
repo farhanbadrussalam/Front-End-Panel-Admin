@@ -67,35 +67,42 @@ const columns = [
     key: 'action',
     render: payload => (
       <Space size="large" className="icons-container" >
-        <Popover content={"Detail"}>
-          <Link to={{
-            pathname: `pengantin/detail/${payload.id}`,
-            state: {
-              permission: 'Detail',
-              data: 'Pengantin',
-              id: payload.id
-            },
-          }} >
-            <Eye size={20} />
-          </Link>
-        </Popover>
 
-        <Popover content={"Edit"}>
-          <Link to={{
-            pathname: `pengantin/edit/${payload.id}`,
-            state: {
-              permission: 'Edit',
-              data: 'Pengantin',
-              id: payload.id
-            },
-          }}>
-            <Edit size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/pengantin/detail/:userid") ? (
+          <Popover content={"Detail"}>
+            <Link to={{
+              pathname: `pengantin/detail/${payload.id}`,
+              state: {
+                permission: 'Detail',
+                data: 'Pengantin',
+                id: payload.id
+              },
+            }} >
+              <Eye size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
 
-        <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.groom, payload.bride, payload.deleteBride)} />
-        </Popover>
+        {payload.permission.includes("/admin/pengantin/edit/:userid") ? (
+          <Popover content={"Edit"}>
+            <Link to={{
+              pathname: `pengantin/edit/${payload.id}`,
+              state: {
+                permission: 'Edit',
+                data: 'Pengantin',
+                id: payload.id
+              },
+            }}>
+              <Edit size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
+        {payload.permission.includes("delete pengantin") ? (
+          <Popover content={"Delete"}>
+            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.groom, payload.bride, payload.deleteBride)} />
+          </Popover>
+        ) : undefined}
       </Space>
     ),
   },

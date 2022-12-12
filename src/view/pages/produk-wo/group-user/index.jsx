@@ -8,9 +8,11 @@ import TableDisplay from "../../../components/custom-components/TableDisplay";
 import ErrorPage from "../../../components/custom-components/Feedback/ErrorPage";
 
 import columns from "./Commisions";
+import { usePermissionContext } from "../../../../context/PermissionContext";
 
 export default function index() {
   const { data, error, loading, method } = useCommisionData();
+  const { permission } = usePermissionContext()
 
   if (error.getAll) return <ErrorPage message={"Gagal mengambil data!"} />;
 
@@ -36,6 +38,7 @@ export default function index() {
                   status: d.status,
                   id: d.id,
                   destroy: method.destroy,
+                  permission
                 }))}
                 column={columns}
                 addButton

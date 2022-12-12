@@ -4,6 +4,7 @@ import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { getOneCustomer } from '../../../../../../api/customer/getOneCustomer';
 import { putCostumer } from '../../../../../../api/customer/putCustomer';
+import NumericInput from '../../../../../components/custom-components/InputNumberOnly';
 
 const index = (props) => {
   const history = useHistory()
@@ -73,6 +74,7 @@ const index = (props) => {
           rules={[
             {
               type: 'email',
+              message: "Masukkan format email dengan benar!"
             },
           ]}
         >
@@ -80,10 +82,10 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Phone"
+          label="Nomor telp"
           name="phone"
         >
-          <Input />
+          <NumericInput />
         </Form.Item>
 
         <Form.Item

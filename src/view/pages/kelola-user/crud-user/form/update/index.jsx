@@ -38,6 +38,8 @@ const index = (props) => {
         }}
         onFinish={onFinish}
         autoComplete="off"
+        colon={false}
+        labelAlign="left"
         fields={[
           {
             name: "name",
@@ -84,8 +86,9 @@ const index = (props) => {
           name="email"
           rules={[
             {
-              type: 'email',
-            },
+              type: "email",
+              message: "Masukkan format email dengan benar!"
+            }
           ]}
         >
           <Input />
@@ -94,6 +97,12 @@ const index = (props) => {
         <Form.Item
           label="Password"
           name="password"
+          rules={[
+            {
+              min: 8,
+              message: 'Mohon masukkan password minimal 8 karakter',
+            },
+          ]}
         >
           <Input.Password minLength={8} />
         </Form.Item>

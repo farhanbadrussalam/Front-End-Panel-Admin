@@ -54,21 +54,26 @@ const columns = [
     key: 'aksi',
     render: payload => (
       <Space size='large' className="icons-container">
-        <Popover content={"Edit"}>
-          <Link to={{
-            pathname: `atur-role/edit/${payload.id}`,
-            state: {
-              permission: 'Edit',
-              data: 'User',
-              id: payload.id
-            },
-          }}>
-            <Edit size={20} />
-          </Link>
-        </Popover>
-        <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteRole)} />
-        </Popover>
+        {payload.permission.includes("/admin/atur-role/detail/:userid") ? (
+          <Popover content={"Edit"}>
+            <Link to={{
+              pathname: `atur-role/edit/${payload.id}`,
+              state: {
+                permission: 'Edit',
+                data: 'User',
+                id: payload.id
+              },
+            }}>
+              <Edit size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
+        {payload.permission.includes("delete role") ? (
+          <Popover content={"Delete"}>
+            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteRole)} />
+          </Popover>
+        ) : undefined}
       </Space>
     ),
   },

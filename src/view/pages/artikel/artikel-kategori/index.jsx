@@ -6,9 +6,11 @@ import TableDisplay from "../../../components/custom-components/TableDisplay";
 import columns from "./UserColumn";
 
 import { getArticleCategories } from "../../../../api/artikel/category";
+import { usePermissionContext } from "../../../../context/PermissionContext";
 
 export default function index() {
   let { data, error, destroy } = getArticleCategories();
+  const { permission } = usePermissionContext()
 
   data = data
     .filter((d) => d.id !== undefined)
@@ -18,6 +20,7 @@ export default function index() {
         description: d.description,
         id: d.id,
         destroy,
+        permission
       };
     });
 
