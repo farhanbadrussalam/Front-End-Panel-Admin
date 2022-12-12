@@ -11,10 +11,14 @@ import { usePermissionContext } from "../../../../context/PermissionContext";
 
 const { SubMenu } = Menu;
 
-const navFiltering = (permission, navigation, setFilteredNaviation) => {
+const navFiltering = (permission, navigation, setFilteredNaviation, type) => {
   const filteredNav = [];
   for (let nav of navigation) {
-    if (nav.hasOwnProperty("header") || nav?.id == "dashboard")
+    if (
+      nav.hasOwnProperty("header") ||
+      (nav?.id == "dashboard" && type == 1) ||
+      (nav?.id == "wo-dashboard" && type == 3)
+    )
       filteredNav.push(nav);
     else if (nav.hasOwnProperty("navLink") && permission.includes(nav.navLink))
       filteredNav.push(nav);
@@ -51,12 +55,12 @@ export default function MenuItem(props) {
     "/" +
     splitLocation[splitLocation.length - 1];
 
-  const { permission } = usePermissionContext();
+  const { permission, type } = usePermissionContext();
   const [filteredNavigation, setFilteredNaviation] = useState([]);
 
   useEffect(() => {
     if (permission.length) {
-      navFiltering(permission, navigation, setFilteredNaviation);
+      navFiltering(permission, navigation, setFilteredNaviation, type);
     }
   }, [permission]);
 

@@ -215,6 +215,15 @@ const adminNav = [
     icon: <DocumentCode set="curved" className="remix-icon" size={18} />,
     navLink: "/admin/pengaturan-website",
   },
+
+  {
+    id: "wo-dashboard",
+    title: "WO Dashboard",
+    icon: (
+      <Grid7 size={18} variant="outline" set="curved" className="remix-icon" />
+    ),
+    navLink: "/wo/dashboard",
+  },
 ];
 
 export default adminNav;

@@ -32,11 +32,8 @@ function LoginForm(props) {
 
   const tryLogin = async () => {
     if (username && password) {
-      await axios({
-        method: "POST",
-        url: "http://localhost:8000/api/login",
-        data: { username: username, password: password },
-      })
+      api
+        .post("login", { username: username, password: password })
         .then((response) => {
           console.log(response.data.data.data.access_menu_id);
           console.log(response.data.data.access_token);
