@@ -79,9 +79,12 @@ const index = () => {
           rules={[
             {
               required: true,
-              type: 'email',
               message: 'Mohon masukkan email!',
             },
+            {
+              type: "email",
+              message: "Masukkan format email dengan benar!"
+            }
           ]}
         >
 
@@ -95,13 +98,15 @@ const index = () => {
           rules={[
             {
               required: true,
-              message: 'Mohon masukkan password > 7 karakter!',
+              message: 'Mohon masukkan password anda!',
+            },
+            {
+              min: 8,
+              message: 'Mohon masukkan password minimal 8 karakter',
             },
           ]}
         >
-
           <Input.Password minLength={8} />
-
         </Form.Item>
 
         <Form.Item

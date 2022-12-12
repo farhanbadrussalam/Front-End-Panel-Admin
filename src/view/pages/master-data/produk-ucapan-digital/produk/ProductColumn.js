@@ -39,12 +39,6 @@ const columns = [
   },
 
   {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-  },
-
-  {
     title: 'Kategori Produk',
     dataIndex: 'product_category',
     key: 'product_category',
@@ -76,35 +70,43 @@ const columns = [
 
       return (
         <Space size="large" className="icons-container" >
-          <Popover content={"Detail"}>
-            <Link to={{
-              pathname: `produk-ucapan-digital/detail/${payload.id}`,
-              state: {
-                permission: 'Detail',
-                data: 'Produk Ucapan Digital',
-                id: payload.id
-              },
-            }} >
-              <Eye size={20} />
-            </Link>
-          </Popover>
 
-          <Popover content={"Edit"}>
-            <Link to={{
-              pathname: `produk-ucapan-digital/edit/${payload.id}`,
-              state: {
-                permission: 'Edit',
-                data: 'Produk Ucapan Digital',
-                id: payload.id
-              },
-            }}>
-              <Edit size={20} />
-            </Link>
-          </Popover>
+          {payload.permission.includes("/admin/produk-ucapan-digital/detail/:userid") ? (
+            <Popover content={"Detail"}>
+              <Link to={{
+                pathname: `produk-ucapan-digital/detail/${payload.id}`,
+                state: {
+                  permission: 'Detail',
+                  data: 'Produk Ucapan Digital',
+                  id: payload.id
+                },
+              }} >
+                <Eye size={20} />
+              </Link>
+            </Popover>
+          ) : undefined}
 
-          <Popover content={"Delete"}>
-            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteProduct)} />
-          </Popover>
+          {payload.permission.includes("/admin/produk-ucapan-digital/detail/:userid") ? (
+            <Popover content={"Edit"}>
+              <Link to={{
+                pathname: `produk-ucapan-digital/edit/${payload.id}`,
+                state: {
+                  permission: 'Edit',
+                  data: 'Produk Ucapan Digital',
+                  id: payload.id
+                },
+              }}>
+                <Edit size={20} />
+              </Link>
+            </Popover>
+          ) : undefined}
+
+          {payload.permission.includes("delete produk ucapan") ? (
+            <Popover content={"Delete"}>
+              <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteProduct)} />
+            </Popover>
+          ) : undefined}
+
         </Space>
       )
     },

@@ -59,9 +59,12 @@ const index = () => {
           rules={[
             {
               required: true,
-              type: 'email',
-              message: 'Mohon masukkan email WO',
+              message: 'Mohon masukkan email!',
             },
+            {
+              type: "email",
+              message: "Masukkan format email dengan benar!"
+            }
           ]}
         >
           <Input />

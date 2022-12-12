@@ -1,6 +1,9 @@
-import { Button, Form, Input, InputNumber, Space, message, Select } from "antd";
+import { Button, Form, Input, InputNumber, Space, message, Select, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 import React from "react";
+
 import CardForm from "../../../../../../components/custom-components/form-crud/CardForm";
 import { postProduct } from "../../../../../../../api/produk/postProduct";
 import { getProductCategories2 } from "../../../../../../../api/produk/product-categories/getProductCategories2";
@@ -9,10 +12,18 @@ import InputPrice from "../../../../../../components/custom-components/InputPric
 const index = () => {
   const history = useHistory();
   const { data: categories } = getProductCategories2();
+  const [video, setVideo] = useState(false)
 
   const onFinish = async (values) => {
-    const success = await postProduct(values);
+    const form = new FormData()
 
+    form.append("name", values.name)
+    form.append("price", values.price)
+    form.append("description", values.description)
+    form.append("product_category_id", values.product_category_id)
+    form.append("attachment", values.attachment.file.originFileObj)
+
+    const success = await postProduct(form);
     if (success) {
       message.success("Berhasil menambahkan produk");
       history.push("/admin/produk-ucapan-digital");
@@ -20,6 +31,13 @@ const index = () => {
       message.error("Gagal menambahkan produk");
     }
   };
+
+  const handleSelectFile = (e) => {
+    if (e.fileList.length == 0)
+      setVideo(false)
+    else if ((e.fileList.length == 1))
+      setVideo(true)
+  }
 
   return (
     <CardForm title="Tambah data produk ucapan digital">
@@ -96,6 +114,32 @@ const index = () => {
           ]}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Upload Video Demo"
+          name="attachment"
+          rules={[
+            {
+              required: true,
+              message: "Mohon masukkan demo video",
+            },
+          ]}
+        >
+          <Upload
+            accept=".mp4,.mkv,.mov,.webm"
+            customRequest={undefined}
+            maxCount={1}
+            onChange={handleSelectFile}
+            className="avatar-uploader"
+            listType="picture"
+          >
+            {!video && (
+              <Button icon={<UploadOutlined />}>
+                Upload video demo
+              </Button>
+            )}
+          </Upload>
         </Form.Item>
 
         <Form.Item

@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 const columns = [
   {
-    title: 'Name',
+    title: 'Nama',
     dataIndex: 'name',
     key: 'name',
     render: (text) => <a>{text}</a>,
     sorter: (a, b) => a.name.length - b.name.length,
   },
-  
+
   {
     title: 'Saldo',
     dataIndex: 'saldo',
@@ -27,18 +27,27 @@ const columns = [
     key: 'action',
     render: (payload) => (
       <Space size="large" className="icons-container" >
-        <Popover content={"Detail"}>
-          <Link to={{
-            pathname: `wedding-organizer/detail/${payload.id}`,
-            state: {
-              permission: 'Detail',
-              data: 'Pesanan',
-              id: payload.id
-            },
-          }} >
-            <Eye size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/saldo-komisi-wo/detail/:userid") ? (
+          <Popover content={"Detail"}>
+            <Link to={{
+              pathname: `wedding-organizer/detail/${payload.id}`,
+              state: {
+                permission: 'Detail',
+                data: 'Pesanan',
+                id: payload.id
+              },
+            }} >
+              <Eye size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
+        {payload.permission.includes("delete saldo komisi wo") ? (
+          <Popover content={"Delete"}>
+            <Trash color="red" size={20} className='trash' />
+            {/* <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.wo, payload.deletePesanan)} /> */}
+          </Popover>
+        ) : undefined}
 
       </Space>
     ),

@@ -48,37 +48,45 @@ const columns = [
     width: 200,
     render: (payload) => (
       <Space size="large" className="icons-container">
-        <Popover content={"Detail"}>
-          <Link
-            to={{
-              pathname: `/admin/kupon/${payload.id}`,
-              id: payload.id,
-            }}
-          >
-            <Eye size={20} />
-          </Link>
-        </Popover>
 
-        <Popover content={"Edit"}>
-          <Link
-            to={{
-              pathname: `/admin/kupon/update/${payload.id}`,
-            }}
-          >
-            <Edit size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/kupon/detail/:userid") ? (
+          <Popover content={"Detail"}>
+            <Link
+              to={{
+                pathname: `/admin/kupon/${payload.id}`,
+                id: payload.id,
+              }}
+            >
+              <Eye size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
 
-        <Popover content={"Delete"}>
-          <Link
-            onClick={(e) => {
-              e.preventDefault();
-              showModal(payload.id, payload.name, payload.destroy);
-            }}
-          >
-            <Trash color="red" size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/kupon/edit/:userid") ? (
+          <Popover content={"Edit"}>
+            <Link
+              to={{
+                pathname: `/admin/kupon/update/${payload.id}`,
+              }}
+            >
+              <Edit size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
+        {payload.permission.includes("delete kupon") ? (
+          <Popover content={"Delete"}>
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                showModal(payload.id, payload.name, payload.destroy);
+              }}
+            >
+              <Trash color="red" size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
       </Space>
     ),
   },

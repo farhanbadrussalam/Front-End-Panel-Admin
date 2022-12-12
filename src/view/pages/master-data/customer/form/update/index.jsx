@@ -74,6 +74,7 @@ const index = (props) => {
           rules={[
             {
               type: 'email',
+              message: "Masukkan format email dengan benar!"
             },
           ]}
         >
