@@ -49,41 +49,49 @@ const columns = [
     fixed: "right",
     render: (payload) => (
       <Space size="large" className="icons-container">
-        <Popover content={"Detail"}>
-          <Link
-            to={{
-              pathname: `/admin/afiliasi-ucapan/${payload.id}`,
-            }}
-          >
-            <Eye size={20} />
-          </Link>
-        </Popover>
 
-        <Popover content={"Edit"}>
-          <Link
-            to={{
-              pathname: `/admin/afiliasi-ucapan/edit/${payload.id}`,
-              state: {
-                permission: "Edit",
-                data: "User",
-                id: payload.id,
-              },
-            }}
-          >
-            <Edit size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/afiliasi-ucapan/detail/:userid") ? (
+          <Popover content={"Detail"}>
+            <Link
+              to={{
+                pathname: `/admin/afiliasi-ucapan/${payload.id}`,
+              }}
+            >
+              <Eye size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
 
-        <Popover content={"Delete"}>
-          <Link
-            onClick={(e) => {
-              e.preventDefault();
-              showModal(payload.id, payload.destroy);
-            }}
-          >
-            <Trash color="red" size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/afiliasi-ucapan/detail/:userid") ? (
+          <Popover content={"Edit"}>
+            <Link
+              to={{
+                pathname: `/admin/afiliasi-ucapan/edit/${payload.id}`,
+                state: {
+                  permission: "Edit",
+                  data: "User",
+                  id: payload.id,
+                },
+              }}
+            >
+              <Edit size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
+        {payload.permission.includes("delete link afiliasi") ? (
+          <Popover content={"Delete"}>
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                showModal(payload.id, payload.destroy);
+              }}
+            >
+              <Trash color="red" size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
       </Space>
     ),
   },

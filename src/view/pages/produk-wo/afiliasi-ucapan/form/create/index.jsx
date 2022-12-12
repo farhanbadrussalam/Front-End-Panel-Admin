@@ -11,9 +11,10 @@ import ErrorPage from "../../../../../components/custom-components/Feedback/Erro
 const index = () => {
   const history = useHistory();
 
-  const [wo, setWO] = useState();
+  const [wo, setWO] = useState(null);
   const [name, setName] = useState();
   const [description, setDescription] = useState();
+  const [link, setLink] = useState();
 
   const {
     data: wo_data,
@@ -35,6 +36,8 @@ const index = () => {
       message.error("Gagal menambahkan link affiliasi");
     }
   };
+
+  console.log(wo_loading);
 
   const onFinishFailed = (errorInfo) => {
     alert("Failed:", errorInfo);
@@ -70,7 +73,7 @@ const index = () => {
         >
           {wo_loading ? (
             <Select loading showSearch placeholder="Pilih WO" />
-          ) : (
+          ) : wo_data[0] != null ? (
             <Select
               showSearch
               placeholder="Pilih WO"
@@ -80,13 +83,19 @@ const index = () => {
                   input.toUpperCase()
                 )
               }
-              options={wo_data?.map((value) => ({
-                value: value.id,
-                label: value.name,
-              }))}
+              options={
+                wo_data[0] != null
+                  ? wo_data.map((v) => ({
+                      value: v.id,
+                      label: v.name,
+                    }))
+                  : []
+              }
               onChange={(value) => setWO(value)}
               value={wo}
             />
+          ) : (
+            <Select showSearch placeholder="WO tidak ditemukan!" disabled />
           )}
         </Form.Item>
 
@@ -117,6 +126,19 @@ const index = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+        </Form.Item>
+
+        <Form.Item
+          label="Link"
+          name="link"
+          rules={[
+            {
+              required: true,
+              message: "Mohon masukkan dlink affiliasi!",
+            },
+          ]}
+        >
+          <Input value={link} onChange={(e) => setLink(e.target.value)} />
         </Form.Item>
 
         <Form.Item

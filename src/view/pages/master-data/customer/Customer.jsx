@@ -4,10 +4,12 @@ import { getCustomers } from '../../../../api/customer/getCustomers'
 import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
 import Column from './CustomerColumn'
+import { usePermissionContext } from '../../../../context/PermissionContext'
 
 const MasterDisplay = () => {
   let { data, deleteCustomer } = getCustomers()
-  data = data?.map((value) => ({ ...value, deleteCustomer: deleteCustomer }))
+  const { permission } = usePermissionContext()
+  data = data?.map((value) => ({ ...value, deleteCustomer: deleteCustomer, permission }))
 
   return (
     <TableCard >

@@ -1,8 +1,9 @@
-import { Button, Form, Input, Space, message } from 'antd';
+import { Button, Form, Input, Space, message, InputNumber } from 'antd';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import CardForm from '../../../../../components/custom-components/form-crud/CardForm';
 import { postWeddingOrganizer } from '../../../../../../api/wedding-organizer/postWeddingOrganizer';
+import NumericInput from '../../../../../components/custom-components/InputNumberOnly';
 
 const index = () => {
   const history = useHistory()
@@ -58,9 +59,12 @@ const index = () => {
           rules={[
             {
               required: true,
-              type: 'email',
-              message: 'Mohon masukkan email WO',
+              message: 'Mohon masukkan email!',
             },
+            {
+              type: "email",
+              message: "Masukkan format email dengan benar!"
+            }
           ]}
         >
           <Input />
@@ -76,7 +80,7 @@ const index = () => {
             },
           ]}
         >
-          <Input />
+          <NumericInput />
         </Form.Item>
 
         <Form.Item

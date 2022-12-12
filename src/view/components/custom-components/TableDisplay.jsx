@@ -1,7 +1,6 @@
 import { Table, Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 
 import TableSearch from "./TableSearch";
 
@@ -50,21 +49,21 @@ const TableDisplay = ({
           >
             {otherButton
               ? otherButton.map((btn) => {
-                  return (
-                    <Link to={btn.link}>
-                      <Button
-                        type="primary"
-                        danger
-                        size="small"
-                        style={
-                          btn.name.length <= 15 ? { fontSize: "12px" } : {}
-                        }
-                      >
-                        {btn.name}
-                      </Button>
-                    </Link>
-                  );
-                })
+                return (
+                  <Link to={btn.link}>
+                    <Button
+                      type="primary"
+                      danger
+                      size="small"
+                      style={
+                        btn.name.length <= 15 ? { fontSize: "12px" } : {}
+                      }
+                    >
+                      {btn.name}
+                    </Button>
+                  </Link>
+                );
+              })
               : undefined}
             {addButton ? (
               <Link to={{ pathname: createLink, method: addButton }}>

@@ -32,7 +32,7 @@ const columns = [
     render: (text) => <a>{text}</a>,
     sorter: (a, b) => a.wo.length - b.wo.length,
   },
-  
+
   {
     title: 'Request Date',
     dataIndex: 'request_date',
@@ -53,35 +53,43 @@ const columns = [
     key: 'action',
     render: (payload) => (
       <Space size="large" className="icons-container" >
-        <Popover content={"Detail"}>
-          <Link to={{
-            pathname: `pencairan-komisi/detail/${payload.id}`,
-            state: {
-              permission: 'Detail',
-              data: 'Pesanan',
-              id: payload.id
-            },
-          }} >
-            <Eye size={20} />
-          </Link>
-        </Popover>
 
-        <Popover content={"Transfer"}>
-          <Link to={{
-            pathname: `pencairan-komisi/edit/${payload.id}`,
-            state: {
-              permission: 'Edit',
-              data: 'Pesanan',
-              id: payload.id
-            },
-          }}>
-            <Edit size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/pencairan-komisi/detail/:userid") ? (
+          <Popover content={"Detail"}>
+            <Link to={{
+              pathname: `pencairan-komisi/detail/${payload.id}`,
+              state: {
+                permission: 'Detail',
+                data: 'Pesanan',
+                id: payload.id
+              },
+            }} >
+              <Eye size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
 
-        <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.wo, payload.deletePesanan)} />
-        </Popover>
+        {payload.permission.includes("/admin/pencairan-komisi/edit/:userid") ? (
+          <Popover content={"Transfer"}>
+            <Link to={{
+              pathname: `pencairan-komisi/edit/${payload.id}`,
+              state: {
+                permission: 'Edit',
+                data: 'Pesanan',
+                id: payload.id
+              },
+            }}>
+              <Edit size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
+        {payload.permission.includes("delete pencairan komisi") ? (
+          <Popover content={"Delete"}>
+            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.wo, payload.deletePesanan)} />
+          </Popover>
+        ) : undefined}
+
       </Space>
     ),
   },

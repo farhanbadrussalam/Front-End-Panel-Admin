@@ -73,35 +73,42 @@ const columns = [
     key: 'action',
     render: payload => (
       <Space size="large" className="icons-container" >
-        <Popover content={"Detail"}>
-          <Link to={{
-            pathname: `wedding-organizer/detail/${payload.id}`,
-            state: {
-              permission: 'Detail',
-              data: 'Wedding Organizer',
-              id: payload.id
-            },
-          }} >
-            <Eye size={20} />
-          </Link>
-        </Popover>
 
-        <Popover content={"Edit"}>
-          <Link to={{
-            pathname: `wedding-organizer/edit/${payload.id}`,
-            state: {
-              permission: 'Edit',
-              data: 'Wedding Organizer',
-              id: payload.id
-            },
-          }}>
-            <Edit size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/wedding-organizer/detail/:userid") ? (
+          <Popover content={"Detail"}>
+            <Link to={{
+              pathname: `wedding-organizer/detail/${payload.id}`,
+              state: {
+                permission: 'Detail',
+                data: 'Wedding Organizer',
+                id: payload.id
+              },
+            }} >
+              <Eye size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
 
-        <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteWo)} />
-        </Popover>
+        {payload.permission.includes("/admin/wedding-organizer/detail/:userid") ? (
+          <Popover content={"Edit"}>
+            <Link to={{
+              pathname: `wedding-organizer/edit/${payload.id}`,
+              state: {
+                permission: 'Edit',
+                data: 'Wedding Organizer',
+                id: payload.id
+              },
+            }}>
+              <Edit size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
+
+        {payload.permission.includes("delete wo") ? (
+          <Popover content={"Delete"}>
+            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteWo)} />
+          </Popover>
+        ) : undefined}
       </Space>
     ),
   },

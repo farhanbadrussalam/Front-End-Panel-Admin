@@ -4,14 +4,17 @@ import TableDisplay from "../../../../components/custom-components/TableDisplay"
 import TableCard from "../../../../components/custom-components/TableCard";
 import Column from "./kategoriCol";
 import { getProductCategories2 } from "../../../../../api/produk/product-categories/getProductCategories2";
+import { usePermissionContext } from "../../../../../context/PermissionContext";
 
 const ProdukUcapanDigital = () => {
   let { data, deleteProductCategory } = getProductCategories2();
+  const { permission } = usePermissionContext()
 
   data = data?.map((product) => {
     return {
       ...product,
       deleteProductCategory: deleteProductCategory,
+      permission
     };
   });
 

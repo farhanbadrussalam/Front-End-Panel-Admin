@@ -9,11 +9,13 @@ import TableCard from "../../../components/custom-components/TableCard";
 import TableDisplay from "../../../components/custom-components/TableDisplay";
 
 import columns from "./ProdukWO";
+import { usePermissionContext } from "../../../../context/PermissionContext";
 
 export default function index() {
   // const { data } = getProducts();
   const { data, error, loading, method } = useProdukWOData();
   const { userid } = useParams();
+  const { permission } = usePermissionContext()
 
   return (
     <>
@@ -29,6 +31,7 @@ export default function index() {
                 status: d.status,
                 id: d.id,
                 destroy: method.destroy,
+                permission
               }))}
               column={columns}
               addButton

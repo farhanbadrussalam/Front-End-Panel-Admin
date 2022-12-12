@@ -125,11 +125,16 @@ function LoginForm(props) {
 
         <Form.Item
           wrapperCol={{
-            offset: 8,
-            span: 16,
+            span: 24,
           }}
         >
-          <Button type="primary" onClick={tryLogin} danger htmlType="submit">
+          <Button
+            type="primary"
+            onClick={tryLogin}
+            danger
+            htmlType="submit"
+            block
+          >
             Login
           </Button>
         </Form.Item>
