@@ -56,35 +56,41 @@ const columns = [
     key: 'action',
     render: payload => (
       <Space size="large" className="icons-container" >
-        <Popover content={"Detail"}>
-          <Link to={{
-            pathname: `customer/detail/${payload.id}`,
-            state: {
-              permission: 'Detail',
-              data: 'Customer',
-              id: payload.id
-            },
-          }} >
-            <Eye size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/customer/detail/:userid") ? (
+          <Popover content={"Detail"}>
+            <Link to={{
+              pathname: `customer/detail/${payload.id}`,
+              state: {
+                permission: 'Detail',
+                data: 'Customer',
+                id: payload.id
+              },
+            }} >
+              <Eye size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
 
-        <Popover content={"Edit"}>
-          <Link to={{
-            pathname: `customer/edit/${payload.id}`,
-            state: {
-              permission: 'Edit',
-              data: 'Customer',
-              id: payload.id
-            },
-          }}>
-            <Edit size={20} />
-          </Link>
-        </Popover>
+        {payload.permission.includes("/admin/customer/edit/:userid") ? (
+          <Popover content={"Edit"}>
+            <Link to={{
+              pathname: `customer/edit/${payload.id}`,
+              state: {
+                permission: 'Edit',
+                data: 'Customer',
+                id: payload.id
+              },
+            }}>
+              <Edit size={20} />
+            </Link>
+          </Popover>
+        ) : undefined}
 
-        <Popover content={"Delete"}>
-          <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteCustomer)} />
-        </Popover>
+        {payload.permission.includes("delete pelanggan") ? (
+          <Popover content={"Delete"}>
+            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.deleteCustomer)} />
+          </Popover>
+        ) : undefined}
       </Space>
     ),
   },

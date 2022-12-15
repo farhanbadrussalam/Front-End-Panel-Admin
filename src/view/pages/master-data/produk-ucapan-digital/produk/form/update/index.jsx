@@ -6,6 +6,7 @@ import CardForm from "../../../../../../components/custom-components/form-crud/C
 import { getOneProduct } from "../../../../../../../api/produk/getOneProduct";
 import { getProductCategories2 } from "../../../../../../../api/produk/product-categories/getProductCategories2";
 import { putProduct } from "../../../../../../../api/produk/putProduct";
+import InputPrice from "../../../../../../components/custom-components/InputPrice";
 
 const index = (props) => {
   const history = useHistory();
@@ -106,10 +107,7 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item label="Harga Produk" name="price">
-          <InputNumber style={{ width: "200px" }}
-            formatter={(value) => `Rp ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={(value) => value.replace(/\Rp\s?|(,*)/g, '')}
-          />
+          <InputPrice />
         </Form.Item>
 
         <Form.Item label="Deskripsi Produk" name="description">

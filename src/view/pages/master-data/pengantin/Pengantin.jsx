@@ -4,10 +4,12 @@ import TableDisplay from '../../../components/custom-components/TableDisplay'
 import TableCard from '../../../components/custom-components/TableCard'
 import Column from './PengantinColumn'
 import { getBrides } from '../../../../api/pengantin/getBrides'
+import { usePermissionContext } from '../../../../context/PermissionContext'
 
 const MasterDisplay = () => {
   let { data, deleteBride } = getBrides()
-  data = data?.map((value) => ({ ...value, deleteBride: deleteBride }))
+  const { permission } = usePermissionContext()
+  data = data?.map((value) => ({ ...value, deleteBride: deleteBride, permission }))
 
   return (
     <TableCard>

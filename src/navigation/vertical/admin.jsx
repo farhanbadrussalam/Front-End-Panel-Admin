@@ -155,7 +155,7 @@ const adminNav = [
       },
       {
         id: "riwayat-komisi-admin",
-        title: "Riwayat Komisi Admin/Aplicator",
+        title: " Riwayat Komisi Admin",
         navLink: "/admin/riwayat-komisi-admin",
       },
       {
@@ -165,12 +165,12 @@ const adminNav = [
       },
       {
         id: "pencairan-komisi",
-        title: "Pencairan Komisi",
+        title: "Pencairan Komisi WO",
         navLink: "/admin/pencairan-komisi",
       },
       {
         id: "riwayat-pencairan-komisi-wo",
-        title: "Riwayat Pencairan Komisi WO",
+        title: "Riwayat Pencairan WO",
         navLink: "/admin/riwayat-pencairan-komisi-wo",
       },
     ],
@@ -214,6 +214,15 @@ const adminNav = [
     title: "Pengaturan Website",
     icon: <DocumentCode set="curved" className="remix-icon" size={18} />,
     navLink: "/admin/pengaturan-website",
+  },
+
+  {
+    id: "wo-dashboard",
+    title: "WO Dashboard",
+    icon: (
+      <Grid7 size={18} variant="outline" set="curved" className="remix-icon" />
+    ),
+    navLink: "/wo/dashboard",
   },
 ];
 

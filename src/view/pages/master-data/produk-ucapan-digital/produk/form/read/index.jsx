@@ -35,7 +35,7 @@ const index = (props) => {
         </Form.Item>
 
         <Form.Item label="Harga Produk" name="price">
-          <p>{product?.price}</p>
+          <p>{parseInt(product?.price).toLocaleString("en-US")}</p>
         </Form.Item>
 
         <Form.Item label="Deskripsi Produk" name="description">

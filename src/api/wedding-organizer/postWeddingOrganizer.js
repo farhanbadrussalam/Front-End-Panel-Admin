@@ -1,11 +1,7 @@
-import axios from 'axios'
+import { api } from '../../configs/apiConfig'
 
 export const postWeddingOrganizer = (values) => {
-  const response = axios.post('http://127.0.0.1:8000/api/wedding-organizers/store', values, {
-    headers: {
-      'Authorization': localStorage.getItem("token")
-    }
-  })
+  const response = api.post('wedding-organizers/store', values)
     .then(res => res)
     .catch(err => err)
 

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Row, Col, Space, Popover, Modal, DatePicker, message, Button } from 'antd'
+import { Row, Col, Space, Popover, Modal, DatePicker, message, Button, Table } from 'antd'
 import { Trash, Eye, Danger } from "iconsax-react";
 import { Link } from "react-router-dom";
 import { SearchOutlined } from '@ant-design/icons';
@@ -9,14 +9,28 @@ import TableCard from '../../../components/custom-components/TableCard'
 
 import { getAdminCommissions } from "../../../../api/komisi/getAdminCommissions"
 import { useRef, useState } from 'react'
+import { CSVLink } from 'react-csv';
+import { useReactToPrint } from 'react-to-print';
+import { usePermissionContext } from '../../../../context/PermissionContext';
 
 const MasterDisplay = () => {
   let { data, deletePesanan } = getAdminCommissions()
 
   const [searchText, setSearchText] = useState()
   const [searchedColumn, setSearchedColumn] = useState()
+  const [currentData, setCurrentData] = useState()
 
   const searchInput = useRef(null);
+  const pdfComponent = useRef()
+
+  const filterData = (currentData) => {
+    setCurrentData(currentData)
+  }
+
+  const handlePrintToPDF = useReactToPrint({
+    content: () => pdfComponent.current
+  })
+  const { permission } = usePermissionContext()
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -37,11 +51,11 @@ const MasterDisplay = () => {
         }}
         onKeyDown={(e) => e.stopPropagation()}
       >
-        <DatePicker.RangePicker 
-          style={{ marginBottom: 8, display: 'block' }} 
-          value={selectedKeys[0]} 
-          onChange={e => setSelectedKeys(e ? [e] : [])} 
-          onPressEnter={() => { confirm(); setSearchText(selectedKeys[0]), setSearchedColumn(dataIndex); }} 
+        <DatePicker.RangePicker
+          style={{ marginBottom: 8, display: 'block' }}
+          value={selectedKeys[0]}
+          onChange={e => setSelectedKeys(e ? [e] : [])}
+          onPressEnter={() => { confirm(); setSearchText(selectedKeys[0]), setSearchedColumn(dataIndex); }}
         />
 
         <Space>
@@ -92,7 +106,7 @@ const MasterDisplay = () => {
       />
     ),
 
-    onFilter: (value, record) => 
+    onFilter: (value, record) =>
       record[dataIndex] ? moment(record[dataIndex]).isBetween(value[0], value[1], 'day', '[]') : "",
 
     onFilterDropdownOpenChange: (visible) => {
@@ -104,6 +118,20 @@ const MasterDisplay = () => {
     render: text => moment(text).format("DD/MM/YYYY")
   });
 
+  const mapDataToCsv = (data) => {
+    const csvData = data.map((d) => {
+      return {
+        id: d.id,
+        date: d.date,
+        type: d.type == 1 ? "Percent" : "Nominal",
+        name: d.name,
+        nominal: d.nominal,
+        wo: d.wo,
+      }
+    })
+    return csvData
+  }
+
   data = data.map((d) => {
     return {
       id: d.id,
@@ -112,7 +140,8 @@ const MasterDisplay = () => {
       type: d.type,
       nominal: d.nominal_get,
       wo: d.commission ? d.commission.wedding_organizer.name : "",
-      deletePesanan: deletePesanan
+      deletePesanan: deletePesanan,
+      permission
     }
   })
 
@@ -144,13 +173,13 @@ const MasterDisplay = () => {
       render: (text) => <a>{text}</a>,
       sorter: (a, b) => a.name.length - b.name.length,
     },
-    
+
     {
       title: 'Date',
       dataIndex: 'date',
       key: 'date',
       render: (date) => <a>{new Date(date).toLocaleString('en-GB')}</a>,
-      sorter: (a, b) => {new Date(a.date) - new Date(b.date)},
+      sorter: (a, b) => new Date(a.date) - new Date(b.date),
       ...getColumnSearchProps('date')
     },
 
@@ -158,7 +187,7 @@ const MasterDisplay = () => {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
-      render: (type) => <a>{type == 1 ? "Percent": "Direct"}</a>
+      render: (type) => <a>{type == 1 ? "Percent" : "Direct"}</a>
     },
 
     {
@@ -179,37 +208,69 @@ const MasterDisplay = () => {
       key: 'action',
       render: (payload) => (
         <Space size="large" className="icons-container" >
-          <Popover content={"Detail"}>
-            <Link to={{
-              pathname: `riwayat-komisi-admin/detail/${payload.id}`,
-              state: {
-                permission: 'Detail',
-                data: 'Pesanan',
-                id: payload.id
-              },
-            }} >
-              <Eye size={20} />
-            </Link>
-          </Popover>
+          {payload.permission.includes("/admin/riwayat-komisi-admin/detail/:userid") ? (
+            <Popover content={"Detail"}>
+              <Link to={{
+                pathname: `/admin/riwayat-komisi-admin/detail/${payload.id}`,
+                state: {
+                  permission: 'Detail',
+                  data: 'Pesanan',
+                  id: payload.id
+                },
+              }} >
+                <Eye size={20} />
+              </Link>
+            </Popover>
+          ) : undefined}
 
-          <Popover content={"Delete"}>
-            <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.wo, payload.deletePesanan)} />
-          </Popover>
+          {payload.permission.includes("delete riwayat komisi admin") ? (
+            <Popover content={"Delete"}>
+              <Trash color="red" size={20} className='trash' onClick={() => showModal(payload.id, payload.name, payload.wo, payload.deletePesanan)} />
+            </Popover>
+          ) : undefined}
         </Space>
       ),
     },
   ];
 
   return (
-    <TableCard >
+    <>
+      <TableCard 
+        customTitle={"Riwayat Komisi Admin"}>
 
-      <Row>
-        <Col span={24}>
-          <TableDisplay data={data} column={columns} />
-        </Col>
-      </Row>
+        <Row>
+          <Col span={24}>
+            <div ref={pdfComponent}>
+              <TableDisplay data={data} column={columns} filteredState={filterData} />
+            </div>
+          </Col>
+        </Row>
 
-    </TableCard>
+      </TableCard>
+
+      <Button
+        size="medium"
+        style={{
+          width: 180,
+        }}
+      >
+        <CSVLink filename={"AdminHistory.csv"}
+        data={currentData != null ? mapDataToCsv(currentData) : mapDataToCsv(data)}
+        >
+          Download CSV
+        </CSVLink>
+      </Button>
+
+      <Button
+        onClick={handlePrintToPDF}
+        size="medium"
+        style={{
+          width: 180,
+        }}
+      >
+        Download PDF
+      </Button>
+    </>
   )
 }
 

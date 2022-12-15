@@ -5,9 +5,11 @@ import TableCard from '../../../components/custom-components/TableCard'
 import Column from './PesananColumn'
 
 import { getOrders } from "../../../../api/pesanan"
+import { usePermissionContext } from '../../../../context/PermissionContext'
 
 const MasterDisplay = () => {
   let { data, deletePesanan } = getOrders()
+  const { permission } = usePermissionContext()
 
   data = data.map((d) => {
     return {
@@ -15,7 +17,8 @@ const MasterDisplay = () => {
       name: d.product ? d.product.name : "",
       price: d.price,
       wo: d.sales_order ? d.sales_order.bride.wedding_organizer.name : "",
-      deletePesanan: deletePesanan
+      deletePesanan: deletePesanan,
+      permission
     }
   })
 
