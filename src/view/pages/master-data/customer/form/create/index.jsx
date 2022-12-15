@@ -27,8 +27,12 @@ const index = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    message.error("Mohon isi semua form yang ada")
-    console.log(errorInfo);
+    if (errorInfo.errorFields.length == 1) {
+      message.error(errorInfo.errorFields[0].errors[0])
+    }
+    else {
+      message.error("Mohon isi semua form yang ada")
+    }
   };
 
   const passwordConfirm = (e) => {
@@ -44,7 +48,7 @@ const index = () => {
       <Form
         name="basic"
         labelCol={{
-          span: 5,
+          span: 6,
         }}
         wrapperCol={{
           span: 14,
@@ -132,9 +136,13 @@ const index = () => {
               required: true,
               message: 'Mohon masukkan password',
             },
+            {
+              min: 8,
+              message: "Mohon masukkan password minimal 8 karakter"
+            }
           ]}
         >
-          <Input.Password minLength={8} onChange={(e) => setPassword(e.target.value)} status={inputStatus} />
+          <Input.Password onChange={(e) => setPassword(e.target.value)} status={inputStatus} />
         </Form.Item>
 
         <Form.Item
@@ -145,14 +153,18 @@ const index = () => {
               required: true,
               message: 'Mohon masukkan konfirmasi password',
             },
+            {
+              min: 8,
+              message: "Mohon masukkan konfirmasi password minimal 8 karakter"
+            }
           ]}
         >
-          <Input.Password minLength={8} onChange={(e) => passwordConfirm(e.target.value)} status={inputStatus} />
+          <Input.Password onChange={(e) => passwordConfirm(e.target.value)} status={inputStatus} />
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 5,
+            offset: 6,
             span: 4,
           }}
         >

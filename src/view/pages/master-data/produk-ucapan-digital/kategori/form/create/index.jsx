@@ -12,9 +12,18 @@ const index = () => {
 
     if (success) {
       message.success("Berhasil menambahkan produk");
-      history.push("/admin/produk-ucapan-digital");
+      history.push("/admin/kategori-produk-ucapan-digital");
     } else {
       message.error("Gagal menambahkan produk");
+    }
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    if (errorInfo.errorFields.length == 1) {
+      message.error(errorInfo.errorFields[0].errors[0])
+    }
+    else {
+      message.error("Mohon isi semua form yang ada")
     }
   };
 
@@ -29,6 +38,7 @@ const index = () => {
           span: 14,
         }}
         onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
         autoComplete="off"
         labelAlign="left"
         colon={false}

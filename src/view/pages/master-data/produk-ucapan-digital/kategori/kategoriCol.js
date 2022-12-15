@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const { confirm } = Modal
 const showModal = (id, name, deleteProductCategory) => {
   confirm({
-    title: `Apa anda yakin ingin menghapus produk ${name}?`,
+    title: `Apa anda yakin ingin menghapus kategori produk ${name}?`,
     icon: <Danger color="red" />,
     okText: 'Yakin',
     cancelText: 'Batal',

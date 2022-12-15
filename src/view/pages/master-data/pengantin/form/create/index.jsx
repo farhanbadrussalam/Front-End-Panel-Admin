@@ -48,6 +48,15 @@ const index = () => {
     }
   };
 
+  const onFinishFailed = (errorInfo) => {
+    if (errorInfo.errorFields.length == 1) {
+      message.error(errorInfo.errorFields[0].errors[0])
+    }
+    else {
+      message.error("Mohon isi semua form yang ada")
+    }
+  };
+
   return (
     <CardForm title="Tambah Data Pengantin">
       <Form
@@ -59,6 +68,7 @@ const index = () => {
           span: 14,
         }}
         onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
         autoComplete="off"
         colon={false}
         labelAlign="left"

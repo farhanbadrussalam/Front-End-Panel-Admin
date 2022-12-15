@@ -48,7 +48,12 @@ const index = (props) => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    alert("Failed:", errorInfo);
+    if (errorInfo.errorFields.length == 1) {
+      message.error(errorInfo.errorFields[0].errors[0])
+    }
+    else {
+      message.error("Mohon isi semua form yang ada")
+    }
   };
 
   return (
