@@ -131,7 +131,8 @@ const index = () => {
             }}
           >
             <Option value={1}>Admin</Option>
-            <Option value={2}>Wo</Option>
+            <Option value={2}>Content Creator</Option>
+            <Option value={3}>Wo</Option>
           </Select>
 
         </Form.Item>
