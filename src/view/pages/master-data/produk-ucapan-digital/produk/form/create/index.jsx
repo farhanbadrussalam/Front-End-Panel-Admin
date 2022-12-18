@@ -109,7 +109,7 @@ const index = () => {
           rules={[
             {
               required: true,
-              message: "Mohon tentukan harga produk",
+              message: "Mohon tentukan deskripsi produk",
             },
           ]}
         >
@@ -122,7 +122,7 @@ const index = () => {
           rules={[
             {
               required: true,
-              message: "Mohon masukkan demo video",
+              message: "Mohon masukkan demo video produk",
             },
           ]}
         >

@@ -17,16 +17,6 @@ const index = (props) => {
   const { data: product } = getOneProduct(id);
   const { data: categories } = getProductCategories2();
 
-  // useEffect(() => {
-  //   setVideo([
-  //     {
-  //       name: product?.attachment,
-  //       status: "done",
-  //       url: `http://127.0.0.1:8000/uploads/${product?.attachment}`
-  //     }
-  //   ])
-  // }, [product])
-
   const onFinish = async (values) => {
     const form = new FormData()
 
@@ -40,6 +30,7 @@ const index = (props) => {
       form.append("attachment", values.attachment.file.originFileObj)
 
     const success = await putProduct(form, id);
+    console.log(values);
 
     if (success == true) {
       message.success("Berhasil mengubah produk");
@@ -77,7 +68,7 @@ const index = (props) => {
           },
           {
             name: "product_category_id",
-            value: product?.product_category?.name,
+            value: product?.product_category?.id,
           },
           {
             name: "price",
@@ -108,7 +99,7 @@ const index = (props) => {
             }}
           >
             {categories?.map((category) => (
-              <Select.Option value={category?.id}>
+              <Select.Option value={category?.id} key={category?.id}>
                 {category?.name}
               </Select.Option>
             ))}
@@ -133,7 +124,6 @@ const index = (props) => {
             maxCount={1}
             onChange={handleSelectFile}
             className="avatar-uploader"
-            listType="picture"
             name="attachment"
           >
             {!video && (
@@ -171,7 +161,7 @@ const index = (props) => {
           </Space>
         </Form.Item>
       </Form>
-    </CardForm>
+    </CardForm >
   );
 };
 

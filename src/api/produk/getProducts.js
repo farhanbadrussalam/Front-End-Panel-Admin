@@ -17,15 +17,6 @@ export const getProducts = (url = "products") => {
       .finally(() => setLoading(false));
   }, [deleteToggle]);
 
-  const refetch = () => {
-    setLoading(true);
-    api
-      .get(url)
-      .then((res) => setData(res.data.data))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
-  };
-
   const deleteProduct = (id) => {
     setLoading(true);
     const deleted = api
@@ -40,5 +31,5 @@ export const getProducts = (url = "products") => {
     return deleted;
   };
 
-  return { data, error, refetch, deleteProduct, loading };
+  return { data, error, deleteProduct, loading };
 };
