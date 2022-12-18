@@ -41,7 +41,12 @@ const index = () => {
   console.log(wo_loading);
 
   const onFinishFailed = (errorInfo) => {
-    alert("Failed:", errorInfo);
+    if (errorInfo.errorFields.length == 1) {
+      message.error(errorInfo.errorFields[0].errors[0])
+    }
+    else {
+      message.error("Mohon isi semua form yang ada")
+    }
   };
 
   if (wo_err) return <ErrorPage message="Gagal Mengambil Data" />;
@@ -93,9 +98,9 @@ const index = () => {
               options={
                 wo_data[0] != null
                   ? wo_data.map((v) => ({
-                      value: v.id,
-                      label: v.name,
-                    }))
+                    value: v.id,
+                    label: v.name,
+                  }))
                   : []
               }
               onChange={(value) => setWO(value)}

@@ -41,7 +41,12 @@ const index = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    alert("Failed:", errorInfo);
+    if (errorInfo.errorFields.length == 1) {
+      message.error(errorInfo.errorFields[0].errors[0])
+    }
+    else {
+      message.error("Mohon isi semua form yang ada")
+    }
   };
 
   if (wo_err) return <ErrorPage message="Gagal Mengambil Data" />;

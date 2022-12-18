@@ -81,7 +81,7 @@ const index = (props) => {
         >
           <Space size='middle'>
             <Button danger htmlType="button" onClick={() => history.goBack()}>
-              Batal
+              Kembali
             </Button>
           </Space>
         </Form.Item>

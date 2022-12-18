@@ -65,6 +65,10 @@ const index = (props) => {
             name: "status",
             value: user?.status
           },
+          {
+            name: "type",
+            value: user?.type
+          },
         ]}
       >
         <Form.Item
@@ -107,7 +111,7 @@ const index = (props) => {
           <Input.Password minLength={8} />
         </Form.Item>
 
-        {/* <Form.Item
+        <Form.Item
           label="Tipe"
           name="type"
         >
@@ -117,9 +121,10 @@ const index = (props) => {
             }}
           >
             <Option value={1}>Admin</Option>
-            <Option value={2}>Customer</Option>
+            <Option value={2}>Content Creator</Option>
+            <Option value={3}>Wo</Option>
           </Select>
-        </Form.Item> */}
+        </Form.Item>
 
         <Form.Item
           label="Wedding Organizer"

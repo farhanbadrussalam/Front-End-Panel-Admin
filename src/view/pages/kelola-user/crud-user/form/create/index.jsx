@@ -24,7 +24,12 @@ const index = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    alert('Failed:', errorInfo);
+    if (errorInfo.errorFields.length == 1) {
+      message.error(errorInfo.errorFields[0].errors[0])
+    }
+    else {
+      message.error("Mohon isi semua form yang ada")
+    }
   };
 
   return (
@@ -126,7 +131,8 @@ const index = () => {
             }}
           >
             <Option value={1}>Admin</Option>
-            <Option value={2}>Wo</Option>
+            <Option value={2}>Content Creator</Option>
+            <Option value={3}>Wo</Option>
           </Select>
 
         </Form.Item>

@@ -49,7 +49,7 @@ const index = (props) => {
               htmlType="button"
               onClick={() => history.push("/admin/kategori-produk-ucapan-digital")}
             >
-              Batal
+              Kembali
             </Button>
           </Space>
         </Form.Item>

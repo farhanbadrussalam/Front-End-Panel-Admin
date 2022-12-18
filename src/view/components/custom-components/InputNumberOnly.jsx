@@ -5,12 +5,16 @@ const NumericInput = (props) => {
   const { onChange } = props;
 
   const handleChange = (e) => {
-    const { value: inputValue } = e.target;
-    const reg = /^-?\d*(\.\d*)?$/;
-    if (reg.test(inputValue) || inputValue === '' || inputValue === '-') {
+    const inputValue = e.target.value
+
+    if (isNaN(inputValue) == false && inputValue != "") {
       onChange(inputValue);
     }
-  };
+    else {
+      onChange(inputValue.slice(0, inputValue.length - 1));
+    }
+
+  }
 
   return (
     <Input
