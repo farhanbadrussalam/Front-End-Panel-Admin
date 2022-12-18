@@ -65,6 +65,15 @@ const PagesRoutes = [
     noNeedAuth: true,
     type: 1,
   },
+
+  // ORDER
+  {
+    path: "/pages/order",
+    component: lazy(() => import("../../view/pages/order")),
+    layout:"FullLayout",
+    noNeedAuth: true,
+    type: 1,
+  }
 ];
 
 export default PagesRoutes;
