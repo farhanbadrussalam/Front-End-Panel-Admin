@@ -181,8 +181,6 @@ export default function Router() {
     });
   };
 
-  console.log(type);
-
   return permissionLoading ? (
     <LoadingPage />
   ) : (
