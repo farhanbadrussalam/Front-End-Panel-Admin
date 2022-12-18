@@ -33,7 +33,7 @@ const adminNav = [
     icon: (
       <Grid7 size={18} variant="outline" set="curved" className="remix-icon" />
     ),
-    navLink: "/admin/dashboard",
+    navLink: "/dashboard",
   },
 
   /**

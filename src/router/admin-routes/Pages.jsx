@@ -8,8 +8,15 @@ import WebsiteSettings from "./WebsiteSettings";
 import commissionData from "./Komisi";
 import KelolaKupon from "./KelolaKupon";
 
-//! Type 3 = Wo
 const PagesRoutes = [
+  // admin dashboard
+  {
+    path: "/dashboard",
+    component: lazy(() => import("../../view/pages/dashboard")),
+    layout: "VerticalLayout",
+    type: 1,
+  },
+
   // Pages Kelola User
   ...kelolaUser,
 
